@@ -1,0 +1,24 @@
+{
+  "name": "helaview",
+  "version": "1.0.0",
+  "description": "A web application for helaview.lk - a Sri Lankan hotel booking platform.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Hello there.\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bezelled/helaview.git"
+  },
+  "author": "Bezelled, Tharula, Jadujah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bezelled/helaview/issues"
+  },
+  "homepage": "https://github.com/Bezelled/helaview#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "postgres": "^3.2.4"
+  }
+}
