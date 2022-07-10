@@ -1,10 +1,12 @@
 'use strict';
 
-const express = require('express');
-const router = express.Router();
+const exp = require('express');
+const routes = exp.Router();
 
-router.get('/', (req, res) => {
+routes.get('/', (req, res) => {
     res.send('Welcome to HelaView!')
 });
 
-module.exports = router;
+module.exports = {
+    router: routes
+};
