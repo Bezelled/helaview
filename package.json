@@ -2,6 +2,7 @@
   "name": "helaview",
   "version": "1.0.0",
   "description": "A web application for helaview.lk - a Sri Lankan hotel booking platform.",
+  "type": "module",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",

@@ -1,12 +1,15 @@
 'use strict';
 
-const exp = require('express');
-const routes = exp.Router();
+import { Router } from 'express';
+
+const routes = Router();
 
 routes.get('/', (req, res) => {
     res.send('Welcome to HelaView!')
 });
 
-module.exports = {
-    router: routes
-};
+export const router = routes;
+
+// module.exports = {
+//     router: routes
+// };

@@ -1,14 +1,16 @@
 'use strict';
 
-const express = require('express');
-const router = require('./src/routes').router;
-const port = require('./src/config/globals').PORT;
-const hdb = require('./src/db').hdb;
+import express from 'express';
+import { router } from './src/routes.js';
+import { login } from './src/api/login.js';
+import { PORT } from './src/config/globals.js';
+import { HDB } from './src/db.js';
 
 const app = express();
 
 app.use('/', router);
+app.use('/api/', login);
 
-app.listen(port, () => {
-    console.log(`HelaView app is listening on port ${port}.`);
+app.listen(PORT, () => {
+    console.log(`HelaView app is listening on port ${PORT}.`);
 });
