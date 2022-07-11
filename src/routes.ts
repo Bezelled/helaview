@@ -9,7 +9,3 @@ routes.get("/", (req: any, res: any) => {
 });
 
 export const router = routes;
-
-// module.exports = {
-//     router: routes
-// };

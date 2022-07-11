@@ -4,7 +4,7 @@ import { Router } from 'express';
 const routes = Router();
 
 routes.post('/register', (req, res) => {
-    res.send('Welcome to HelaView API - login!')
+    res.send('Welcome to HelaView API - register!');
 });
 
-export const login = routes;
+export const register = routes;
