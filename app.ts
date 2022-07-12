@@ -13,6 +13,7 @@ const app: Application = express();
 app.use('/', router);
 app.use('/api/', login);
 app.use('/api/', onlyAllowPosts);
+app.use(express.json());
 
 app.listen(PORT, () => {
     console.log(`HelaView app is listening on port ${PORT}.`);

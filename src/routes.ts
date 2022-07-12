@@ -1,11 +1,12 @@
-"use strict";
+'use strict';
 
-import { Router } from "express";
+import { Request, Response, Router } from 'express';
 
 const routes = Router();
 
-routes.get("/", (req: any, res: any) => {
-    res.send("Welcome to HelaView!")
+routes.get('/', (req: Request, res: Response) => {
+    res.sendFile('/resources/index.html', { root: '.' });
+    // res.send('Welcome to HelaView!');
 });
 
 export const router = routes;
