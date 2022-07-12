@@ -25,7 +25,20 @@
             "requireReturnDescription": false,
             "requireParamDescription": true,
             "prefer": {
-                "return": "returns"
+                "return": "returns",
+                "arg": "param"
+            },
+            "preferType": {
+            "String": "string",
+            "Number": "number",
+            "Boolean": "boolean",
+            "Symbol": "symbol",
+            "object": "Object",
+            "function": "Function",
+            "array": "Array",
+            "date": "Date",
+            "error": "Error",
+            "null": "void"
             }
         }],
 
