@@ -12,7 +12,7 @@ import { onlyAllowPosts } from './src/middleware/methods.js';
 const app: Application = express();
 
 //Middleware that will allow the app to handle incoming POST/PUT requests with data
-app.use(express.urlencoded({ extended: false }));
+//app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use('/', router);
