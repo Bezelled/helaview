@@ -9,4 +9,4 @@ routes.get('/', (req: Request, res: Response) => {
     // res.send('Welcome to HelaView!');
 });
 
-export const router = routes;
+export default routes;

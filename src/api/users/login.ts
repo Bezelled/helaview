@@ -1,10 +1,19 @@
 'use strict';
 
-import { Router } from 'express';
-const routes = Router();
+import { Router, Request, Response } from 'express';
+import { userLoginKeys } from '../../config/globals.js';
+import { validatePostData } from '../../lib/shared.js';
 
-routes.get('/users/login', async (req, res) => {
+const routes: Router = Router();
+
+routes.post('/users/login', async (req: Request, res: Response) => {
+    const proceed: boolean = validatePostData(req, res, userLoginKeys);
+    
+    if (proceed === false)
+        return;
+
     res.send("Welcome to HelaView's API - login!");
 });
 
-export const login = routes;
+const login: Router = routes;
+export default login;
