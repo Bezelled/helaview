@@ -16,6 +16,7 @@ routes.post('/users/login', async (req: Request, res: Response) => {
 
     const email: string = req.body.email;
     const password: string = req.body.password;
+    
     const hashedPassword = await hdb`
         SELECT hash FROM tourists WHERE email = ${email};
     `;

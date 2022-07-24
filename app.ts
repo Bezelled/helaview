@@ -1,12 +1,12 @@
 'use strict';
 
 import express, { Application } from 'express';
-import routes from './src/routes.js';
-import login from './src/api/users/login.js';
-import register from './src/api/users/register.js';
-import { PORT } from './src/config/globals.js';
-import logger from './src/middleware/log.js';
-import onlyAllowPosts from './src/middleware/methods.js';
+import routes from './server/routes.js';
+import login from './server/api/users/login.js';
+import register from './server/api/users/register.js';
+import { PORT } from './server/config/globals.js';
+import logger from './server/middleware/log.js';
+import onlyAllowPosts from './server/middleware/methods.js';
 
 // import { hdb } from './src/db.js';
 
@@ -15,6 +15,7 @@ import onlyAllowPosts from './src/middleware/methods.js';
 const app: Application = express();
 
 app.use(express.json(), express.urlencoded({ extended: false }));
+app.disable('x-powered-by');
 
 //Default routes + handlers
 app.use('/', routes, logger);

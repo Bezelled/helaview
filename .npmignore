@@ -1,5 +1,0 @@
-*.log
-.strong*
-node.*
-node_modules
-runctl
