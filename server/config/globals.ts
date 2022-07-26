@@ -1,6 +1,7 @@
 'use strict';
 
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
 
 dotenv.config();    //To load our .env file for environmental variables
 
@@ -9,6 +10,8 @@ export const DB_URL: string = process.env.HELA_DB_URL || '';
 export const PORT: number = Number(process.env.PORT) || 80;  //Use the port environmental variable, or 8080 if it is undefined
 
 // Constants
+const __filename: string = fileURLToPath(import.meta.url);
+export const dirname: string = __filename.substring(0, __filename.lastIndexOf('\\server'));
 export const saltRounds: number = 10;
 export const userRegistrationKeys: string[] = ['first name', 'last name', 'email', 'password', 'password confirmation', 'passport number', 'gender', 'age', 'country', 'address', 'contact number'];
 export const hotelRegistrationKeys: string[] = ['full name', 'password', 'email', 'address', 'contact number', 'hotel type', 'rating'];
