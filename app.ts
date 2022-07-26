@@ -3,8 +3,8 @@
 import express, { Application } from 'express';
 import { join } from 'path';
 import routes from './server/routes.js';
-import login from './server/api/users/login.js';
-import register from './server/api/users/register.js';
+import login from './server/api/tourists/login.js';
+import register from './server/api/tourists/register.js';
 import { PORT, dirname } from './server/config/globals.js';
 import logger from './server/middleware/log.js';
 import onlyAllowPosts from './server/middleware/methods.js';
