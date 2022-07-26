@@ -2,7 +2,7 @@
 
 import { Request, Response, Router } from 'express';
 import { hash } from 'bcrypt';
-import { userRegistrationKeys, emailRegExp, passwordRegExp, passportRegExp, addressRegExp, saltRounds } from '../../config/globals.js';
+import { userRegistrationKeys, emailRegExp, passwordRegExp, passportRegExp, addressRegExp, saltRounds, emailer, AccountType } from '../../config/globals.js';
 import { validatePostData } from '../../lib/shared.js';
 import hdb from '../../lib/db.js';
 
@@ -111,6 +111,22 @@ routes.post('/users/register', async (req: Request, res: Response) => {
         )
         ON CONFLICT (email) DO NOTHING
     `;
+
+    const token: string = 'ddd'; //generate a token
+
+    //TODO: Put verification into a separate function
+
+    await hdb`
+        INSERT INTO verification_codes
+        (
+            email, code
+        )
+        VALUES
+        (
+            ${email}, ${token}
+        )`;
+
+    await emailer.sendVerificationEmail(email, AccountType.Tourist, token);
 
     console.log(`[Account created]: ${firstName}, ${lastName}, ${gender}, ${email}, ${password}, ${passwordConfirmation}, ${passportNo}, ${age}, ${address}, ${contactNo}.`);
     return res.status(200).send({ success: `Your account ${firstName} has been created.`});

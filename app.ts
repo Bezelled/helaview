@@ -11,8 +11,6 @@ import onlyAllowPosts from './server/middleware/methods.js';
 
 // import { hdb } from './src/db.js';
 
-//TODO: Live reloading of routes without shutting app down
-
 const app: Application = express();
 
 app.use(express.json(), express.urlencoded({ extended: false }), express.static(join(dirname, '../client/build')));
