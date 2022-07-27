@@ -1,32 +1,26 @@
-import logo from './logo.svg';
-import get, { AxiosResponse } from 'axios';
+import { useState } from 'react';
+import { MantineProvider, ColorSchemeProvider, ColorScheme } from '@mantine/core';
 import './App.css';
+import Login from './pages/Login';
 
-async function hitBackend(): Promise<void> {
-  const response: AxiosResponse<any, any> = await get('/test');
-  console.log(response.data);
-}
+const App = () => {
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
-function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <button onClick={hitBackend}>Send request</button>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <ColorSchemeProvider
+        colorScheme={colorScheme}
+        toggleColorScheme={toggleColorScheme}
+      >
+        <MantineProvider theme={{ colorScheme }}>
+          <Login />
+        </MantineProvider>
+      </ColorSchemeProvider>
     </div>
   );
-}
+};
 
 export default App;
