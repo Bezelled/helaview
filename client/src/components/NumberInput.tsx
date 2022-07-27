@@ -1,19 +1,17 @@
 import { NumberInput, Text } from '@mantine/core';
 
-const NumberInputPage = () => {
+export default function NumberInputField(text: string, placeholder: string = '', label: string = ''){
   return (
     <>
       <Text style={{ marginTop: '2rem' }} size='xl'>
-        Number Input Component
+        {`${text}`}
       </Text>
       <NumberInput
         defaultValue={50}
-        placeholder='Your age'
-        label='Your age'
+        placeholder={`${placeholder}`}
+        label={`${label}`}
         required
       />
     </>
   );
-};
-
-export default NumberInputPage;
+}

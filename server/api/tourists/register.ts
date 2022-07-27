@@ -8,7 +8,7 @@ import hdb from '../../lib/db.js';
 
 const routes: Router = Router();
 
-routes.post('/users/register', async (req: Request, res: Response) => {
+routes.post('/users/register', async(req: Request, res: Response) => {
 
     const proceed: boolean = validatePostData(req, res, userRegistrationKeys);
     
@@ -23,7 +23,7 @@ routes.post('/users/register', async (req: Request, res: Response) => {
         return res.status(400).send({ error: `Please enter a valid e-mail address.` });
 
     const exists = await hdb`
-        SELECT true FROM tourists where email = ${email}
+        SELECT true FROM tourists where email = ${email};
     `;  //check if e-mail exists
 
     //TODO: Find out the actual type of exists
@@ -109,7 +109,7 @@ routes.post('/users/register', async (req: Request, res: Response) => {
         (
             ${firstName}, ${lastName}, ${email}, ${hashedPassword}, ${passportNo}, ${age}, ${gender}, ${country}, ${address}, ${contactNo}
         )
-        ON CONFLICT (email) DO NOTHING
+        ON CONFLICT (email) DO NOTHING;
     `;
 
     const token: string = 'ddd'; //generate a token
@@ -124,25 +124,13 @@ routes.post('/users/register', async (req: Request, res: Response) => {
         VALUES
         (
             ${email}, ${token}
-        )`;
+        );`;
 
     await emailer.sendVerificationEmail(email, AccountType.Tourist, token);
 
     console.log(`[Account created]: ${firstName}, ${lastName}, ${gender}, ${email}, ${password}, ${passwordConfirmation}, ${passportNo}, ${age}, ${address}, ${contactNo}.`);
     return res.status(200).send({ success: `Your account ${firstName} has been created.`});
 });
-
-// id bigserial,
-// email citext primary key,
-// first_name citext not null,
-// last_name citext not null,
-// password citext not null,
-// passport_no citext not null unique,
-// age smallint not null,
-// gender bool not null default True,
-// country citext not null,
-// address citext not null unique,
-// contact_no bigint not null unique
 
 const register: Router = routes;
 export default register;

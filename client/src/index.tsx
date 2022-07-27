@@ -1,18 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { StrictMode } from 'react';
+import { createRoot, Root } from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { MantineProvider } from '@mantine/core';
 import theme from './utils/theme';
 
-ReactDOM.render(
-  <React.StrictMode>
+const root: Root = createRoot(document.getElementById('root') as HTMLElement);
+
+root.render(
+  <StrictMode>
     <MantineProvider theme={theme}>
       <App />
     </MantineProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

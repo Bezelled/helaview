@@ -5,8 +5,8 @@
   "main": "dist/app.js",
   "type": "module",
   "scripts": {
-    "buildClient": "cd client && npm run build",
-    "buildServer": "tsc",
+    "buildC": "cd client && npm run build",
+    "buildS": "tsc",
     "client": "cd client && npm run start",
     "server": "concurrently \"tsc --watch\" \"nodemon dist/app.js\"",
     "dev": "concurrently \"tsc --watch\" \"nodemon dist/app.js\" \"npm run client\"",

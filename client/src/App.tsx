@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { MantineProvider, ColorSchemeProvider, ColorScheme } from '@mantine/core';
+import { NotificationsProvider } from '@mantine/notifications';
 import './App.css';
 import Login from './pages/Login';
 
@@ -16,7 +17,9 @@ const App = () => {
         toggleColorScheme={toggleColorScheme}
       >
         <MantineProvider theme={{ colorScheme }}>
-          <Login />
+          <NotificationsProvider>
+            <Login />
+          </NotificationsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
     </div>
