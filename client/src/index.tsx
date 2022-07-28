@@ -3,16 +3,12 @@ import { createRoot, Root } from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { MantineProvider } from '@mantine/core';
-import theme from './utils/theme';
 
 const root: Root = createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <StrictMode>
-    <MantineProvider theme={theme}>
-      <App />
-    </MantineProvider>
+    <App />
   </StrictMode>
 );
 

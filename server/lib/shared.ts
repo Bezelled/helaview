@@ -1,8 +1,10 @@
 'use strict';
 
 import { Request, Response } from 'express';
+import { randomBytes } from 'crypto';
+import  { Sql } from 'postgres';
 import { Transporter, TestAccount, createTransport, createTestAccount, getTestMessageUrl } from 'nodemailer';
-import { AccountType } from '../config/globals.js';
+import { emailer, AccountType } from '../config/globals.js';
 
 /**
  * @param {Request} req
@@ -89,7 +91,7 @@ export class Emailer {
             
             case AccountType.Tourist:
                 emailSubject = 'Tourist' + emailSubject;
-                url = `https://helaview.lk/api/users/verify/${verification}`;
+                url = `https://helaview.lk/api/tourists/verify/${verification}`;
                 break;
             
             case AccountType.Hotel:
@@ -114,4 +116,20 @@ export class Emailer {
         console.log(`[Sent Email]: ${info.messageId}.`);
         console.log(`[Message Preview]: ${getTestMessageUrl(info)}`); // Preview only available when sending through an Ethereal account
     }
+}
+
+export async function generateVerificationCode(hdb: Sql<{bigint: bigint;}>, email: string, accountType: AccountType){
+    const token: string = randomBytes(50).toString('hex'); //Generate a token
+    
+    await hdb`
+        INSERT INTO verification_codes
+        (
+            email, code
+        )
+        VALUES
+        (
+            ${email}, ${token}
+        );`;
+
+    await emailer.sendVerificationEmail(email, accountType, token);
 }

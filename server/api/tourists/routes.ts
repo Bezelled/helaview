@@ -1,17 +1,35 @@
 'use strict';
 
-// import express from 'express';
-// import { router } from './src/routes.js';
-// import { login } from './src/api/users/login.js';
-// import { PORT } from './src/config/globals.js';
-// import { onlyAllowPosts } from './src/middleware/methods.js';
+import { Router } from 'express';
+import { readdirSync } from 'fs';
+import { join }  from 'path';
+import { fileURLToPath } from 'url';
 
-// // import { HDB } from './src/db.js';
+const touristRouter: Router = Router();
+const __filename: string = fileURLToPath(import.meta.url);
+const _dirname: string = `file:///${__filename.substring(0, __filename.lastIndexOf('\\routes.js'))}`;
 
-// app.use('/', router);
-// app.use('/api/', login);
-// app.use('/api/', onlyAllowPosts);
+console.log(_dirname);
 
-// app.listen(PORT, () => {
-//     console.log(`HelaView app is listening on port ${PORT}.`);
-// });
+async function* getTouristRoutes(){
+
+    for (const routeFile of readdirSync('C:\\Users\\shane\\Desktop\\Projects\\HelaView\\dist\\server\\api\\tourists')) {
+        
+        if ((routeFile === 'routes.js') || (!(routeFile.endsWith('.js'))))
+            continue;
+        
+        console.log(`[Adding tourist route]: ${routeFile}.`);
+        yield await import(join(_dirname, routeFile));
+    };
+}
+
+(async () => {
+    
+    for await (const {default: touristRoute} of getTouristRoutes()) {
+        
+        if (typeof touristRoute === 'function')
+            touristRoute(touristRouter);
+    };
+})();
+
+export default touristRouter;

@@ -4,8 +4,8 @@ import { Router, Request, Response } from 'express';
 
 export default async function addRoute(router: Router): Promise<void>{
 
-    router.post('/booking', (req: Request, res: Response) => {
-        res.send('Thank you for adding a booking!');
+    router.post('/verify', (req: Request, res: Response) => {
+        res.send('Thank you for verifying!');
     });
 
 }

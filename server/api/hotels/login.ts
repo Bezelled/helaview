@@ -1,10 +1,11 @@
 'use strict';
 
-import { Router } from 'express';
-const routes: Router = Router();
+import { Router, Request, Response } from 'express';
 
-routes.post('/login', (req, res) => {
-    res.send("Welcome to HelaView's API - login!");
-});
+export default async function addRoute(router: Router): Promise<void>{
 
-export const login = routes;
+    router.post('/login', (req: Request, res: Response) => {
+        res.send('Thank you for logging in!');
+    });
+
+}
