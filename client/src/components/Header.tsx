@@ -4,6 +4,11 @@ import { useDisclosure } from '@mantine/hooks';
 import ThemeButton from './ColorThemeButton';
 import FullScreenButton from './FullScreenButton';
 import {ReactComponent as HelaViewLightLogo} from '../images/HelaViewLightLogo.svg'
+import { Link, Navigate, Routes, Route } from 'react-router-dom';
+import Home from '../pages/Home';
+import ContactUs from '../pages/ContactUs';
+import Login from '../pages/Login';
+import HelaNotFound from '../pages/NotFound';
 
 
 const HEADER_HEIGHT: number = 84;
@@ -20,6 +25,7 @@ const useStyles = createStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        color: theme.colors[theme.primaryColor][5]
     },
 
     dropdown: {
@@ -64,7 +70,7 @@ const useStyles = createStyles((theme) => ({
     },
 
     mainLinks: {
-        marginRight: -theme.spacing.sm,
+        marginRight: -theme.spacing.sm
     },
 
     mainLink: {
@@ -110,18 +116,18 @@ interface DoubleHeaderProps {
     userLinks: LinkProps[];
 }
 
-export default function HelaNavBar({ mainLinks, userLinks }: DoubleHeaderProps) {
+export default function HelaHeader({ mainLinks, userLinks }: DoubleHeaderProps) {
     const [opened, { toggle }] = useDisclosure(false);
     const { classes, cx } = useStyles();
     const [active, setActive] = useState(0);
 
     const mainItems = mainLinks.map((item, index) => (
-        <Anchor<'a'>
-            href={item.link}
+        <Anchor
+            component={Link}
+            to={item.link}
             key={item.label}
             className={cx(classes.mainLink, { [classes.mainLinkActive]: index === active })}
-            onClick={(event) => {
-                event.preventDefault();
+            onClick={(event: { preventDefault: () => void; }) => {
                 setActive(index);
             }}
         >
@@ -130,10 +136,10 @@ export default function HelaNavBar({ mainLinks, userLinks }: DoubleHeaderProps) 
     ));
 
     const secondaryItems = userLinks.map((item) => (
-        <Anchor<'a'>
-            href={item.link}
+        <Anchor
+            component={Link}
+            to={item.link}
             key={item.label}
-            onClick={(event) => event.preventDefault()}
             className={classes.secondaryLink}
         >
             {item.label}
@@ -144,7 +150,7 @@ export default function HelaNavBar({ mainLinks, userLinks }: DoubleHeaderProps) 
         <Header height={HEADER_HEIGHT} mb={120}>
             <Container color='ruby' className={classes.inner}>
               <div>
-                <HelaViewLightLogo className={classes.helaViewText} fill="#ffffff"/>
+                <HelaViewLightLogo className={classes.helaViewText} fill='#ffffff'/>
               </div>
 
               <div className={classes.links}>
@@ -165,6 +171,17 @@ export default function HelaNavBar({ mainLinks, userLinks }: DoubleHeaderProps) 
                 )}
               </Transition>
             </Container>
+
+            <Routes>
+                <Route path='' element={<Navigate to='/home' />} />
+                <Route path='/' element={<Home />} />
+                <Route path='/home' element={<Home />} />
+                <Route path='/aboutUs' element={<Login />} />
+                <Route path='/contactUs' element={<ContactUs />} />
+                <Route path='*' element={<HelaNotFound />} />
+
+            </Routes>
+
         </Header>
     );
 }

@@ -37,7 +37,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function NotFoundPage() {
+export default function HelaNotFound() {
   const { classes } = useStyles();
 
   return (

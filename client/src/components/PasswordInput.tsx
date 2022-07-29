@@ -1,6 +1,7 @@
 import { Anchor, Box, Progress, PasswordInput, PasswordInputProps, Group, Text, Center } from '@mantine/core';
 import { useInputState } from '@mantine/hooks';
 import { TbLock, TbCheck, TbX } from 'react-icons/tb';
+import { Link } from 'react-router-dom';
 
 function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
   return (
@@ -24,12 +25,14 @@ const requirements: {
 ];
 
 function getStrength(password: string): number {
-    let multiplier = password.length > 5 ? 0 : 1;
+    let multiplier: number = password.length > 5 ? 0 : 1;
 
-    requirements.forEach((requirement) => {
-        if (!requirement.re.test(password)) {
-        multiplier += 1;
-        }
+    requirements.forEach((requirement:{
+      re: RegExp;
+      label: string;
+    }) => {
+        if (!requirement.re.test(password))
+          multiplier ++;  // =+ 1;
     });
 
     return Math.max(100 - (100 / (requirements.length + 1)) * multiplier, 0);
@@ -88,9 +91,9 @@ export default function HelaPasswordLogin({ className, style, ...others }: Passw
         size='md'
         {...others} />
       <Text align='right' mt='xs'>
-        <Anchor<'a'>
-            href='/ForgotPassword.html'
-            onClick={(event) => event.preventDefault()}
+        <Anchor
+            component={Link}
+            to='/forgotPassword'
             sx={(theme) => ({
               paddingTop: 2,
               color: theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 4 : 6],

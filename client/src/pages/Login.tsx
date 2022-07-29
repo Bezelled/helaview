@@ -10,9 +10,10 @@ import {
 } from '@mantine/core';
 import HelaPasswordLogin from '../components/PasswordInput';
 import { useForm, UseFormReturnType } from '@mantine/form';
-import { showNotification } from '@mantine/notifications';
-import { TbMail } from 'react-icons/tb';
+import { showNotification, updateNotification } from '@mantine/notifications';
+import { TbMail, TbCheck, TbX } from 'react-icons/tb';
 import axios, { AxiosResponse } from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 const useStyles = createStyles((theme) => ({
     wrapper: {
@@ -38,6 +39,12 @@ const useStyles = createStyles((theme) => ({
     title: {
         color: theme.colorScheme === 'dark' ? theme.white : theme.colors[theme.primaryColor][8],
         fontFamily: `SourceSansPro, ${theme.fontFamily}`,
+        fontSize: '2em',
+    },
+
+    helaview: {
+        fontFamily: `Vanilla Macchiato, SourceSansPro, ${theme.fontFamily}`,
+        fontSize: '2em',
     },
 
     logo: {
@@ -66,6 +73,7 @@ export default function Login() {
     const handleError = (errors: typeof form.errors) => {
 
         if (errors.email) {
+            
           showNotification({ message: 'Please provide a valid email', color: 'red' });
         } else if (errors.password) {
           showNotification({ message: 'Please provide a valid password', color: 'red' });
@@ -73,29 +81,52 @@ export default function Login() {
     };
     
     const handleSubmit = async(values: typeof form.values) => {
-        const resp: AxiosResponse<any, any> = await axios.post('/api/tourists/login', {
-            'email': values.email,
-            'password': values.password
+
+        const randomId: string = uuidv4();
+
+        showNotification({
+            id: randomId,
+            color: 'teal',
+            loading: true,
+            title: 'Logging in',
+            message: `Trying to login to ${values.email}.`,
+            autoClose: false,
+            disallowClose: true
         });
         
-        switch(resp.status)
-        {
-            case 200:
-                showNotification({ message: resp.data.message, color: 'green' });
-                break;
-            case 400:
-                showNotification({ message: resp.data.error, color: 'red' });
-                break;
+        try {
+            const resp: AxiosResponse<any, any> = await axios.post('/api/tourists/login', {
+                'email': values.email,
+                'password': values.password
+            });
+            
+            updateNotification({
+                id: randomId,
+                color: 'teal',
+                title: 'Success',
+                message: resp.data.message,
+                icon: <TbCheck size={16} />,
+                autoClose: 3000,
+            });
+        } catch(err: any) {
+            console.log(`Error: ${JSON.stringify(err.response)}.`);
+            
+            updateNotification({
+                id: randomId,
+                color: 'red',
+                title: 'Error',
+                message: err.response.data.error,
+                icon: <TbX size={16} />,
+                autoClose: 4000,
+            });
         };
-
-        console.log(resp.data);
     };
 
     return (
         <div className={classes.wrapper}>
             <Paper className={classes.form} radius={0} p={30}>
                 <Title order={2} className={classes.title} align='center' mt='md' mb={50}>
-                    Welcome back to HelaView!
+                    Welcome back to <Text className={classes.helaview}>HelaView!</Text>
                 </Title>
 
                 <form onSubmit={form.onSubmit(handleSubmit, handleError)}>

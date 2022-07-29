@@ -1,10 +1,9 @@
-import { AppShell, ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
+import { Paper, ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
 import { useHotkeys, useLocalStorage  } from '@mantine/hooks';
 import { NotificationsProvider } from '@mantine/notifications';
-import HelaNavBar from './components/Navbar';
-import Login from './pages/Login';
 import HelaStyles from './styles/GlobalStyles';
 import './App.css';
+import HelaAppShell from './components/AppShell';
 
 export default function App(){
   
@@ -32,12 +31,10 @@ export default function App(){
         }}
           withGlobalStyles withNormalizeCSS>
           <HelaStyles />
-          <NotificationsProvider>
-            <AppShell>
-              <HelaNavBar mainLinks={[{ link: '/index.html', label: 'Home' },{ link: '/contact_us.html', label: 'Contact Us' }, { link: '/about_us.html', label: 'About Us' }]} userLinks={[]}/>
-              <Login />
-                {/* Your application here */}
-            </AppShell>
+          <NotificationsProvider position='bottom-center' limit={5}>
+            <Paper>
+              <HelaAppShell />
+            </Paper>
           </NotificationsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
