@@ -8,7 +8,7 @@ dotenv.config();    //To load our .env file for environmental variables
 
 // Environmental variables
 export const DB_URL: string = process.env.HELA_DB_URL || '';
-export const PORT: number = Number(process.env.PORT) || 8080;  //Use the port environmental variable, or 8080 if it is undefined
+export const PORT: number = Number(process.env.HELA_SERVER_PORT) || 7788;  //Use the port environmental variable, or 7788 if it is undefined
 
 // Constants
 const __filename: string = fileURLToPath(import.meta.url);
