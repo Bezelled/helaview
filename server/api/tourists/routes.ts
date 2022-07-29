@@ -6,12 +6,13 @@ import { join }  from 'path';
 import { fileURLToPath } from 'url';
 
 const touristRouter: Router = Router();
-const __filename: string = fileURLToPath(import.meta.url);
-const _dirname: string = `file:///${__filename.substring(0, __filename.lastIndexOf('\\routes.js'))}`;
-
-console.log(_dirname);
 
 async function* getTouristRoutes(){
+
+    const __filename: string = fileURLToPath(import.meta.url);
+    const _dirname: string = `file:///${__filename.substring(0, __filename.lastIndexOf('\\routes.js'))}`;
+
+    console.log(`[DIRNAME]: ${_dirname}`);
 
     for (const routeFile of readdirSync('C:\\Users\\shane\\Desktop\\Projects\\HelaView\\dist\\server\\api\\tourists')) {
         
