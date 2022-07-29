@@ -15,14 +15,11 @@ async function* getTests(){
     
     if (platform() === 'linux'){
         _dirname = __filename.substring(0, __filename.lastIndexOf('/test.js'));
-        _filename = `file:///${__filename.substring(0, __filename.lastIndexOf('/test.js'))}`;
+        // _filename = `file://${__filename.substring(0, __filename.lastIndexOf('/test.js'))}`;
     } else {
         _dirname = __filename.substring(0, __filename.lastIndexOf('\\test.js'));
-        _filename = `file:///${__filename.substring(0, __filename.lastIndexOf('\\test.js'))}`;
+        // _filename = `file:///${__filename.substring(0, __filename.lastIndexOf('\\test.js'))}`;
     };
-
-    console.log(`[DIRNAME]: ${_dirname}`);
-    console.log(`[FILENAME]: ${_filename}`);
 
     for (const testFile of readdirSync(_dirname)) {
         
