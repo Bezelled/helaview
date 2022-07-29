@@ -9,6 +9,7 @@ import Home from '../pages/Home';
 import ContactUs from '../pages/ContactUs';
 import Login from '../pages/Login';
 import HelaNotFound from '../pages/NotFound';
+import HelaRegister from '../pages/Register';
 
 
 const HEADER_HEIGHT: number = 84;
@@ -178,6 +179,8 @@ export default function HelaHeader({ mainLinks, userLinks }: DoubleHeaderProps) 
                 <Route path='/home' element={<Home />} />
                 <Route path='/aboutUs' element={<Login />} />
                 <Route path='/contactUs' element={<ContactUs />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<HelaRegister />} />
                 <Route path='*' element={<HelaNotFound />} />
 
             </Routes>
