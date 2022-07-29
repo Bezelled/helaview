@@ -9,6 +9,7 @@ import onlyAllowPosts from './server/middleware/methods.js';
 
 const app: Application = express();
 
+app.set('trust proxy', true);
 app.use(express.json(), express.urlencoded({ extended: false }), express.static(join(dirname, '../client/build')));
 app.disable('x-powered-by');
 
