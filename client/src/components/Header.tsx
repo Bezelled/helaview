@@ -5,11 +5,12 @@ import ThemeButton from './ColorThemeButton';
 import FullScreenButton from './FullScreenButton';
 import {ReactComponent as HelaViewLightLogo} from '../images/HelaViewLightLogo.svg'
 import { Link, Navigate, Routes, Route } from 'react-router-dom';
-import Home from '../pages/Home';
+import HelaHome from '../pages/Home';
 import ContactUs from '../pages/ContactUs';
 import Login from '../pages/Login';
 import HelaNotFound from '../pages/NotFound';
 import HelaRegister from '../pages/Register';
+import HelaAbout from '../pages/AboutUs';
 
 
 const HEADER_HEIGHT: number = 84;
@@ -175,14 +176,13 @@ export default function HelaHeader({ mainLinks, userLinks }: DoubleHeaderProps) 
 
             <Routes>
                 <Route path='' element={<Navigate to='/home' />} />
-                <Route path='/' element={<Home />} />
-                <Route path='/home' element={<Home />} />
-                <Route path='/aboutUs' element={<Login />} />
+                <Route path='/' element={<HelaHome />} />
+                <Route path='/home' element={<HelaHome />} />
+                <Route path='/aboutUs' element={<HelaAbout />} />
                 <Route path='/contactUs' element={<ContactUs />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<HelaRegister />} />
                 <Route path='*' element={<HelaNotFound />} />
-
             </Routes>
 
         </Header>

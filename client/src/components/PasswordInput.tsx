@@ -1,79 +1,74 @@
-import { Anchor, Box, Progress, PasswordInput, PasswordInputProps, Group, Text, Center } from '@mantine/core';
-import { useInputState } from '@mantine/hooks';
+import { Anchor, Box, Progress, PasswordInput, PasswordInputProps, Text, Popover } from '@mantine/core';
+import { useState } from 'react';
 import { TbLock, TbCheck, TbX } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 
 function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
   return (
-    <Text color={meets ? 'teal' : 'red'} mt={5} size='sm'>
-      <Center inline>
-        {meets ? <TbCheck size={14} stroke='1.5' /> : <TbX size={14} stroke='1.5' />}
-        <Box ml={7}>{label}</Box>
-      </Center>
+    <Text
+      color={meets ? 'teal' : 'red'}
+      sx={{ display: 'flex', alignItems: 'center' }}
+      mt={7}
+      size='sm'
+    >
+      {meets ? <TbCheck size={16} /> : <TbX size={16} />} <Box ml={10}>{label}</Box>
     </Text>
   );
 }
 
-const requirements: {
-    re: RegExp;
-    label: string;
-}[] = [
+const requirements = [
   { re: /[0-9]/, label: 'Includes number' },
   { re: /[a-z]/, label: 'Includes lowercase letter' },
   { re: /[A-Z]/, label: 'Includes uppercase letter' },
-  { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: 'Includes special symbol' },
+  { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: 'Includes special symbol' }
 ];
 
-function getStrength(password: string): number {
-    let multiplier: number = password.length > 5 ? 0 : 1;
+function getStrength(password: string) {
+    let multiplier = password.length > 5 ? 0 : 1;
 
-    requirements.forEach((requirement:{
-      re: RegExp;
-      label: string;
-    }) => {
-        if (!requirement.re.test(password))
-          multiplier ++;  // =+ 1;
+    requirements.forEach((requirement) => {
+      if (!requirement.re.test(password)) {
+        multiplier++;// += 1
+      }
     });
 
-    return Math.max(100 - (100 / (requirements.length + 1)) * multiplier, 0);
+    return Math.max(100 - (100 / (requirements.length + 1)) * multiplier, 10);
 }
 
-export function HelaPasswordSignup() {
-  const [value, setValue] = useInputState('');
-  const strength = getStrength(value);
+export function HelaPasswordSignUp() {
+  const [popoverOpened, setPopoverOpened] = useState(false);
+  const [value, setValue] = useState('');
   const checks = requirements.map((requirement, index) => (
     <PasswordRequirement key={index} label={requirement.label} meets={requirement.re.test(value)} />
   ));
-  const bars = Array(4)
-    .fill(0)
-    .map((_, index) => (
-      <Progress
-        styles={{ bar: { transitionDuration: '0ms' } }}
-        value={
-          value.length > 0 && index === 0 ? 100 : strength >= ((index + 1) / 4) * 100 ? 100 : 0
-        }
-        color={strength > 80 ? 'teal' : strength > 50 ? 'yellow' : 'red'}
-        key={index}
-        size={4}
-      />
-    ));
+
+  const strength = getStrength(value);
+  const color = strength === 100 ? 'teal' : strength > 50 ? 'yellow' : 'red';
 
   return (
-    <div>
-      <PasswordInput
-        value={value}
-        onChange={setValue}
-        placeholder='Your password'
-        label='Password'
-        required
-      />
-
-      <Group spacing={5} grow mt='xs' mb='md'>
-        {bars}
-      </Group>
-
-      <PasswordRequirement label='Has at least 8 characters' meets={value.length > 7} />
-      {checks}
+    <div style={{ maxWidth: 340, margin: 'auto' }}>
+      <Popover opened={popoverOpened} position='bottom' width='target' transition='pop'>
+        <Popover.Target>
+          <div
+            onFocusCapture={() => setPopoverOpened(true)}
+            onBlurCapture={() => setPopoverOpened(false)}
+          >
+            <PasswordInput
+              required
+              label='Your password'
+              placeholder='Your password'
+              icon={<TbLock size={16}/>}
+              value={value}
+              onChange={(event) => setValue(event.currentTarget.value)}
+            />
+          </div>
+        </Popover.Target>
+        <Popover.Dropdown>
+          <Progress color={color} value={strength} size={5} style={{ marginBottom: 10 }} />
+          <PasswordRequirement label='Includes at least 6 characters' meets={value.length > 5} />
+          {checks}
+        </Popover.Dropdown>
+      </Popover>
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import { AppShell, Paper } from '@mantine/core';
-import Home from '../pages/Home';
 import HelaHeader from './Header';
 import {
   BrowserRouter as Router
@@ -47,17 +46,16 @@ export default function HelaAppShell() {
 
   return (
     <AppShell
-      footer={
-        <HelaFooter
-          data={footerLinks} />
-      }
+      // footer={
+      //   <HelaFooter
+      //     data={footerLinks} />
+      // }
     >
       <Router>
       <HelaHeader
-          mainLinks={[{ link: '/home', label: 'Home' },{ link: '/contactUs', label: 'Contact Us' }, { link: '/aboutUs', label: 'About Us' }, {link: '/login', label: 'Login'}]}
+          mainLinks={[{ link: '/home', label: 'Home' },{ link: '/contactUs', label: 'Contact Us' }, { link: '/aboutUs', label: 'About Us' }, {link: '/login', label: 'Login'}, {link: '/register', label: 'Tourist Register'}]}
           userLinks={[]} />
         <Paper>
-          <Home />
           {/* Your application here */}
           {/* <HelaFooter data={footerLinks} /> */}
         </Paper>

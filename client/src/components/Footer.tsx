@@ -41,8 +41,8 @@ const useStyles = createStyles((theme) => ({
         justifyContent: 'space-between',
 
         [theme.fn.smallerThan('sm')]: {
-        flexDirection: 'column',
-        alignItems: 'center',
+            flexDirection: 'column',
+            alignItems: 'center',
         },
     },
 
