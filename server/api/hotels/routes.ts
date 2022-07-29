@@ -15,11 +15,11 @@ let _dirname: string = '';
 async function* getHotelRoutes(){
 
     if (platform() === 'linux'){
-        _dirname = __filename.substring(0, __filename.lastIndexOf('/test.js'));
-        // _filename = `file://${__filename.substring(0, __filename.lastIndexOf('/test.js'))}`;
+        _dirname = __filename.substring(0, __filename.lastIndexOf('/routes.js'));
+        // _filename = `file://${__filename.substring(0, __filename.lastIndexOf('/routes.js'))}`;
     } else {
-        _dirname = __filename.substring(0, __filename.lastIndexOf('\\test.js'));
-        // _filename = `file:///${__filename.substring(0, __filename.lastIndexOf('\\test.js'))}`;
+        _dirname = __filename.substring(0, __filename.lastIndexOf('\\routes.js'));
+        // _filename = `file:///${__filename.substring(0, __filename.lastIndexOf('\\routes.js'))}`;
     };
 
     console.log(`[HOTEL DIRNAME]: ${_dirname}`);

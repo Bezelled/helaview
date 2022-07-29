@@ -15,14 +15,14 @@ let _dirname: string = '';
 async function* getTouristRoutes(){
 
     if (platform() === 'linux'){
-        _dirname = __filename.substring(0, __filename.lastIndexOf('/test.js'));
-        // _filename = `file://${__filename.substring(0, __filename.lastIndexOf('/test.js'))}`;
+        _dirname = __filename.substring(0, __filename.lastIndexOf('/routes.js'));
+        // _filename = `file://${__filename.substring(0, __filename.lastIndexOf('/routes.js'))}`;
     } else {
-        _dirname = __filename.substring(0, __filename.lastIndexOf('\\test.js'));
-        // _filename = `file:///${__filename.substring(0, __filename.lastIndexOf('\\test.js'))}`;
+        _dirname = __filename.substring(0, __filename.lastIndexOf('\\routes.js'));
+        // _filename = `file:///${__filename.substring(0, __filename.lastIndexOf('\\routes.js'))}`;
     };
 
-    console.log(`[DIRNAME]: ${_dirname}`);
+    console.log(`[TOURIST DIRNAME]: ${_dirname}`);
 
     for (const routeFile of readdirSync(_dirname)) {
         
