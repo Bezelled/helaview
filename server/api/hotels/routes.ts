@@ -6,23 +6,25 @@ import { join }  from 'path';
 import { fileURLToPath } from 'url';
 import { platform } from 'os';
 
-console.log(platform());
 const hotelRouter: Router = Router();
+
+const __filename = fileURLToPath(import.meta.url);
+let _dirname: string = '';
+// let _filename: string = '';
 
 async function* getHotelRoutes(){
 
-    const __filename: string = fileURLToPath(import.meta.url);
-    let _dirname: string = '';
-    
     if (platform() === 'linux'){
-        _dirname = `file:///${__filename.substring(0, __filename.lastIndexOf('/routes.js'))}`;
+        _dirname = __filename.substring(0, __filename.lastIndexOf('/test.js'));
+        // _filename = `file://${__filename.substring(0, __filename.lastIndexOf('/test.js'))}`;
     } else {
-        _dirname = `file:///${__filename.substring(0, __filename.lastIndexOf('\\routes.js'))}`;
+        _dirname = __filename.substring(0, __filename.lastIndexOf('\\test.js'));
+        // _filename = `file:///${__filename.substring(0, __filename.lastIndexOf('\\test.js'))}`;
     };
 
     console.log(`[HOTEL DIRNAME]: ${_dirname}`);
 
-    for (const routeFile of readdirSync('C:\\Users\\shane\\Desktop\\Projects\\HelaView\\dist\\server\\api\\hotels')) {
+    for (const routeFile of readdirSync(_dirname)) {
         
         if ((routeFile === 'routes.js') || (!(routeFile.endsWith('.js'))))
             continue;

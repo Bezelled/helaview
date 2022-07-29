@@ -4,17 +4,27 @@ import { Router } from 'express';
 import { readdirSync } from 'fs';
 import { join }  from 'path';
 import { fileURLToPath } from 'url';
+import { platform } from 'os';
 
 const touristRouter: Router = Router();
 
+const __filename = fileURLToPath(import.meta.url);
+let _dirname: string = '';
+// let _filename: string = '';
+
 async function* getTouristRoutes(){
 
-    const __filename: string = fileURLToPath(import.meta.url);
-    const _dirname: string = `file:///${__filename.substring(0, __filename.lastIndexOf('\\routes.js'))}`;
+    if (platform() === 'linux'){
+        _dirname = __filename.substring(0, __filename.lastIndexOf('/test.js'));
+        // _filename = `file://${__filename.substring(0, __filename.lastIndexOf('/test.js'))}`;
+    } else {
+        _dirname = __filename.substring(0, __filename.lastIndexOf('\\test.js'));
+        // _filename = `file:///${__filename.substring(0, __filename.lastIndexOf('\\test.js'))}`;
+    };
 
     console.log(`[DIRNAME]: ${_dirname}`);
 
-    for (const routeFile of readdirSync('C:\\Users\\shane\\Desktop\\Projects\\HelaView\\dist\\server\\api\\tourists')) {
+    for (const routeFile of readdirSync(_dirname)) {
         
         if ((routeFile === 'routes.js') || (!(routeFile.endsWith('.js'))))
             continue;
