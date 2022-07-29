@@ -54,7 +54,7 @@ export default function HelaAppShell() {
     >
       <Router>
       <HelaHeader
-          mainLinks={[{ link: '/home', label: 'Home' },{ link: '/contactUs', label: 'Contact Us' }, { link: '/aboutUs', label: 'About Us' }]}
+          mainLinks={[{ link: '/home', label: 'Home' },{ link: '/contactUs', label: 'Contact Us' }, { link: '/aboutUs', label: 'About Us' }, {link: '/login', label: 'Login'}]}
           userLinks={[]} />
         <Paper>
           <Home />
