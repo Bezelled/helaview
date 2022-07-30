@@ -30,6 +30,9 @@ export default async function addRoute(router: Router): Promise<void>{
         if (valid === true){
             console.log(`${email} has successfully logged in.`);
             return res.status(200).send({ message: `${email} has successfully logged in.` });
-        };
+        } else {
+            console.log(`${email} has not logged in.`);
+            return res.status(400).send({ error: `Invalid password.` });
+        }
     });
 }

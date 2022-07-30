@@ -24,6 +24,7 @@ const useStyles = createStyles((theme) => ({
     },
 
     form: {
+        borderBlockColor: '2em',
         borderRight: `1px solid ${
             theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3]
         }`,

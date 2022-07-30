@@ -109,7 +109,7 @@ export function ContactIconsList({ data = BASE_DATA, variant = 'gradient' }: Con
 
 const useStyles = createStyles((theme) => {
     const BREAKPOINT: string = theme.fn.smallerThan('sm');
-  
+    
     return {
         wrapper: {
             display: 'flex',
