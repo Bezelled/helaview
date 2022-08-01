@@ -7,8 +7,8 @@ import { AccountType } from '../../config/globals.js';
 
 export default async function addRoute(router: Router): Promise<void>{
     
-    router.get('/hotels/verify/:email/:token', async(req: Request, res: Response) => {
+    router.get('/tourists/verify/:email/:token', async(req: Request, res: Response) => {
 
-        await verifyAccount(hdb, req, res, AccountType.Hotel);
+        await verifyAccount(hdb, req, res, AccountType.Tourist);
     });
 }

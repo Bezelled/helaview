@@ -3,8 +3,8 @@
 import { Request, Response } from 'express';
 import { randomBytes } from 'crypto';
 import  { Sql } from 'postgres';
-import { Transporter, TestAccount, createTransport, createTestAccount, getTestMessageUrl } from 'nodemailer';
-import { emailer, AccountType } from '../config/globals.js';
+import { Transporter, createTransport } from 'nodemailer';
+import { DOMAIN, MAIL_SERVICE, MAIL_USERNAME, MAIL_PASSWORD, emailer, threeDays, AccountType } from '../config/globals.js';
 
 /**
  * @param {Request} req
@@ -54,16 +54,14 @@ export class Emailer {
      * Create an e-mail transport if `Emailer.transport` is undefined.
      */
     private async createEmailTransport(): Promise<void>{
-        const testAccount: TestAccount = await createTestAccount();
     
         Emailer._transport = createTransport({
-            host: 'smtp.ethereal.email',
+            service: MAIL_SERVICE,
             port: 587,
             secure: false, // true for 465, false for other ports
-            // requireTLS: true,
             auth: {
-                user: testAccount.user, // generated ethereal user
-                pass: testAccount.pass, // generated ethereal password
+                user: MAIL_USERNAME,
+                pass: MAIL_PASSWORD,
             },
             logger: true
         });
@@ -84,29 +82,31 @@ export class Emailer {
         if (Emailer.transport === undefined)
             await this.createEmailTransport();
 
-        let emailSubject: string = 'account verification for HelaView';
+        let emailSubject: string = ' account verification for HelaView';
         let url: string = '';
 
         switch (senderType){
             
             case AccountType.Tourist:
                 emailSubject = 'Tourist' + emailSubject;
-                url = `https://helaview.lk/api/tourists/verify/${verification}`;
+                
+                url = `${DOMAIN}/api/tourists/verify/${email}/${verification}`;
                 break;
+                //kssks
             
             case AccountType.Hotel:
                 emailSubject = 'Hotel' + emailSubject;
-                url = `https://helaview.lk/api/hotels/verify/${verification}`;
+                url = `${DOMAIN}/api/hotels/verify/${email}/${verification}`;
                 break;
 
-            case AccountType.Admin:
-                emailSubject = 'Admin' + emailSubject;
-                url = `https://helaview.lk/api/admins/verify/${verification}`;
-                break;
+            default:
+                return; //We don't want to verify an admin account
         }
 
+        url = encodeURI(url);
+
         const info = await Emailer.transport.sendMail({
-            from: '"HelaView 🏨"  <verification@helaview.lk>',
+            from: MAIL_USERNAME,
             to: email,
             subject: emailSubject,
             text: 'Please confirm your email account.',
@@ -114,12 +114,15 @@ export class Emailer {
         });
         
         console.log(`[Sent Email]: ${info.messageId}.`);
-        console.log(`[Message Preview]: ${getTestMessageUrl(info)}`); // Preview only available when sending through an Ethereal account
     }
 }
 
 export async function generateVerificationCode(hdb: Sql<{bigint: bigint;}>, email: string, accountType: AccountType){
     const token: string = randomBytes(50).toString('hex'); //Generate a token
+
+    await hdb`
+        UPDATE verification_codes SET expired = True WHERE email = ${email}
+        `;  //This should be moved to profile deletion once that feature is implemented.
     
     await hdb`
         INSERT INTO verification_codes
@@ -132,4 +135,49 @@ export async function generateVerificationCode(hdb: Sql<{bigint: bigint;}>, emai
         );`;
 
     await emailer.sendVerificationEmail(email, accountType, token);
+}
+
+export async function verifyAccount(hdb: Sql<{bigint: bigint;}>, req: Request, res: Response, accountType: AccountType){
+    const email: string = req.params.email;
+    const code: string = req.params.token;
+
+    const tokenEmail = await hdb`
+        SELECT code, date_created FROM verification_codes WHERE email = ${email} AND expired = False;
+    `;
+        
+    const dbCode: string | undefined = tokenEmail[0]?.code; //Get the code property if tokenEmail[0] is not undefined
+
+    if (dbCode === undefined)
+        return res.status(400).send({ error: `That account has not requested a valid verification e-mail. Please resend your verification e-mail from your Profile page if you are not verified.` });
+
+    const dateCreated: Date = new Date(tokenEmail[0]['date_created']);
+    
+    if (dbCode === code){
+        await hdb`
+            UPDATE verification_codes SET expired = True WHERE email = ${email};
+        `;
+
+        if ((new Date().getTime() - threeDays) < dateCreated.getTime()){    //The code is valid if its creation date is less than 3 days
+            
+            switch (accountType){
+                case AccountType.Tourist:
+                    await hdb`
+                        UPDATE tourists SET verified = True WHERE email = ${email};
+                    `;
+                    break;
+                case AccountType.Hotel:
+                    await hdb`
+                        UPDATE hotels SET verified = True WHERE email = ${email};
+                    `;
+                    break;
+            };
+
+            return res.status(200).send({ message: `Your account has been successfully verified!` });
+        } else {
+            return res.status(400).send({ error: `This code is expired. Please resend your verification e-mail from your Profile page.` });
+        };
+    }
+    else {
+        return res.status(400).send({ error: `An invalid verification code was supplied.` });
+    };
 }

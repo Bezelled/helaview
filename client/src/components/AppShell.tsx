@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router
 } from 'react-router-dom';
 import HelaFooter from './Footer';
+import HelaHome from '../pages/Home';
 
 const footerLinks = [
   {
@@ -46,18 +47,17 @@ export default function HelaAppShell() {
 
   return (
     <AppShell
-      // footer={
-      //   <HelaFooter
-      //     data={footerLinks} />
-      // }
+      footer={
+        <HelaFooter
+          data={footerLinks} />
+      }
     >
       <Router>
       <HelaHeader
           mainLinks={[{ link: '/home', label: 'Home' },{ link: '/contactUs', label: 'Contact Us' }, { link: '/aboutUs', label: 'About Us' }, {link: '/login', label: 'Login'}, {link: '/register', label: 'Tourist Register'}]}
           userLinks={[]} />
         <Paper>
-          {/* Your application here */}
-          {/* <HelaFooter data={footerLinks} /> */}
+          <HelaHome />
         </Paper>
       </Router>
     </AppShell>

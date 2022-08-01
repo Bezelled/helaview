@@ -1,4 +1,3 @@
-import { useToggle, upperFirst } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
 import {
     TextInput,
@@ -7,9 +6,10 @@ import {
     Button,
     Checkbox,
     Anchor,
-    Stack,
     NumberInput,
     Textarea,
+    createStyles,
+    Container
 } from '@mantine/core';
 import { TbCalendar, TbCheck, TbMapPin, TbX } from 'react-icons/tb';
 import axios, { AxiosResponse } from 'axios';
@@ -17,8 +17,46 @@ import { showNotification, updateNotification } from '@mantine/notifications';
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 
+const useStyles = createStyles((theme) => {
+    const BREAKPOINT: string = theme.fn.smallerThan('sm');
+
+    return {
+
+        wrapper: {
+            position: 'relative',
+            boxSizing: 'border-box',
+            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
+            overflow: 'auto'
+          },
+        
+          inner: {
+            position: 'relative',
+        
+            [BREAKPOINT]: {
+              paddingBottom: 80,
+              paddingTop: 80,
+            },
+          },
+    
+        form: {
+            boxSizing: 'border-box',
+            flex: 1,
+            maxHeight: 500,
+            maxWidth: 600,
+            alignContent: 'center',
+            padding: theme.spacing.xl,
+            paddingLeft: theme.spacing.xl * 2,
+            color: theme.colorScheme === 'dark' ? theme.colors.white : theme.colors[theme.primaryColor][6],
+            [BREAKPOINT]: {
+                padding: theme.spacing.md,
+                paddingLeft: theme.spacing.md,
+            },
+        }
+    };
+});
+
 export default function HelaRegister() {
-    const [type, toggle] = useToggle(['login', 'register']);
+    const { classes } = useStyles();
     const form = useForm({
         initialValues: {
             firstName:'',
@@ -111,88 +149,92 @@ export default function HelaRegister() {
     };
 
     return (
-            <form style={{ maxHeight: 500, maxWidth: 600, alignContent: 'center'}} onSubmit={form.onSubmit(handleSubmit, handleError)}>
-                    <TextInput
-                        {...form.getInputProps('firstName')}
-                        required
-                        label='First name'
-                        placeholder='Your name'
-                    />
+        <div className={classes.wrapper}>
+        <Container size={700} className={classes.inner}>
+            <form className={classes.form} onSubmit={form.onSubmit(handleSubmit, handleError)}>
+                <TextInput
+                    {...form.getInputProps('firstName')}
+                    required
+                    label='First name'
+                    placeholder='Your name'
+                />
 
-                    <TextInput
-                        {...form.getInputProps('lastName')}
-                        label='Last name'
-                        placeholder='Your last name'
-                    />
+                <TextInput
+                    {...form.getInputProps('lastName')}
+                    label='Last name'
+                    placeholder='Your last name'
+                />
 
-                    <TextInput
-                        {...form.getInputProps('email')}
-                        required
-                        label='Email'
-                        placeholder='hello@helaview.lk'
-                    />
+                <TextInput
+                    {...form.getInputProps('email')}
+                    required
+                    label='Email'
+                    placeholder='hello@helaview.lk'
+                />
 
-                    <PasswordInput
-                        {...form.getInputProps('password')}
-                        required
-                        label='Password'
-                        placeholder='Your password'
-                    />
+                <PasswordInput
+                    {...form.getInputProps('password')}
+                    required
+                    label='Password'
+                    placeholder='Your password'
+                />
 
-                    <PasswordInput
-                        {...form.getInputProps('passwordConfirmation')}
-                        required
-                        label='Password confirmation'
-                        placeholder='Retype your password'
-                    />
+                <PasswordInput
+                    {...form.getInputProps('passwordConfirmation')}
+                    required
+                    label='Password confirmation'
+                    placeholder='Retype your password'
+                />
 
-                    <NumberInput
-                        {...form.getInputProps('age')}
-                        required
-                        placeholder='Your age'
-                        label='Age'
-                        max={120}
-                        min={0}
-                        icon={<TbCalendar size={16} />}
-                    />
+                <NumberInput
+                    {...form.getInputProps('age')}
+                    required
+                    placeholder='Your age'
+                    label='Age'
+                    max={120}
+                    min={0}
+                    icon={<TbCalendar size={16} />}
+                />
 
-                    <TextInput
-                        {...form.getInputProps('contact')}
-                        required
-                        type='tel'
-                        label='Contact number'
-                        placeholder='Your contact number'
-                    />
+                <TextInput
+                    {...form.getInputProps('contact')}
+                    required
+                    type='tel'
+                    label='Contact number'
+                    placeholder='Your contact number'
+                />
 
-                    <TextInput
-                        {...form.getInputProps('passport')}
-                        label='Passport'
-                        placeholder='Your passport number'
-                    />
+                <TextInput
+                    {...form.getInputProps('passport')}
+                    label='Passport'
+                    placeholder='Your passport number'
+                />
 
-                    <Textarea
-                        {...form.getInputProps('address')}
-                        label='Your address'
-                        icon={<TbMapPin size={16} />}
-                    />
+                <Textarea
+                    {...form.getInputProps('address')}
+                    label='Your address'
+                    icon={<TbMapPin size={16} />}
+                />
 
-                    <Checkbox
-                        {...form.getInputProps('terms')}
-                        label='I accept the Terms and Conditions'
-                        />
+                <Checkbox
+                    {...form.getInputProps('terms')}
+                    label='I accept the Terms and Conditions'
+                    required
+                />
 
                 <Group position='apart' mt='xl'>
-                <Anchor
-                    component='button'
-                    type='button'
-                    color='dimmed'
-                    onClick={() => toggle()}
-                    size='xs'
-                >
-                    Already have an account? Login
-                </Anchor>
-                <Button component={Link} to='/login' type='submit'>{upperFirst(type)}</Button>
+                    <Anchor
+                        component={Link}
+                        to='/login'
+                        color='dimmed'
+                        size='xs'
+                    >
+                        Already have an account? Login
+                    </Anchor>
+                    <Button type='submit'>Register</Button>
                 </Group>
             </form>
+        </Container>
+    </div>
     );
 }

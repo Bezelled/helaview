@@ -2,24 +2,20 @@ from asyncio.runners import run
 
 from aiohttp.client import ClientSession
 
-post_url: str = 'http://127.0.0.1/api/tourists/register'
+post_url: str = 'http://127.0.0.1:7788/api/tourists/register'
 
-# userRegistrationKeys = ['first name', 'last name', 'email', 'password', 'password confirmation', 'passport number', 'gender', 'age', 'country', 'address', 'contact number'];
-# jotelRegistrationKeys = ['full name', 'password', 'email', 'address', 'contact number', 'hotel type', 'rating'];
-
-# ${firstName}, ${lastName}, ${email}, ${password}, ${passportNo}, ${age}, ${gender}, ${country}, ${address}, ${contactNo}
 post_data: dict[str, str | int] = {
-    'first name': 'Shane',
-    'last name': 'Dawson',
-    'email': 'shane@google.com',
-    'password': 'Tryst!123',
-    'password confirmation': 'Tryst123',
-    'passport number': 'A21 90457',
-    'age': 13,
+    'first name': 'Hela',
+    'last name': 'Dude',
+    'email': 'shanecna@gmail.com',
+    'password': 'Apiit!123',
+    'password confirmation': 'Apiit!123',
+    'passport number': 'A4167D57',
+    'age': 20,
     'gender': 'M',
     'country': 'LK',
     'address': '4433/1, Test Road, Test, Testcity',
-    'contact number': '0773002117'
+    'contact number': '0781437529'
 }
 
 async def main() -> None:

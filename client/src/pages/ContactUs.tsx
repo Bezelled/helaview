@@ -113,6 +113,7 @@ const useStyles = createStyles((theme) => {
     return {
         wrapper: {
             display: 'flex',
+            overflowY: 'auto',
             backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
             borderRadius: theme.radius.lg,
             padding: 4,
