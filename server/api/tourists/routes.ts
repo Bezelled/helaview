@@ -22,8 +22,6 @@ async function* getTouristRoutes(){
         _filename = `file:///${_dirname}`;
     };
 
-    console.log(`[TOURIST _filename]: ${_filename}`, );
-
     for (const routeFile of readdirSync(_dirname)) {
         
         if ((routeFile === 'routes.js') || (!(routeFile.endsWith('.js'))))

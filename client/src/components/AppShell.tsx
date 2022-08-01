@@ -1,10 +1,9 @@
-import { AppShell, Paper } from '@mantine/core';
+import { AppShell } from '@mantine/core';
 import HelaHeader from './Header';
 import {
   BrowserRouter as Router
 } from 'react-router-dom';
 import HelaFooter from './Footer';
-import HelaHome from '../pages/Home';
 
 const footerLinks = [
   {
@@ -56,9 +55,6 @@ export default function HelaAppShell() {
       <HelaHeader
           mainLinks={[{ link: '/home', label: 'Home' },{ link: '/contactUs', label: 'Contact Us' }, { link: '/aboutUs', label: 'About Us' }, {link: '/login', label: 'Login'}, {link: '/register', label: 'Tourist Register'}]}
           userLinks={[]} />
-        <Paper>
-          <HelaHome />
-        </Paper>
       </Router>
     </AppShell>
   );
