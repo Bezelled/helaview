@@ -92,7 +92,6 @@ export class Emailer {
                 
                 url = `${DOMAIN}/api/tourists/verify/${email}/${verification}`;
                 break;
-                //kssks
             
             case AccountType.Hotel:
                 emailSubject = 'Hotel' + emailSubject;
