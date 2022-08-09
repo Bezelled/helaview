@@ -9,13 +9,13 @@ post_data: dict[str, str | int] = {
     'last name': 'Dude',
     'email': 'shanecna@gmail.com',
     'password': 'Apiit!123',
-    'password confirmation': 'Apiit!123',
+    'password confirmation': 'Assjjdsjdjdjdpiit!123',
     'passport number': 'A4167D57',
     'age': 20,
-    'gender': 'M',
+    'gender': 'DDDJ',
     'country': 'LK',
     'address': '4433/1, Test Road, Test, Testcity',
-    'contact number': '0781437529'
+    'contact number': '07814375293838'
 }
 
 async def main() -> None:

@@ -121,7 +121,7 @@ export async function generateVerificationCode(hdb: Sql<{bigint: bigint;}>, emai
 
     await hdb`
         UPDATE verification_codes SET expired = True WHERE email = ${email}
-        `;  //This should be moved to profile deletion once that feature is implemented.
+    `;  //This should be moved to profile deletion once that feature is implemented.
     
     await hdb`
         INSERT INTO verification_codes

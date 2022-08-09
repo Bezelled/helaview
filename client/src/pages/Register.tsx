@@ -41,7 +41,7 @@ const useStyles = createStyles((theme) => {
         form: {
             boxSizing: 'border-box',
             flex: 1,
-            maxHeight: 500,
+            maxHeight: 650,
             maxWidth: 600,
             alignContent: 'center',
             padding: theme.spacing.xl,
