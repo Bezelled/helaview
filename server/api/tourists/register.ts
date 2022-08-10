@@ -2,7 +2,7 @@
 
 import { Request, Response, Router } from 'express';
 import { hash } from 'bcrypt';
-import { userRegistrationKeys, emailRegExp, passwordRegExp, passportRegExp, addressRegExp, saltRounds, AccountType } from '../../config/globals.js';
+import { userRegistrationKeys, emailRegExp, passwordRegExp, saltRounds, AccountType } from '../../config/globals.js';
 import { validatePostData, generateVerificationCode } from '../../lib/shared.js';
 import hdb from '../../lib/db.js';
 
@@ -68,10 +68,13 @@ export default async function addRoute(router: Router): Promise<void>{
     
         //Validate contact number
     
-        const contactNo: number = Number(req.body['contact number']);   //eslint-disable-line @typescript-eslint/no-inferrable-types
+        let contactNo: number = req.body['contact number'];   //eslint-disable-line @typescript-eslint/no-inferrable-types
         
-        if (Number.isNaN(contactNo) || ((contactNo.toString().length) !== 9))
+        if (Number.isNaN(contactNo) || ((contactNo.toString().length) !== 9)){
             return res.status(400).send({ error: `Please enter a valid phone number.` });
+        } else {
+            contactNo = Number(contactNo);
+        }
     
         //Validate passport number
 
@@ -98,6 +101,18 @@ export default async function addRoute(router: Router): Promise<void>{
                     res.status(400).send({ error: `Please try another password.` });
                     throw err;
                 };
+
+                await hdb`
+                    INSERT INTO users
+                    (
+                        email, hash, account_type
+                    )
+                    VALUES
+                    (
+                        ${email}, ${hashedPassword}, 'Tourist'
+                    )
+                    ON CONFLICT (email) DO NOTHING;
+                `;
                 
                 await hdb`
                     INSERT INTO tourists

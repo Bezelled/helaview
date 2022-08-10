@@ -20,7 +20,7 @@ export const dirname: string = __filename.substring(0, __filename.lastIndexOf('\
 export const saltRounds: number = 10;
 export const threeDays: number = 30 * 24 * 60 * 60 * 1000;
 export const userRegistrationKeys: string[] = ['first name', 'last name', 'email', 'password', 'password confirmation', 'passport number', 'gender', 'age', 'country', 'address', 'contact number'];
-export const hotelRegistrationKeys: string[] = ['full name', 'password', 'email', 'address', 'contact number', 'hotel type', 'rating'];
+export const hotelRegistrationKeys: string[] = ['full name', 'password', 'password confirmation', 'email', 'address', 'contact number', 'hotel type', 'rating'];
 export const userLoginKeys: string[] = ['email', 'password'];
 export const emailer: Emailer = new Emailer();
 
