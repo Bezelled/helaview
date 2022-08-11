@@ -95,7 +95,7 @@ export class Emailer {
             
             case AccountType.Hotel:
                 emailSubject = 'Hotel' + emailSubject;
-                url = `${DOMAIN}/api/hotels/verify/${email}/${verification}`;
+                url = `${DOMAIN}/api/hotels/verify/email/${email}/${verification}`;
                 break;
 
             default:
