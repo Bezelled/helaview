@@ -100,7 +100,28 @@ export class Emailer {
 
             default:
                 return; //We don't want to verify an admin account
-        }
+        };
+
+        url = encodeURI(url);
+
+        const info = await Emailer.transport.sendMail({
+            from: MAIL_USERNAME,
+            to: email,
+            subject: emailSubject,
+            text: 'Please confirm your email account.',
+            html: `Hello,<br> Please click on the link to verify your email.<br><a href="${url}">Click here to verify</a>`
+        });
+        
+        console.log(`[Sent Email]: ${info.messageId}.`);
+    }
+
+    public async sendBookingConfirmationEmail(email: string): Promise<void>{
+        
+        if (Emailer.transport === undefined)
+            await this.createEmailTransport();
+
+        let emailSubject: string = 'Booking confirmation for HelaView';
+        let url: string = '';
 
         url = encodeURI(url);
 

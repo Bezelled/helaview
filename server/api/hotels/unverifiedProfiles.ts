@@ -37,9 +37,10 @@ export default async function addRoute(router: Router): Promise<void>{
         const offset: number = Number(req.params.offset);
 
         const hotelPage = await hdb`
-            SELECT email, name, address, contact_no, hotel_type, rating FROM hotels
-            WHERE email_verified = True AND admin_verified = True id OFFSET ${offset} LIMIT 50;
+            SELECT email, name, address, contact_no, hotel_type, rating, email_verified FROM hotels
+            WHERE admin_verified = False id OFFSET ${offset} LIMIT 50;
         `;
+        
         return hotelPage;
     });
 }
