@@ -6,8 +6,6 @@ import { hotelRegistrationKeys, emailRegExp, passwordRegExp, saltRounds, Account
 import { validatePostData, generateVerificationCode } from '../../lib/shared.js';
 import hdb from '../../lib/db.js';
 
-// export const hotelRegistrationKeys: string[] = ['full name', 'password', 'password confirmation', 'email', 'address', 'contact number', 'hotel type', 'rating'];
-
 export default async function addRoute(router: Router): Promise<void>{
     
     router.post('/hotels/register', async(req: Request, res: Response) => {
