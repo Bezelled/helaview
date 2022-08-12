@@ -4,7 +4,8 @@ import { Request, Response } from 'express';
 import { randomBytes } from 'crypto';
 import  { Sql } from 'postgres';
 import { Transporter, createTransport } from 'nodemailer';
-import { DOMAIN, MAIL_SERVICE, MAIL_USERNAME, MAIL_PASSWORD, emailer, threeDays, AccountType } from '../config/globals.js';
+import { DOMAIN, MAIL_SERVICE, MAIL_USERNAME, MAIL_PASSWORD, emailer, threeDays, AccountType, JWT_SECRET } from '../config/globals.js';
+import { sign } from 'jsonwebtoken';
 
 /**
  * @param {Request} req
@@ -40,6 +41,10 @@ export function validatePostData(req: Request, res: Response, keys: string[]): b
     };
 
     return true;
+}
+
+export function generateJWT(options: object): string{
+    return sign(options, JWT_SECRET);
 }
 
 export class Emailer {

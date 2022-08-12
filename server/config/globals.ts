@@ -14,6 +14,7 @@ export const DOMAIN: string = process.env.NODE_ENV === 'production' ? 'https://h
 export const MAIL_SERVICE: string = process.env.MAIL_SERVICE || '';
 export const MAIL_USERNAME: string = process.env.MAIL_USERNAME || '';
 export const MAIL_PASSWORD: string = process.env.MAIL_PASSWORD || '';
+export const JWT_SECRET: string = process.env.JWT_SECRET || '';
 
 // Constants
 const __filename: string = fileURLToPath(import.meta.url);
