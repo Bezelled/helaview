@@ -2,14 +2,6 @@
 
 //Only for admins
 
-// email citext PRIMARY KEY,
-// name citext NOT NULL,
-// hash citext NOT NULL,
-// address citext NOT NULL unique,
-// contact_no bigint NOT NULL unique,
-// hotel_type citext, -- Nullable at registration
-// rating float(2),  -- Nullable at registration
-
 // CREATE TABLE hotels
 // (
 //     id bigserial,

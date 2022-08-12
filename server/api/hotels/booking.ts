@@ -54,7 +54,7 @@ export default async function addRoute(router: Router): Promise<void>{
             SELECT id FROM tourists WHERE email = ${req.body['tourist email']};
         `;
 
-        const touristDBID: number = touristAccount[0]?.id; //Get the id property if touristAccount[0] is not undefined
+        const touristDBID: number = touristAccount[0]?.id;
     
         if (touristDBID === undefined)
             return res.status(400).send({ error: `That account does not exist. Please consider registering beforehand.` });
@@ -68,7 +68,7 @@ export default async function addRoute(router: Router): Promise<void>{
             SELECT id FROM hotels WHERE email = ${req.body['hotel email']};
         `;
 
-        const hotelDBID: number = hotelAccount[0]?.id; //Get the id property if hotelAccount[0] is not undefined
+        const hotelDBID: number = hotelAccount[0]?.id;
     
         if (hotelDBID === undefined)
             return res.status(400).send({ error: `That account does not exist. Please consider registering beforehand.` });
@@ -85,7 +85,7 @@ export default async function addRoute(router: Router): Promise<void>{
                 SELECT name, expired, end_date, hotels FROM offers WHERE code = ${req.body['offer code']};
             `;
 
-            const offerDBName: string | undefined = offerDetails[0]?.name; //Get the name property if offerDetails[0] is not undefined
+            const offerDBName: string | undefined = offerDetails[0]?.name;
         
             if (offerDBName === undefined)
                 return res.status(400).send({ error: `That offer code does not exist.` });

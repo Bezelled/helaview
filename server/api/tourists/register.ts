@@ -5,6 +5,22 @@ import { hash } from 'bcrypt';
 import { userRegistrationKeys, emailRegExp, passwordRegExp, saltRounds, AccountType } from '../../config/globals.js';
 import { validatePostData, generateVerificationCode } from '../../lib/shared.js';
 import hdb from '../../lib/db.js';
+import { parsePhoneNumber } from 'libphonenumber-js';
+
+// CREATE TABLE tourists
+// (
+//     id bigserial,
+//     email citext PRIMARY KEY,
+//     first_name citext NOT NULL,
+//     last_name citext NOT NULL,
+//     hash citext NOT NULL,
+//     passport_no citext unique,  -- Nullable at registration
+//     age smallint NOT NULL,
+//     gender bool NOT NULL DEFAULT True,
+//     country citext NOT NULL,
+//     contact_no bigint NOT NULL unique,
+//     email_verified bool NOT NULL DEFAULT False
+// );
 
 export default async function addRoute(router: Router): Promise<void>{
     
@@ -68,13 +84,14 @@ export default async function addRoute(router: Router): Promise<void>{
     
         //Validate contact number
     
-        let contactNo: number = req.body['contact number'];   //eslint-disable-line @typescript-eslint/no-inferrable-types
+        let contactNo: number | string = req.body['contact number'];   //eslint-disable-line @typescript-eslint/no-inferrable-types
         
-        if (Number.isNaN(contactNo) || ((contactNo.toString().length) !== 9)){
-            return res.status(400).send({ error: `Please enter a valid phone number.` });
-        } else {
-            contactNo = Number(contactNo);
-        }
+        try{
+            const phoneNumber = parsePhoneNumber(String(contactNo));
+            contactNo = Number(phoneNumber.number);
+        } catch (err){
+            return res.status(400).send({ error: `Please enter a valid phone number. Example: ` });
+        };
     
         //Validate passport number
 
@@ -82,13 +99,6 @@ export default async function addRoute(router: Router): Promise<void>{
     
         // if (!(passportRegExp.test(passportNo)))
         //     return res.status(400).send({ error: `Please enter a valid passport number.` });
-    
-        //Validate address
-    
-        const address: string = req.body.address;
-    
-        // if (!(addressRegExp.test(address)))
-        //     return res.status(400).send({ error: `Please enter a valid address.` });
     
         const country = req.body.country;
 
@@ -117,11 +127,11 @@ export default async function addRoute(router: Router): Promise<void>{
                 await hdb`
                     INSERT INTO tourists
                     (
-                        first_name, last_name, email, hash, passport_no, age, gender, country, address, contact_no
+                        email, first_name, last_name, hash, passport_no, age, gender, country, contact_no
                     )
                     VALUES
                     (
-                        ${firstName}, ${lastName}, ${email}, ${hashedPassword}, ${passportNo}, ${age}, ${gender}, ${country}, ${address}, ${contactNo}
+                        ${email}, ${firstName}, ${lastName}, ${hashedPassword}, ${passportNo}, ${age}, ${gender}, ${country}, ${contactNo}
                     )
                     ON CONFLICT (email) DO NOTHING;
                 `;
@@ -129,8 +139,8 @@ export default async function addRoute(router: Router): Promise<void>{
 
             await generateVerificationCode(hdb, email, AccountType.Tourist);
     
-            console.log(`[Account created]: ${firstName}, ${lastName}, ${gender}, ${email}, ${password}, ${passwordConfirmation}, ${passportNo}, ${age}, ${address}, ${contactNo}.`);
-            res.status(200).send({ success: `Your account ${firstName} has been created.`});
+            console.log(`[Account created]: ${email}, ${firstName}, ${lastName}, ${password}, ${passportNo}, ${age}, ${gender}, ${country}, ${contactNo}.`);
+            res.status(200).send({ success: `Your account ${firstName} has been created under ${email}.`});
         } catch (err: Error | unknown){
             //Pass
         }

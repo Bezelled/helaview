@@ -21,7 +21,7 @@ export default async function addRoute(router: Router): Promise<void>{
             SELECT hash, account_type FROM users WHERE email = ${email};
         `;
 
-        const hash: string | undefined = accountDetails[0]?.hash; //Get the hash property if accountDetails[0] is not undefined
+        const hash: string | undefined = accountDetails[0]?.hash;
     
         if (hash === undefined)
             return res.status(400).send({ error: `That account does not exist. Please consider registering beforehand.` });

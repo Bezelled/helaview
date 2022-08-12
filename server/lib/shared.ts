@@ -55,16 +55,18 @@ export class Emailer {
      */
     private async createEmailTransport(): Promise<void>{
     
-        Emailer._transport = createTransport({
-            service: MAIL_SERVICE,
-            port: 587,
-            secure: false, // true for 465, false for other ports
-            auth: {
-                user: MAIL_USERNAME,
-                pass: MAIL_PASSWORD,
-            },
-            logger: true
-        });
+        if (Emailer.transport === undefined){
+            Emailer._transport = createTransport({
+                service: MAIL_SERVICE,
+                port: 587,
+                secure: false, // true for 465, false for other ports
+                auth: {
+                    user: MAIL_USERNAME,
+                    pass: MAIL_PASSWORD,
+                },
+                logger: true
+            });
+        };
     }
 
     /**
@@ -79,8 +81,7 @@ export class Emailer {
      */
     public async sendVerificationEmail(email: string, senderType: AccountType, verification: string): Promise<void>{
         
-        if (Emailer.transport === undefined)
-            await this.createEmailTransport();
+        await this.createEmailTransport();
 
         let emailSubject: string = ' account verification for HelaView';
         let url: string = '';
@@ -117,8 +118,7 @@ export class Emailer {
 
     public async sendBookingConfirmationEmail(email: string): Promise<void>{
         
-        if (Emailer.transport === undefined)
-            await this.createEmailTransport();
+        await this.createEmailTransport();
 
         let emailSubject: string = 'Booking confirmation for HelaView';
         let url: string = '';
@@ -140,9 +140,12 @@ export class Emailer {
 export async function generateVerificationCode(hdb: Sql<{bigint: bigint;}>, email: string, accountType: AccountType){
     const token: string = randomBytes(50).toString('hex'); //Generate a token
 
-    await hdb`
-        UPDATE verification_codes SET expired = True WHERE email = ${email}
-    `;  //This should be moved to profile deletion once that feature is implemented.
+    //Expire previous verification codes if in development mode
+    if (process.env.NODE_ENV !== 'production'){
+        await hdb`
+            UPDATE verification_codes SET expired = True WHERE email = ${email}
+        `;
+    };
     
     await hdb`
         INSERT INTO verification_codes
@@ -182,12 +185,12 @@ export async function verifyAccount(hdb: Sql<{bigint: bigint;}>, req: Request, r
             switch (accountType){
                 case AccountType.Tourist:
                     await hdb`
-                        UPDATE tourists SET verified = True WHERE email = ${email};
+                        UPDATE tourists SET email_verified = True WHERE email = ${email};
                     `;
                     break;
                 case AccountType.Hotel:
                     await hdb`
-                        UPDATE hotels SET verified = True WHERE email = ${email};
+                        UPDATE hotels SET email_verified = True WHERE email = ${email};
                     `;
                     break;
             };
