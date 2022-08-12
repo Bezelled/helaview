@@ -1,6 +1,6 @@
 'use strict';
 
-import { Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
 import { randomBytes } from 'crypto';
 import  { Sql } from 'postgres';
 import { Transporter, createTransport } from 'nodemailer';
@@ -152,7 +152,7 @@ export class Emailer {
     }
 }
 
-export async function* getRoutes(filename: string, fileType: string): AsyncGenerator<any, void, unknown>{
+async function* getRoutes(filename: string, fileType: string): AsyncGenerator<any, void, unknown>{
 
     let _dirname: string = '';
     let _filename: string = '';
@@ -172,6 +172,14 @@ export async function* getRoutes(filename: string, fileType: string): AsyncGener
         
         console.log(`[Adding ${fileType} route]: ${routeFile}.`);
         yield await import(join(_filename, routeFile));
+    };
+}
+
+export async function addRoutes(filename: string, fileType: string, router: Router): Promise<void>{
+    for await (const {default: route} of getRoutes(filename, fileType)) {
+        
+        if (typeof route === 'function')
+            route(router);
     };
 }
 
