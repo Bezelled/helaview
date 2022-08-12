@@ -3,6 +3,7 @@
 import dotenv from 'dotenv';
 import { Data } from 'dataclass';
 import { fileURLToPath } from 'url';
+import { platform } from 'os';
 import { Emailer } from '../lib/shared.js';
 
 dotenv.config();    //To load our .env file for environmental variables
@@ -19,12 +20,12 @@ export const JWT_SECRET: string = process.env.JWT_SECRET || '';
 // Constants
 const __filename: string = fileURLToPath(import.meta.url);
 export const dirname: string = __filename.substring(0, __filename.lastIndexOf('\\server'));
+export const helaPlatform: string = platform();
 export const saltRounds: number = 10;
 export const threeDays: number = 30 * 24 * 60 * 60 * 1000;
 export const userRegistrationKeys: string[] = ['first name', 'last name', 'email', 'password', 'password confirmation', 'passport number', 'gender', 'age', 'country', 'address', 'contact number'];
 export const hotelRegistrationKeys: string[] = ['full name', 'password', 'password confirmation', 'email', 'address', 'contact number', 'hotel type', 'rating'];
 export const userLoginKeys: string[] = ['email', 'password'];
-export const emailer: Emailer = new Emailer();
 
 //Regular expressions
 
@@ -41,19 +42,19 @@ export enum AccountType {
     Admin = 3
 }
 
-// @ts-ignore
-export class Booking extends Data{
-    id: number;
-    email: string;
-    hotelId: number;
-    hotelEmail: string;
-    checkIn: Date;
-    checkOut: Date;
-    numOfAdults: number;
-    numOfChildren: number;
-    numOfBabies: number;
-    numOfRooms: number;
-    numOfNights: number;
-    pricePerNight: number;
-    price: number;
-}
+// // @ts-ignore
+// export class Booking extends Data{
+//     id: number;
+//     email: string;
+//     hotelId: number;
+//     hotelEmail: string;
+//     checkIn: Date;
+//     checkOut: Date;
+//     numOfAdults: number;
+//     numOfChildren: number;
+//     numOfBabies: number;
+//     numOfRooms: number;
+//     numOfNights: number;
+//     pricePerNight: number;
+//     price: number;
+// }

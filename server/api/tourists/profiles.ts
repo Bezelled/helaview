@@ -30,7 +30,7 @@ export default async function addRoute(router: Router): Promise<void>{
         `;
 
         if (Number.isNaN(req.params.offset))
-            return res.status(400).send({error: 'Please enter a valid, integer offset.'});
+            return res.status(400).json({error: 'Please enter a valid, integer offset.'});
 
         const offset: number = Number(req.params.offset);
 
@@ -40,6 +40,6 @@ export default async function addRoute(router: Router): Promise<void>{
         `;
 
         console.log(req);
-        return res.status(200).send({message: 'Hi'});
+        return res.status(200).json({message: 'Hi'});
     });
 }

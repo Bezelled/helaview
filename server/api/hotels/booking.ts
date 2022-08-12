@@ -37,14 +37,14 @@ export default async function addRoute(router: Router): Promise<void>{
         //Validate amount
 
         if (Number.isNaN(req.body.amount))
-            return res.status(400).send({error: 'Please enter a valid booking price.'});
+            return res.status(400).json({error: 'Please enter a valid booking price.'});
 
         const amount: number = Number(req.body.amount);
 
         //Validate head count
 
         if (Number.isNaN(req.body['head count']))
-            return res.status(400).send({error: 'Please enter a valid head count.'});
+            return res.status(400).json({error: 'Please enter a valid head count.'});
 
         const headCount: number = Number(req.body['head count']);
 
@@ -57,7 +57,7 @@ export default async function addRoute(router: Router): Promise<void>{
         const touristDBID: number = touristAccount[0]?.id;
     
         if (touristDBID === undefined)
-            return res.status(400).send({ error: `That account does not exist. Please consider registering beforehand.` });
+            return res.status(400).json({ error: `That account does not exist. Please consider registering beforehand.` });
 
         const touristID: number = Number(touristDBID);
         const touristEmail: string = req.body['tourist email'];
@@ -71,7 +71,7 @@ export default async function addRoute(router: Router): Promise<void>{
         const hotelDBID: number = hotelAccount[0]?.id;
     
         if (hotelDBID === undefined)
-            return res.status(400).send({ error: `That account does not exist. Please consider registering beforehand.` });
+            return res.status(400).json({ error: `That account does not exist. Please consider registering beforehand.` });
 
         const hotelID: number = Number(hotelDBID);
         const hotelEmail: string = req.body['hotel email'];
@@ -88,12 +88,12 @@ export default async function addRoute(router: Router): Promise<void>{
             const offerDBName: string | undefined = offerDetails[0]?.name;
         
             if (offerDBName === undefined)
-                return res.status(400).send({ error: `That offer code does not exist.` });
+                return res.status(400).json({ error: `That offer code does not exist.` });
 
             const offerDBExpired: boolean = offerDetails[0]?.expired;
 
             if (offerDBExpired === true){
-                return res.status(400).send({ error: `That offer code has expired.` });
+                return res.status(400).json({ error: `That offer code has expired.` });
             } else {
                 
                 if (offerDetails[0].end_date !== null){
@@ -107,7 +107,7 @@ export default async function addRoute(router: Router): Promise<void>{
                             UPDATE offers SET expired = True WHERE code = ${req.body['offer code']};
                         `;
                         
-                        return res.status(400).send({ error: `That offer code has expired.` });
+                        return res.status(400).json({ error: `That offer code has expired.` });
                     };
                 };
             };
@@ -127,7 +127,7 @@ export default async function addRoute(router: Router): Promise<void>{
             );
         `;
 
-        return res.status(200).send({ message: `Your booking is confirmed for ${startDate}. You will receive an e-mail shortly.` });
+        return res.status(200).json({ message: `Your booking is confirmed for ${startDate}. You will receive an e-mail shortly.` });
     });
 
 }

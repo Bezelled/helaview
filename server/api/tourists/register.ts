@@ -36,7 +36,7 @@ export default async function addRoute(router: Router): Promise<void>{
         const email: string = req.body.email;
     
         if (!(emailRegExp.test(email)))
-            return res.status(400).send({ error: `Please enter a valid e-mail address.` });
+            return res.status(400).json({ error: `Please enter a valid e-mail address.` });
     
         const exists = await hdb`
             SELECT true FROM tourists where email = ${email};
@@ -45,7 +45,7 @@ export default async function addRoute(router: Router): Promise<void>{
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         if (exists === undefined)
-            return res.status(400).send({ error: `An account under that e-mail address already exists.` });
+            return res.status(400).json({ error: `An account under that e-mail address already exists.` });
     
         // Validate names
     
@@ -60,15 +60,15 @@ export default async function addRoute(router: Router): Promise<void>{
         const passwordConfirmation: string = req.body['password confirmation'];
     
         if (password !== passwordConfirmation)
-            return res.status(400).send({ error: `Passwords must match.` });
+            return res.status(400).json({ error: `Passwords must match.` });
     
         if (!(passwordRegExp.test(password)))
-            return res.status(400).send({ error: `Please enter a valid, 8 to 20 character length password, consisting of upper & lower case alphanumeric and special characters.` });
+            return res.status(400).json({ error: `Please enter a valid, 8 to 20 character length password, consisting of upper & lower case alphanumeric and special characters.` });
     
         //Validate gender
     
         if (['M', 'F'].indexOf(req.body.gender) === -1)
-            return res.status(400).send({ error: `Please select a valid gender: 'M' or 'F'.` });
+            return res.status(400).json({ error: `Please select a valid gender: 'M' or 'F'.` });
             
         const gender: boolean = (req.body.gender === 'M');
     
@@ -77,10 +77,10 @@ export default async function addRoute(router: Router): Promise<void>{
         const age: number = req.body.age;
     
         if ((Number.isNaN(age) || (age < 0) || (age > 120)))
-            return res.status(400).send({ error: `Please input a valid age.` });
+            return res.status(400).json({ error: `Please input a valid age.` });
     
         if (age <  13)
-            return res.status(400).send({ error: `You need to be at least 13 years old to have an account.` });
+            return res.status(400).json({ error: `You need to be at least 13 years old to have an account.` });
     
         //Validate contact number
     
@@ -90,7 +90,7 @@ export default async function addRoute(router: Router): Promise<void>{
             const phoneNumber = parsePhoneNumber(String(contactNo));
             contactNo = Number(phoneNumber.number);
         } catch (err){
-            return res.status(400).send({ error: `Please enter a valid phone number. Example: ` });
+            return res.status(400).json({ error: `Please enter a valid phone number. Example: ` });
         };
     
         //Validate passport number
@@ -98,7 +98,7 @@ export default async function addRoute(router: Router): Promise<void>{
         const passportNo: string = req.body['passport number'];
     
         // if (!(passportRegExp.test(passportNo)))
-        //     return res.status(400).send({ error: `Please enter a valid passport number.` });
+        //     return res.status(400).json({ error: `Please enter a valid passport number.` });
     
         const country = req.body.country;
 
@@ -108,7 +108,7 @@ export default async function addRoute(router: Router): Promise<void>{
             hash(password, saltRounds, async(err: Error | unknown, hashedPassword: string) => {
                 
                 if (err !== undefined){
-                    res.status(400).send({ error: `Please try another password.` });
+                    res.status(400).json({ error: `Please try another password.` });
                     throw err;
                 };
 
@@ -140,7 +140,7 @@ export default async function addRoute(router: Router): Promise<void>{
             await generateVerificationCode(hdb, email, AccountType.Tourist);
     
             console.log(`[Account created]: ${email}, ${firstName}, ${lastName}, ${password}, ${passportNo}, ${age}, ${gender}, ${country}, ${contactNo}.`);
-            res.status(200).send({ success: `Your account ${firstName} has been created under ${email}.`});
+            res.status(200).json({ success: `Your account ${firstName} has been created under ${email}.`});
         } catch (err: Error | unknown){
             //Pass
         }

@@ -20,7 +20,7 @@ export default async function addRoute(router: Router): Promise<void>{
         const email: string = req.body.email;
     
         if (!(emailRegExp.test(email)))
-            return res.status(400).send({ error: `Please enter a valid e-mail address.` });
+            return res.status(400).json({ error: `Please enter a valid e-mail address.` });
     
         const exists = await hdb`
             SELECT true FROM hotels where email = ${email};
@@ -29,7 +29,7 @@ export default async function addRoute(router: Router): Promise<void>{
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         if (exists === undefined)
-            return res.status(400).send({ error: `An account under that e-mail address already exists.` });
+            return res.status(400).json({ error: `An account under that e-mail address already exists.` });
     
         // Validate names
     
@@ -43,17 +43,17 @@ export default async function addRoute(router: Router): Promise<void>{
         const passwordConfirmation: string = req.body['password confirmation'];
     
         if (password !== passwordConfirmation)
-            return res.status(400).send({ error: `Passwords must match.` });
+            return res.status(400).json({ error: `Passwords must match.` });
     
         if (!(passwordRegExp.test(password)))
-            return res.status(400).send({ error: `Please enter a valid, 8 to 20 character length password, consisting of upper & lower case alphanumeric and special characters.` });
+            return res.status(400).json({ error: `Please enter a valid, 8 to 20 character length password, consisting of upper & lower case alphanumeric and special characters.` });
     
         //Validate contact number
     
         let contactNo: number = req.body['contact number'];   //eslint-disable-line @typescript-eslint/no-inferrable-types
         
         if (Number.isNaN(contactNo) || ((contactNo.toString().length) !== 9)){
-            return res.status(400).send({ error: `Please enter a valid phone number.` });
+            return res.status(400).json({ error: `Please enter a valid phone number.` });
         } else {
             contactNo = Number(contactNo);
         };
@@ -70,7 +70,7 @@ export default async function addRoute(router: Router): Promise<void>{
         } else {
             
             if (Number.isNaN(rating) || (Number(rating) >= 0  && Number(rating) <= 5)){
-                return res.status(400).send({ error: `Please enter a valid hotel rating between 0.00 and 5.00, or select 'Unrated'.` });
+                return res.status(400).json({ error: `Please enter a valid hotel rating between 0.00 and 5.00, or select 'Unrated'.` });
             } else {
                 rating = Number(rating);
             };
@@ -83,7 +83,7 @@ export default async function addRoute(router: Router): Promise<void>{
             hash(password, saltRounds, async(err: Error | unknown, hashedPassword: string) => {
                 
                 if (err !== undefined){
-                    res.status(400).send({ error: `Please try another password.` });
+                    res.status(400).json({ error: `Please try another password.` });
                     throw err;
                 };
 
@@ -115,7 +115,7 @@ export default async function addRoute(router: Router): Promise<void>{
             await generateVerificationCode(hdb, email, AccountType.Hotel);
     
             console.log(`[Account created]: ${fullName}, ${email}, ${password}, ${passwordConfirmation}, ${address}, ${contactNo}.`);
-            res.status(200).send({ success: `Your account ${fullName} has been created.`});
+            res.status(200).json({ success: `Your account ${fullName} has been created.`});
         } catch (err: Error | unknown){
             //Pass
         }

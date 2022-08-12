@@ -15,7 +15,7 @@ export default async function addRoute(router: Router): Promise<void>{
     router.post('/hotels/verify/id/:id/:token', async(req: Request, res: Response) => {
         
         if (Number.isNaN(req.params.id))
-            return res.status(400).send({error: 'Please enter a valid hotel ID.'});
+            return res.status(400).json({error: 'Please enter a valid hotel ID.'});
 
         const hotelID: number = Number(req.params.id);
         const adminToken: string = req.params.token;

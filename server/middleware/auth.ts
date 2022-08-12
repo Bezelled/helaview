@@ -1,8 +1,11 @@
 'use strict';
 
 import { Request, Response, NextFunction } from 'express';
-import { HelaJWTPayload, verify } from 'jsonwebtoken';
-import { AccountType, JWT_SECRET } from 'server/config/globals';
+import { AccountType, JWT_SECRET } from '../config/globals.js';
+
+import jwt, { HelaJWTPayload } from 'jsonwebtoken';
+
+const { verify } = jwt;
 
 //Authenticate users
 
@@ -11,14 +14,14 @@ import { AccountType, JWT_SECRET } from 'server/config/globals';
  * 
  * @param accountType the account type that can access that endpoint
  */
-export default async function authenticateJWT(accountType: AccountType): Promise<(request: Request, response: Response, next: NextFunction) => void> {
+export const authenticateJWT = (accountType: AccountType) => {
     return async (request: Request, response: Response, next: NextFunction) => {
         try {
             const authHeader: string | undefined = request.headers['authorization'];
             const token: string | undefined = authHeader && authHeader.split(' ')[1];
             
             if (token == null)
-                return response.sendStatus(401);
+                return response.status(401).json({ error: 'Unauthorized access. Please login and re-try.' });
 
             const { clientAccountType } = <HelaJWTPayload>verify(token, JWT_SECRET);
             const hasAccess: boolean = clientAccountType === accountType;

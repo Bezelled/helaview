@@ -15,7 +15,7 @@ export default async function addRoute(router: Router): Promise<void>{
         const hotelDBID: number = hotelAccount[0]?.id;
     
         if (hotelDBID === undefined)
-            return res.status(400).send({ error: `That hotel account does not exist.` });
+            return res.status(400).json({ error: `That hotel account does not exist.` });
 
         // TODO: Deleting profile logic - delete all bookings, offers, and reviews
 
@@ -25,10 +25,10 @@ export default async function addRoute(router: Router): Promise<void>{
                 DELETE FROM verification_codes WHERE email = ${email};
             `;
         } catch(err){
-            return res.status(400).send({ error: `Could not delete your hotel profile, please contact Hela Support.` });
+            return res.status(400).json({ error: `Could not delete your hotel profile, please contact Hela Support.` });
         };
         
-        return res.status(200).send({ message: `Successfully deleted your hotel profile.` });
+        return res.status(200).json({ message: `Successfully deleted your hotel profile.` });
     });
 
 }
