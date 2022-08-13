@@ -1,10 +1,8 @@
 'use strict';
 
 import dotenv from 'dotenv';
-import { Data } from 'dataclass';
 import { fileURLToPath } from 'url';
 import { platform } from 'os';
-import { Emailer } from '../lib/shared.js';
 
 dotenv.config();    //To load our .env file for environmental variables
 
@@ -41,20 +39,3 @@ export enum AccountType {
     Hotel = 1,
     Admin = 3
 }
-
-// // @ts-ignore
-// export class Booking extends Data{
-//     id: number;
-//     email: string;
-//     hotelId: number;
-//     hotelEmail: string;
-//     checkIn: Date;
-//     checkOut: Date;
-//     numOfAdults: number;
-//     numOfChildren: number;
-//     numOfBabies: number;
-//     numOfRooms: number;
-//     numOfNights: number;
-//     pricePerNight: number;
-//     price: number;
-// }
