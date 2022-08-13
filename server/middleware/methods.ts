@@ -5,9 +5,8 @@ import { Request, Response, NextFunction } from 'express';
 
 export default function onlyAllowPosts(request: Request, response: Response, next: NextFunction) {
     
-    if (request.method !== 'POST') {
+    if (request.method !== 'POST')
         return response.status(401).send(`Method ${request.method} not allowed!`);
-    };
     
     next();
 }
