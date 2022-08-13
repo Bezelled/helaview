@@ -8,6 +8,7 @@ import { DOMAIN, MAIL_SERVICE, MAIL_USERNAME, MAIL_PASSWORD, helaPlatform, three
 import { readdirSync } from 'fs';
 import { join }  from 'path';
 import jwt from 'jsonwebtoken';
+import { HelaEmail } from 'index.js';
 
 const { sign } = jwt;
 
@@ -150,6 +151,27 @@ export class Emailer {
         
         console.log(`[Sent Email]: ${info.messageId}.`);
     }
+
+    /**
+     * Send an e-mail.
+     * 
+     * @param {HelaEmail} email
+     *  The HelaEmail object to parse.
+     */
+    public static async sendEmail(email: HelaEmail): Promise<void>{
+        
+        Emailer.createEmailTransport();
+        
+        const info = await Emailer.transport.sendMail({
+            from: MAIL_USERNAME,
+            to: email.recipient,
+            subject: email.subject,
+            text: email.text,
+            html: email.html
+        });
+        
+        console.log(`[Sent Email]: ${info.messageId}.`);
+    }
 }
 
 async function* getRoutes(filename: string, fileType: string): AsyncGenerator<any, void, unknown>{
@@ -239,7 +261,7 @@ export async function verifyAccount(hdb: Sql<{bigint: bigint;}>, req: Request, r
                     `;
             };
 
-            return res.status(200).json({ message: `Your account has been successfully verified!` });
+            return res.status(200).json({ message: `Your account e-mail has been successfully verified!` });
         } else {
             return res.status(400).json({ error: `This code is expired. Please resend your verification e-mail from your Profile page.` });
         };

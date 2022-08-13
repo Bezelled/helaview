@@ -5,3 +5,10 @@ declare module 'jsonwebtoken' {
         accountType: AccountType
     }
 }
+
+interface HelaEmail{
+    recipient: string;
+    subject: string;
+    text: string;
+    html: string;
+}
