@@ -7,7 +7,7 @@ post_url: str = 'http://127.0.0.1:7788/api/tourists/register'
 post_data: dict[str, str | int] = {
     'first name': 'Hela',
     'last name': 'Dude',
-    'email': 'shanecna@gmail.com',
+    'email': 'aaaa@gmail.com',
     'password': 'Apiit!123',
     'password confirmation': 'Assjjdsjdjdjdpiit!123',
     'passport number': 'A4167D57',
