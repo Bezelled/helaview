@@ -20,8 +20,9 @@ export default async function addRoute(router: Router): Promise<void>{
         // TODO: Deleting profile logic - delete all bookings, offers, and reviews
 
         try{
-            const deleteResult = await hdb`
+            await hdb`
                 DELETE FROM hotels WHERE email = ${email};
+                DELETE FROM bookings WHERE email = ${email};
                 DELETE FROM verification_codes WHERE email = ${email};
             `;
         } catch(err){
