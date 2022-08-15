@@ -86,7 +86,7 @@ export default ({
       quote:
         "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
       customerName: "Charlotte Hale",
-      customerTitle: "CEO, Delos Inc."
+      customerTitle: "CEO, Cambio"
     },
     {
       stars: 5,
@@ -96,7 +96,7 @@ export default ({
       quote:
         "Sinor Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
       customerName: "Adam Cuppy",
-      customerTitle: "Founder, EventsNYC"
+      customerTitle: "Founder, Virtusa"
     }
   ]
 }) => {

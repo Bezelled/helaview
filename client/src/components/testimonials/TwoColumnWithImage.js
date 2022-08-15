@@ -81,7 +81,7 @@ export default () => {
       quote:
         "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
       customerName: "Charlotte Hale",
-      customerTitle: "CEO, Delos Inc."
+      customerTitle: "CEO, Cambio"
     },
     {
       imageSrc:
@@ -89,7 +89,7 @@ export default () => {
       quote:
         "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
       customerName: "Adam Cuppy",
-      customerTitle: "Founder, EventsNYC"
+      customerTitle: "Founder, Virtusa"
     },
     {
       imageSrc:

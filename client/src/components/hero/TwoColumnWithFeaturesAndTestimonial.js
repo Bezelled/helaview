@@ -48,7 +48,7 @@ export default ({
   testimonial = {
     quote: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     customerName: "Charlotte Hale",
-    customerCompany: "Delos Inc."
+    customerCompany: "Cambio"
   }
 }) => {
   const buttonRoundedCss = buttonRounded && tw`rounded-full`;

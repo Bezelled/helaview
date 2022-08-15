@@ -33,7 +33,7 @@ export default ({textOnLeft = false}) => {
   const statistics = [
     {
       key: "Hotels",
-      value: "479",
+      value: "126",
     },
     {
       key: "Rooms",
