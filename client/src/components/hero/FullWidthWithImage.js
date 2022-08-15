@@ -3,14 +3,14 @@ import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
 
-import Header, { NavLinks, NavLink as NavLinkBase } from "../headers/light.js";
+import Header, { NavLinks, NavLink as NavLinkBase, LogoLink } from "../headers/light.js";
 
-// const StyledHeader = styled(Header)`
-//   ${tw`justify-between`}
-//   ${LogoLink} {
-//     ${tw`mr-8 pb-0`}
-//   }
-// `;
+const StyledHeader = styled(Header)`
+  ${tw`justify-between`}
+  ${LogoLink} {
+    ${tw`mr-8 pb-0`}
+  }
+`;
 
 const NavLink = tw(NavLinkBase)`
   sm:text-sm sm:mx-6
@@ -66,10 +66,9 @@ export default ({
 }) => {
   return (
     <Container>
-      <Header />
       <TwoColumn>
         <LeftColumn>
-          {/* <StyledHeader links={navLinks} collapseBreakpointClass="sm" /> */}
+          <StyledHeader links={navLinks} collapseBreakpointClass="sm" />
           <Content>
             <Heading>{heading}</Heading>
             <Paragraph>{description}</Paragraph>

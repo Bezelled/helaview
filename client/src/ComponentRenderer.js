@@ -3,20 +3,19 @@ import { useParams } from 'react-router-dom';
 import AnimationRevealPage from "helpers/AnimationRevealPage.js"
 
 import EventLandingPage from "demos/EventLandingPage.js";
-import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
+import HelaLandingPage from "pages/LandingPage.js";
 import AgencyLandingPage from "demos/AgencyLandingPage.js";
 import SaaSProductLandingPage from "demos/SaaSProductLandingPage.js";
 import RestaurantLandingPage from "demos/RestaurantLandingPage.js";
 import ServiceLandingPage from "demos/ServiceLandingPage.js";
 import HostingCloudLandingPage from "demos/HostingCloudLandingPage.js";
-
-import EventLandingPageImageSrc from "images/demo/EventLandingPage.jpeg";
-import HotelTravelLandingPageImageSrc from "images/demo/HotelTravelLandingPage.jpeg";
-import AgencyLandingPageImageSrc from "images/demo/AgencyLandingPage.jpeg";
-import SaaSProductLandingPageImageSrc from "images/demo/SaaSProductLandingPage.jpeg";
-import RestaurantLandingPageImageSrc from "images/demo/RestaurantLandingPage.jpeg";
-import ServiceLandingPageImageSrc from "images/demo/ServiceLandingPage.jpeg";
-import HostingCloudLandingPageImageSrc from "images/demo/HostingCloudLandingPage.jpeg";
+import EventLandingPageImageSrc from "./images/demo/EventLandingPage.jpeg";
+import HotelTravelLandingPageImageSrc from "./images/demo/HotelTravelLandingPage.jpeg";
+import AgencyLandingPageImageSrc from "./images/demo/AgencyLandingPage.jpeg";
+import SaaSProductLandingPageImageSrc from "./images/demo/SaaSProductLandingPage.jpeg";
+import RestaurantLandingPageImageSrc from "./images/demo/RestaurantLandingPage.jpeg";
+import ServiceLandingPageImageSrc from "./images/demo/ServiceLandingPage.jpeg";
+import HostingCloudLandingPageImageSrc from "./images/demo/HostingCloudLandingPage.jpeg";
 
 
 import LoginPage from "pages/Login.js";
@@ -107,10 +106,10 @@ export const components = {
       imageSrc: RestaurantLandingPageImageSrc,
       url: "/components/landingPages/RestaurantLandingPage",
     },
-    HotelTravelLandingPage: {
-      component: HotelTravelLandingPage,
+    HelaLandingPage: {
+      component: HelaLandingPage,
       imageSrc: HotelTravelLandingPageImageSrc,
-      url: "/components/landingPages/HotelTravelLandingPage",
+      url: "/components/landingPagesLandingPage",
     },
     SaaSProductLandingPage: {
       component: SaaSProductLandingPage,

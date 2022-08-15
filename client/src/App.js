@@ -4,7 +4,7 @@ import React from "react";
 import { css } from "styled-components/macro"; //eslint-disable-line
 
 import ComponentRenderer from "ComponentRenderer.js";
-import HotelTravelLandingPage from "./demos/HotelTravelLandingPage";
+import HelaLandingPage from "./pages/LandingPage";
 import ThankYouPage from "ThankYouPage.js";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -48,7 +48,7 @@ export default function App() {
           <TermsOfService />
         </Route>
         <Route path="/">
-          <HotelTravelLandingPage />
+          <HelaLandingPage />
         </Route>
       </Switch>
     </Router>
