@@ -57,7 +57,7 @@ export default async function addRoute(router: Router): Promise<void>{
         const touristDBID: number = touristAccount[0]?.id;
     
         if (touristDBID === undefined)
-            return res.status(400).json({ error: `That account does not exist. Please consider registering beforehand.` });
+            return res.status(400).json({ error: `That tourist account does not exist. Please consider registering beforehand.` });
 
         const touristID: number = Number(touristDBID);
         const touristEmail: string = req.body['tourist email'];
@@ -71,7 +71,7 @@ export default async function addRoute(router: Router): Promise<void>{
         const hotelDBID: number = hotelAccount[0]?.id;
     
         if (hotelDBID === undefined)
-            return res.status(400).json({ error: `That account does not exist. Please consider registering beforehand.` });
+            return res.status(400).json({ error: `That hotel account does not exist. Please consider registering beforehand.` });
 
         const hotelID: number = Number(hotelDBID);
         const hotelEmail: string = req.body['hotel email'];

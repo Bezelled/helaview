@@ -15,6 +15,7 @@ import hdb from '../../lib/db.js';
 export default async function addRoute(router: Router): Promise<void>{
     
     router.post('/admin/rejectTourists', async(req: Request, res: Response) => {
+        // eslint-disable-next-line prefer-const
         let { id, name, message } = req.body;
         
         if (Number.isNaN(id))
