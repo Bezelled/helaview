@@ -87,7 +87,7 @@ export default ({
     {
       postImageSrc:
         "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=768&q=80",
-      title: "Choosing the perfect Safaris in Africa",
+      title: "Choosing the perfect Safaris in Yala",
       authorName: "Sam Phipphen",
       url: "https://reddit.com"
     },

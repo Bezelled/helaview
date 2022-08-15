@@ -44,7 +44,7 @@ export default ({ headingText = "Privacy Policy" }) => {
             <Heading>{headingText}</Heading>
           </HeadingRow>
           <Text>
-            <p>Last updated: April 21, 2022</p>
+            <p>Last updated: August 19, 2022</p>
 
             <p>
               This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your
@@ -97,7 +97,7 @@ export default ({ headingText = "Privacy Policy" }) => {
                 <strong>Service</strong> refers to the Website.
               </li>
               <li>
-                <strong>Country</strong> refers to: Maharashtra, India
+                <strong>Country</strong> refers to Sri Lanka.
               </li>
               <li>
                 <p>

@@ -32,20 +32,12 @@ export default ({textOnLeft = false}) => {
   //Change the statistics variable as you like, add or delete objects
   const statistics = [
     {
-      key: "Countries",
-      value: "192",
-    },
-    {
       key: "Hotels",
       value: "479",
     },
     {
       key: "Rooms",
       value: "2093",
-    },
-    {
-      key: "Workers",
-      value: "10347",
     }
   ]
 

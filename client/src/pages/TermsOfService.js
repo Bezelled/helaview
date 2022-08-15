@@ -35,7 +35,7 @@ const Text = styled.div`
   }
 `;
 
-export default ({ headingText = "Terms And Condition" }) => {
+export default ({ headingText = "Terms And Conditions" }) => {
   return (
     <AnimationRevealPage>
       <Header />
@@ -46,9 +46,9 @@ export default ({ headingText = "Terms And Condition" }) => {
           </HeadingRow>
           <Text>
 
-            <p>Last updated: April 21, 2022</p>
+            <p>Last updated: August 19, 2022</p>
 
-            <p>Please read these terms and conditions carefully before using Our Service.</p>
+            <p>Please read these Terms and Conditions carefully before using Our Service.</p>
 
             <h1>Interpretation and Definitions</h1>
             <h2>Interpretation</h2>
@@ -70,10 +70,10 @@ export default ({ headingText = "Terms And Condition" }) => {
               </li>
               <li>
                 <strong>Company</strong> (referred to as either "the Company", "We", "Us" or "Our" in this Agreement)
-                refers to Helaview, Navi Mumbai.
+                refers to Helaview, Sri Lanka.
               </li>
               <li>
-                <strong>Country</strong> refers to: Maharashtra, India
+                <strong>Country</strong> refers to Sri Lanka.
               </li>
               <li>
                 <strong>Service</strong> refers to the Website.
@@ -136,7 +136,7 @@ export default ({ headingText = "Terms And Condition" }) => {
               or through any such web sites or services.
             </p>
             <p>
-              We strongly advise You to read the terms and conditions and privacy policies of any third-party web sites
+              We strongly advise You to read the Terms and Conditions and privacy policies of any third-party web sites
               or services that You visit.
             </p>
 
@@ -263,8 +263,8 @@ export default ({ headingText = "Terms And Condition" }) => {
             <p>If you have any questions about these Terms and Conditions, You can contact us:</p>
 
             <ul>
-              <li>By email: support@example.com</li>
-              <li>By phone number: 408.996.1010</li>
+              <li>By email: support@helaview.lk</li>
+              <li>By phone number: +(94) 117 675 100</li>
             </ul>
           </Text>
         </ContentWithPaddingXl>

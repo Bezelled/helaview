@@ -58,13 +58,13 @@ export default () => {
                 <Link href="#">Blog</Link>
               </LinkListItem>
               <LinkListItem>
-                <Link href="#">FAQs</Link>
+                <Link href="/faq">FAQs</Link>
               </LinkListItem>
               <LinkListItem>
-                <Link href="#">Support</Link>
+                <Link href="/contact-us">Support</Link>
               </LinkListItem>
               <LinkListItem>
-                <Link href="#">About Us</Link>
+                <Link href="/about">About Us</Link>
               </LinkListItem>
             </LinkList>
           </Column>
@@ -72,7 +72,7 @@ export default () => {
             <ColumnHeading>Product</ColumnHeading>
             <LinkList>
               <LinkListItem>
-                <Link href="#">Log In</Link>
+                <Link href="/login">Log In</Link>
               </LinkListItem>
               <LinkListItem>
                 <Link href="#">Personal</Link>
@@ -109,10 +109,10 @@ export default () => {
                 <Link href="#">GDPR</Link>
               </LinkListItem>
               <LinkListItem>
-                <Link href="#">Privacy Policy</Link>
+                <Link href="/privacy-policy">Privacy Policy</Link>
               </LinkListItem>
               <LinkListItem>
-                <Link href="#">Terms of Service</Link>
+                <Link href="/tos">Terms of Service</Link>
               </LinkListItem>
               <LinkListItem>
                 <Link href="#">Disclaimer</Link>
@@ -138,7 +138,7 @@ export default () => {
             <LogoImg src={LogoImage} />
             <LogoText>Helaview</LogoText>
           </LogoContainer>
-          <CopywrightNotice>&copy; 2018 Helaview All Rights Reserved.</CopywrightNotice>
+          <CopywrightNotice>&copy; 2022 Helaview All Rights Reserved.</CopywrightNotice>
           <SocialLinksContainer>
             <SocialLink href="https://facebook.com">
               <FacebookIcon />

@@ -3,14 +3,14 @@ import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
 
-import Header, { LogoLink, NavLinks, NavLink as NavLinkBase } from "../headers/light.js";
+import Header, { NavLinks, NavLink as NavLinkBase } from "../headers/light.js";
 
-const StyledHeader = styled(Header)`
-  ${tw`justify-between`}
-  ${LogoLink} {
-    ${tw`mr-8 pb-0`}
-  }
-`;
+// const StyledHeader = styled(Header)`
+//   ${tw`justify-between`}
+//   ${LogoLink} {
+//     ${tw`mr-8 pb-0`}
+//   }
+// `;
 
 const NavLink = tw(NavLinkBase)`
   sm:text-sm sm:mx-6
@@ -44,10 +44,10 @@ const Actions = styled.div`
 export default ({
   navLinks = [
     <NavLinks key={1}>
-      <NavLink href="#">About</NavLink>
-      <NavLink href="#">Contact</NavLink>
-      <NavLink href="#">Sign Up</NavLink>
-      <NavLink href="#">Login</NavLink>
+      <NavLink href="/about">About</NavLink>
+      <NavLink href="/contact-us">Contact</NavLink>
+      <NavLink href="/register">Sign Up</NavLink>
+      <NavLink href="/login">Login</NavLink>
     </NavLinks>
   ],
   heading = (
@@ -66,9 +66,10 @@ export default ({
 }) => {
   return (
     <Container>
+      <Header />
       <TwoColumn>
         <LeftColumn>
-          <StyledHeader links={navLinks} collapseBreakpointClass="sm" />
+          {/* <StyledHeader links={navLinks} collapseBreakpointClass="sm" /> */}
           <Content>
             <Heading>{heading}</Heading>
             <Paragraph>{description}</Paragraph>

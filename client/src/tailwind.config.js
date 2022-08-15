@@ -265,8 +265,9 @@ module.exports = {
       DEFAULT: '1',
     },
     fontFamily: {
-      display: ['Inter', 'system-ui'],
+      display: ['Source Sans Pro', 'system-ui'],
       sans: [
+        'Source Sans Pro',
         'system-ui',
         '-apple-system',
         'BlinkMacSystemFont',

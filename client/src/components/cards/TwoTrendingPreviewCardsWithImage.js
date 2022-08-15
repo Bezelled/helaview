@@ -65,7 +65,7 @@ export default () => {
       title: "A Trip to the Bahamas and the Carribean Ocean",
       trendingText: "Trending",
       durationText: "7 Days Tour",
-      locationText: "Africa"
+      locationText: "Yala"
     },
     {
       imageSrc:
@@ -75,7 +75,7 @@ export default () => {
       title: "Cruise to the Mariana Trench and the Phillipines",
       trendingText: "Trending",
       durationText: "15 Days Tour",
-      locationText: "Australia"
+      locationText: "Negombo"
     }
   ];
   return (
