@@ -6,7 +6,7 @@ import { SectionHeading, Subheading as SubheadingBase } from "components/misc/He
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import { ReactComponent as BriefcaseIcon } from "feather-icons/dist/icons/briefcase.svg";
 import { ReactComponent as MoneyIcon } from "feather-icons/dist/icons/dollar-sign.svg";
-import TeamIllustrationSrc from "images/team-illustration-2.svg";
+import TeamIllustrationSrc from "assets/img/team-illustration-2.svg";
 
 const Container = tw.div`relative`;
 const TwoColumn = tw.div`flex flex-col md:flex-row justify-between max-w-screen-xl mx-auto py-20 md:py-24`;

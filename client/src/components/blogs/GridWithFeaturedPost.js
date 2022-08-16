@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { css } from "styled-components/macro";
 import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings";
 import { SectionDescription } from "components/misc/Typography";
-import { ReactComponent as SvgDotPatternIcon } from "images/dot-pattern.svg";
+import { ReactComponent as SvgDotPatternIcon } from "assets/img/dot-pattern.svg";
 
 const HeadingContainer = tw.div`text-center`;
 const Subheading = tw(SubheadingBase)`mb-4`;

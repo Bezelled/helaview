@@ -5,9 +5,9 @@ import styled, { css } from "styled-components/macro"; //eslint-disable-line
 import { Container, ContentWithPaddingXl } from "components/misc/Layouts.js";
 import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings.js";
 import { SectionDescription } from "components/misc/Typography.js";
-import { ReactComponent as QuoteIconBase } from "images/quotes-l.svg"
-import { ReactComponent as ArrowLeftIcon } from "images/arrow-left-3-icon.svg"
-import { ReactComponent as ArrowRightIcon } from "images/arrow-right-3-icon.svg"
+import { ReactComponent as QuoteIconBase } from "assets/img/quotes-l.svg"
+import { ReactComponent as ArrowLeftIcon } from "assets/img/arrow-left-3-icon.svg"
+import { ReactComponent as ArrowRightIcon } from "assets/img/arrow-right-3-icon.svg"
 
 import "slick-carousel/slick/slick.css";
 

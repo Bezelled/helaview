@@ -3,8 +3,8 @@ import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
 import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings.js";
-import TeamIllustrationSrc from "images/team-illustration-2.svg";
-import { ReactComponent as SvgDotPattern } from "images/dot-pattern.svg";
+import TeamIllustrationSrc from "assets/img/team-illustration-2.svg";
+import { ReactComponent as SvgDotPattern } from "assets/img/dot-pattern.svg";
 
 const Container = tw.div`relative`;
 const TwoColumn = tw.div`flex flex-col md:flex-row justify-between max-w-screen-xl mx-auto py-20 md:py-24 items-center`;

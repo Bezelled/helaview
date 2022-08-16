@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import AnimationRevealPage from "helpers/AnimationRevealPage.js";
-import { Container, ContentWithPaddingXl } from "components/misc/Layouts";
+import AnimationRevealPage from "../utils/AnimationRevealPage.js";
+import { Container, ContentWithPaddingXl } from "../misc/Layouts";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro";
-import Header from "components/headers/light.js";
-import Footer from "components/footers/FiveColumnWithInputForm.js";
-import { SectionHeading } from "components/misc/Headings";
-import { PrimaryButton } from "components/misc/Buttons";
+import Header from "../headers/light.js";
+import Footer from "../footers/FiveColumnWithInputForm.js";
+import { SectionHeading } from "../misc/Headings";
+import { PrimaryButton } from "../misc/Buttons";
 
 const HeadingRow = tw.div`flex`;
 const Heading = tw(SectionHeading)`text-gray-900`;

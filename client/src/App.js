@@ -1,60 +1,32 @@
-import "tailwindcss/dist/base.css";
-import "styles/globalStyles.css";
-import React from "react";
-import { css } from "styled-components/macro"; //eslint-disable-line
+import React, { lazy } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import AccessibleNavigationAnnouncer from './components/AccessibleNavigationAnnouncer';
 
-import ComponentRenderer from "ComponentRenderer.js";
-import HelaLandingPage from "./pages/LandingPage";
-import ThankYouPage from "ThankYouPage.js";
-
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import SignupTourist from "pages/SignupTourist";
-import SignupHotel from "pages/SignupHotel";
-import Login from "pages/Login";
-import PrivacyPolicy from "pages/PrivacyPolicy";
-import TermsOfService from "pages/TermsOfService";
-import AboutUs from "pages/AboutUs";
-import ContactUs from "pages/ContactUs";
+const Landing = lazy(() => import('./pages/LandingPage'));
+const Layout = lazy(() => import('./containers/Layout'));
+const Login = lazy(() => import('./pages/Login'));
+const About = lazy(() => import('./pages/AboutUs'));
+const ContactUs = lazy(() => import('./pages/ContactUs'));
+const CreateAccount = lazy(() => import('./pages/SignupTourist'));
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
 
 export default function App() {
-
   return (
-    <Router>
-      <Switch>
-        <Route path="/components/:type/:subtype/:name">
-          <ComponentRenderer />
-        </Route>
-        <Route path="/components/:type/:name">
-          <ComponentRenderer />
-        </Route>
-        <Route path="/thank-you">
-          <ThankYouPage />
-        </Route>
-        <Route path="/register-tourist">
-          <SignupTourist />
-        </Route>
-        <Route path="/register-hotel">
-          <SignupHotel />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/about">
-          <AboutUs />
-        </Route>
-        <Route path="/contact-us">
-          <ContactUs />
-        </Route>
-        <Route path="/privacy-policy">
-          <PrivacyPolicy />
-        </Route>
-        <Route path="/tos">
-          <TermsOfService />
-        </Route>
-        <Route path="/">
-          <HelaLandingPage />
-        </Route>
-      </Switch>
-    </Router>
-  );
+    <>
+      <Router>
+        <AccessibleNavigationAnnouncer />
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route path="/login" component={Login} />
+          <Route path="/about" component={About} />
+          <Route path="/contact-us" component={ContactUs} />
+          <Route path="/register" component={CreateAccount} />
+          <Route path="/forgot-password" component={ForgotPassword} />
+
+          {/* Place new routes over this */}
+          <Route path="/app" component={Layout} />
+        </Switch>
+      </Router>
+    </>
+  )
 }

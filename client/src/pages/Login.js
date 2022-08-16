@@ -1,81 +1,67 @@
-import React from "react";
-import { Container as ContainerBase } from "components/misc/Layouts";
-import tw from "twin.macro";
-import styled from "styled-components";
-import {css} from "styled-components/macro"; //eslint-disable-line
-import illustration from "images/login-illustration.svg";
-import logo from "images/logo.svg";
-import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import ImageLight from '../assets/img/login-office.jpeg';
+import ImageDark from '../assets/img/login-office-dark.jpeg';
+import { Label, Input, Button } from '@windmill/react-ui';
 
-const Container = tw(ContainerBase)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
-const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
-const MainContainer = tw.div`lg:w-1/2 xl:w-5/12 p-6 sm:p-12`;
-const LogoLink = tw.a``;
-const LogoImage = tw.img`h-12 mx-auto`;
-const MainContent = tw.div`mt-12 flex flex-col items-center`;
-const Heading = tw.h1`text-2xl xl:text-3xl font-extrabold`;
-const FormContainer = tw.div`w-full flex-1 mt-8`;
-const Form = tw.form`mx-auto max-w-xs`;
-const Input = tw.input`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 first:mt-0`;
-const SubmitButton = styled.button`
-  ${tw`mt-5 tracking-wide font-semibold bg-primary-500 text-gray-100 w-full py-4 rounded-lg hover:bg-primary-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none`}
-  .icon {
-    ${tw`w-6 h-6 -ml-2`}
-  }
-  .text {
-    ${tw`ml-3`}
-  }
-`;
-const IllustrationContainer = tw.div`sm:rounded-r-lg flex-1 bg-purple-100 text-center hidden lg:flex justify-center`;
-const IllustrationImage = styled.div`
-  ${props => `background-image: url("${props.imageSrc}");`}
-  ${tw`m-12 xl:m-16 w-full max-w-sm bg-contain bg-center bg-no-repeat`}
-`;
+export default function Login() {
+  return (
+    <div className="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
+      <div className="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
+        <div className="flex flex-col overflow-y-auto md:flex-row">
+          <div className="h-32 md:h-auto md:w-1/2">
+            <img
+              aria-hidden="true"
+              className="object-cover w-full h-full dark:hidden"
+              src={ImageLight}
+              alt="Office"
+            />
+            <img
+              aria-hidden="true"
+              className="hidden object-cover w-full h-full dark:block"
+              src={ImageDark}
+              alt="Office"
+            />
+          </div>
+          <main className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+            <div className="w-full">
+              <h1 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">Login</h1>
+              <Label>
+                <span>Email</span>
+                <Input className="mt-1" type="email" placeholder="john@doe.com" />
+              </Label>
 
-export default ({
-  logoLinkUrl = "#",
-  illustrationImageSrc = illustration,
-  headingText = "Sign In To Helaview",
-  submitButtonText = "Sign In",
-  SubmitButtonIcon = LoginIcon,
-  forgotPasswordUrl = "#",
-  signupUrl = "/register",
+              <Label className="mt-4">
+                <span>Password</span>
+                <Input className="mt-1" type="password" placeholder="***************" />
+              </Label>
 
-}) => (
-    <Container>
-      <Content>
-        <MainContainer>
-          <LogoLink href={logoLinkUrl}>
-            <LogoImage src={logo} />
-          </LogoLink>
-          <MainContent>
-            <Heading>{headingText}</Heading>
-            <FormContainer>
-              <Form>
-                <Input type="email" placeholder="Email" />
-                <Input type="password" placeholder="Password" />
-                <SubmitButton type="submit">
-                  <SubmitButtonIcon className="icon" />
-                  <span className="text">{submitButtonText}</span>
-                </SubmitButton>
-              </Form>
-              <p tw="mt-6 text-xs text-gray-600 text-center">
-                <a href={forgotPasswordUrl} tw="border-b border-gray-500 border-dotted">
+              <Button className="mt-4" block tag={Link} to="/app">
+                Log in
+              </Button>
+
+              <hr className="my-8" />
+
+              <p className="mt-4">
+                <Link
+                  className="text-sm font-medium text-primary-600 dark:text-primary-400 hover:underline"
+                  to="/forgot-password"
+                >
                   Forgot your password?
-                </a>
+                </Link>
               </p>
-              <p tw="mt-8 text-sm text-gray-600 text-center">
-                Dont have an account?{" "}
-                <a href={signupUrl} tw="border-b border-gray-500 border-dotted">
-                  Sign Up
-                </a>
+              <p className="mt-1">
+                <Link
+                  className="text-sm font-medium text-primary-600 dark:text-primary-400 hover:underline"
+                  to="/create-account"
+                >
+                  Create account
+                </Link>
               </p>
-            </FormContainer>
-          </MainContent>
-        </MainContainer>
-        <IllustrationContainer>
-          <IllustrationImage imageSrc={illustrationImageSrc} />
-        </IllustrationContainer>
-      </Content>
-    </Container>
-);
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  )
+}

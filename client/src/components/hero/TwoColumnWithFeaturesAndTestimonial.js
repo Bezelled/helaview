@@ -8,8 +8,8 @@ import { SectionDescription } from "components/misc/Typography.js";
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import { Container, ContentWithVerticalPadding } from "components/misc/Layouts.js";
 import { ReactComponent as CheckboxIcon } from "feather-icons/dist/icons/check-circle.svg";
-import { ReactComponent as QuotesLeftIconBase } from "images/quotes-l.svg"
-import { ReactComponent as SvgDecoratorBlob1 } from "images/dot-pattern.svg"
+import { ReactComponent as QuotesLeftIconBase } from "assets/img/quotes-l.svg"
+import { ReactComponent as SvgDecoratorBlob1 } from "assets/img/dot-pattern.svg"
 
 const Header = tw(HeaderBase)`max-w-none`;
 const Row = tw.div`flex flex-col lg:flex-row justify-between items-center lg:pt-16 max-w-screen-2xl mx-auto sm:px-8`;
