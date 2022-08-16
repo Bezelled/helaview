@@ -3,8 +3,14 @@
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { platform } from 'os';
+import { Request } from 'express';
+import multer, { diskStorage, StorageEngine, FileFilterCallback  } from 'multer';
+import { randomUUID } from 'crypto';
 
 dotenv.config();    //To load our .env file for environmental variables
+
+type DestinationCallback = (error: Error | null, destination: string) => void
+type FileNameCallback = (error: Error | null, filename: string) => void
 
 // Environmental variables
 export const DB_URL: string = process.env.HELA_DB_URL || '';
@@ -24,6 +30,42 @@ export const threeDays: number = 30 * 24 * 60 * 60 * 1000;
 export const userRegistrationKeys: string[] = ['first name', 'last name', 'email', 'password', 'password confirmation', 'passport number', 'gender', 'age', 'country', 'address', 'contact number'];
 export const hotelRegistrationKeys: string[] = ['full name', 'password', 'password confirmation', 'email', 'address', 'contact number', 'hotel type', 'rating'];
 export const userLoginKeys: string[] = ['email', 'password'];
+const fileStorage: StorageEngine = diskStorage({
+    destination: (
+        req: Request,
+        file: Express.Multer.File,
+        callback: DestinationCallback
+    ): void => {
+        callback(null, './uploads/');
+    },
+
+    filename: (
+        req: Request, 
+        file: Express.Multer.File, 
+        callback: FileNameCallback
+    ): void => {
+        callback(null, `${randomUUID()}_${file.originalname}`);
+    }
+});
+const fileFilter = (
+    req: Request,
+    file: Express.Multer.File,
+    callback: FileFilterCallback
+): void => {
+    switch (file.mimetype){
+        case 'image/png':
+        case 'image/jpg':
+        case 'image/jpeg':
+            callback(null, true);
+            break;
+        default:
+            callback(null, false);
+    };
+};
+const fileLimits: {
+    fileSize: number;
+} = { fileSize: 1 * 1000 * 1000 };
+export const mult = multer({ storage: fileStorage, limits: fileLimits, fileFilter: fileFilter });
 
 //Regular expressions
 
