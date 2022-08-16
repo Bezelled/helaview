@@ -8,7 +8,8 @@ import HelaLandingPage from "./pages/LandingPage";
 import ThankYouPage from "ThankYouPage.js";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Signup from "pages/Signup";
+import SignupTourist from "pages/SignupTourist";
+import SignupHotel from "pages/SignupHotel";
 import Login from "pages/Login";
 import PrivacyPolicy from "pages/PrivacyPolicy";
 import TermsOfService from "pages/TermsOfService";
@@ -29,8 +30,11 @@ export default function App() {
         <Route path="/thank-you">
           <ThankYouPage />
         </Route>
-        <Route path="/register">
-          <Signup />
+        <Route path="/register-tourist">
+          <SignupTourist />
+        </Route>
+        <Route path="/register-hotel">
+          <SignupHotel />
         </Route>
         <Route path="/login">
           <Login />

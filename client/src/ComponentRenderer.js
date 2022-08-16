@@ -19,7 +19,7 @@ import HostingCloudLandingPageImageSrc from "./images/demo/HostingCloudLandingPa
 
 
 import LoginPage from "pages/Login.js";
-import SignupPage from "pages/Signup.js";
+import SignupPage from "pages/SignupTourist.js";
 import PricingPage from "pages/Pricing.js";
 import AboutUsPage from "pages/AboutUs.js";
 import ContactUsPage from "pages/ContactUs.js";
