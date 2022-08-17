@@ -1,11 +1,12 @@
-import React, { Suspense } from 'react'
-import ReactDOM from 'react-dom'
-import './assets/css/tailwind.output.css'
-import App from './App'
-import { SidebarProvider } from './context/SidebarContext'
-import ThemedSuspense from './components/ThemedSuspense'
-import { Windmill } from '@windmill/react-ui'
-import * as serviceWorker from './serviceWorker'
+import React, { Suspense } from 'react';
+import ReactDOM from 'react-dom';
+import './assets/css/tailwind.output.css';
+import App from './App';
+import { SidebarProvider } from './context/SidebarContext';
+import ThemedSuspense from './components/ThemedSuspense';
+import { Windmill } from '@windmill/react-ui';
+import * as serviceWorker from './serviceWorker';
+import { Toaster } from 'react-hot-toast';
 
 ReactDOM.render(
   <SidebarProvider>
@@ -14,6 +15,7 @@ ReactDOM.render(
         <App />
       </Windmill>
     </Suspense>
+    <Toaster position="bottom-right"/>
   </SidebarProvider>,
   document.getElementById('root')
 )

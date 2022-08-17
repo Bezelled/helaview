@@ -13,6 +13,7 @@ import ShieldIconImage from "../assets/img/shield-icon.svg";
 import CustomerLoveIconImage from "../assets/img/simple-icon.svg";
 import { StyledDiv } from "../utils/AnimationRevealPage.js"; 
 const Subheading = tw.span`uppercase tracking-wider text-sm`;
+
 export default () => {
   return (
     <StyledDiv className="App">
