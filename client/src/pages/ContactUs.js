@@ -1,5 +1,5 @@
 import React from "react";
-import AnimationRevealPage from "../utils/AnimationRevealPage.js";
+import { StyledDiv } from "../utils/AnimationRevealPage.js";
 import { css } from "styled-components/macro"; //eslint-disable-line
 import Header, { NavLinks, NavLink, PrimaryLink } from "../components/headers/light.js";
 import Footer from "../components/footers/FiveColumnWithInputForm.js";
@@ -8,7 +8,7 @@ import tw from "twin.macro";
 
 export default () => {
   return (
-    <AnimationRevealPage>
+    <StyledDiv className="App">
       <Header links={[
         <NavLinks key={1}>
           <NavLink href="/about">About</NavLink>
@@ -18,6 +18,6 @@ export default () => {
       ]}/>
       <ContactUsForm />
       <Footer />
-    </AnimationRevealPage>
+    </StyledDiv>
   );
 };

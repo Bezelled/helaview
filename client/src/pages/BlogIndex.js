@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AnimationRevealPage from "../utils/AnimationRevealPage.js";
+import { StyledDiv } from "../utils/AnimationRevealPage.js";
 import { Container, ContentWithPaddingXl } from "../misc/Layouts";
 import tw from "twin.macro";
 import styled from "styled-components";
@@ -85,7 +85,7 @@ export default ({
     setVisible(v => v + 6);
   };
   return (
-    <AnimationRevealPage>
+    <StyledDiv className="App">
       <Header />
       <Container>
         <ContentWithPaddingXl>
@@ -115,7 +115,7 @@ export default ({
         </ContentWithPaddingXl>
       </Container>
       <Footer />
-    </AnimationRevealPage>
+    </StyledDiv>
   );
 };
 

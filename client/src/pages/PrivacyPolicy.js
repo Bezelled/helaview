@@ -1,12 +1,12 @@
 import React from "react";
-import AnimationRevealPage from "../utils/AnimationRevealPage.js";
-import { Container, ContentWithPaddingXl } from "../misc/Layouts";
+import { StyledDiv } from "../utils/AnimationRevealPage.js";
+import { Container, ContentWithPaddingXl } from "../components/misc/Layouts";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
-import Header from "../headers/light.js";
-import Footer from "../footers/FiveColumnWithInputForm.js";
-import { SectionHeading } from "../misc/Headings";
+import Header from "../components/headers/light.js";
+import Footer from "../components/footers/FiveColumnWithInputForm.js";
+import { SectionHeading } from "../components/misc/Headings";
 
 const HeadingRow = tw.div`flex`;
 const Heading = tw(SectionHeading)`text-gray-900 mb-10`;
@@ -36,7 +36,7 @@ const Text = styled.div`
 `;
 export default ({ headingText = "Privacy Policy" }) => {
   return (
-    <AnimationRevealPage>
+    <StyledDiv className="App">
       <Header />
       <Container>
         <ContentWithPaddingXl>
@@ -386,6 +386,6 @@ export default ({ headingText = "Privacy Policy" }) => {
         </ContentWithPaddingXl>
       </Container>
       <Footer />
-    </AnimationRevealPage>
+    </StyledDiv>
   );
 };

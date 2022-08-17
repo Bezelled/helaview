@@ -1,5 +1,5 @@
 import React from "react";
-import AnimationRevealPage from "../utils/AnimationRevealPage.js";
+import { StyledDiv } from "../utils/AnimationRevealPage.js";
 import Header from "../headers/light.js";
 import Pricing from "../pricing/TwoPlansWithDurationSwitcher.js";
 import Testimonial from "../testimonials/ThreeColumnWithProfileImage.js";
@@ -8,7 +8,7 @@ import FAQ from "../faqs/SingleCol.js";
 
 export default () => {
   return (
-    <AnimationRevealPage>
+    <StyledDiv className="App">
       <Header />
       <Pricing />
       <Testimonial
@@ -16,6 +16,6 @@ export default () => {
       />
       <FAQ />
       <Footer/>
-    </AnimationRevealPage>
+    </StyledDiv>
   );
 };
