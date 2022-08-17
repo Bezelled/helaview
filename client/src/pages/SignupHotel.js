@@ -6,6 +6,7 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 import illustration from "../assets/img/signup-illustration.svg";
 import logo from "../assets/img/logo.svg";
 import { ReactComponent as SignUpIcon } from "feather-icons/dist/icons/user-plus.svg";
+import { StyledDiv } from "../utils/AnimationRevealPage";
 
 const Container = tw(ContainerBase)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
@@ -35,13 +36,14 @@ const IllustrationImage = styled.div`
 export default ({
   logoLinkUrl = "#",
   illustrationImageSrc = illustration,
-  headingText = "Sign Up For Helaview",
+  headingText = "Sign Up For HelaView",
   submitButtonText = "Sign Up",
   SubmitButtonIcon = SignUpIcon,
   tosUrl = "/tos",
   privacyPolicyUrl = "/privacy-policy",
   signInUrl = "/login"
 }) => (
+  <StyledDiv className="App">
     <Container>
       <Content>
         <MainContainer>
@@ -59,7 +61,7 @@ export default ({
                   <span className="text">{submitButtonText}</span>
                 </SubmitButton>
                 <p tw="mt-6 text-xs text-gray-600 text-center">
-                  I agree to abide by Helaview's{" "}
+                By registering, I agree to abide by HelaView's{" "}
                   <a href={tosUrl} tw="border-b border-gray-500 border-dotted">
                     Terms of Service
                   </a>{" "}
@@ -67,6 +69,7 @@ export default ({
                   <a href={privacyPolicyUrl} tw="border-b border-gray-500 border-dotted">
                     Privacy Policy
                   </a>
+                  .
                 </p>
 
                 <p tw="mt-8 text-sm text-gray-600 text-center">
@@ -84,4 +87,5 @@ export default ({
         </IllustrationContainer>
       </Content>
     </Container>
+  </StyledDiv>
 );

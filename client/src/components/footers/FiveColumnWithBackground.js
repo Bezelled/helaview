@@ -142,9 +142,9 @@ export default () => {
         <ThreeColRow>
           <LogoContainer>
             <LogoImg src={LogoImage} />
-            <LogoText>Helaview</LogoText>
+            <LogoText>HelaView</LogoText>
           </LogoContainer>
-          <CopywrightNotice>&copy; 2022 Helaview All Rights Reserved.</CopywrightNotice>
+          <CopywrightNotice>&copy; 2022 HelaView All Rights Reserved.</CopywrightNotice>
           <SocialLinksContainer>
             <SocialLink href="https://facebook.com">
               <FacebookIcon />

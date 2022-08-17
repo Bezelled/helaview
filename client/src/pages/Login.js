@@ -88,7 +88,7 @@ export default function Login() {
               <p className="mt-1">
                 <Link
                   className="text-sm font-medium text-primary-600 dark:text-primary-400 hover:underline"
-                  to="/create-account"
+                  to="/register"
                 >
                   Create account
                 </Link>

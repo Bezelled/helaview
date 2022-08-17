@@ -115,7 +115,7 @@ export default async function addRoute(router: Router): Promise<void>{
             await generateVerificationCode(hdb, email, AccountType.Hotel);
     
             console.log(`[Account created]: ${fullName}, ${email}, ${password}, ${passwordConfirmation}, ${address}, ${contactNo}.`);
-            res.status(200).json({ success: `Your account ${fullName} has been created.`});
+            res.status(200).json({ message: `Your account ${fullName} has been created.`});
         } catch (err: Error | unknown){
             //Pass
         }

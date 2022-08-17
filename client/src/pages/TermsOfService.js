@@ -70,7 +70,7 @@ export default ({ headingText = "Terms And Conditions" }) => {
               </li>
               <li>
                 <strong>Company</strong> (referred to as either "the Company", "We", "Us" or "Our" in this Agreement)
-                refers to Helaview, Sri Lanka.
+                refers to HelaView, Sri Lanka.
               </li>
               <li>
                 <strong>Country</strong> refers to Sri Lanka.
@@ -88,7 +88,7 @@ export default ({ headingText = "Terms And Conditions" }) => {
                 available by the Service.
               </li>
               <li>
-                <strong>Website</strong> refers to Helaview, accessible from https://helaview.lk
+                <strong>Website</strong> refers to HelaView, accessible from https://helaview.lk
               </li>
               <li>
                 <strong>You</strong> means the individual accessing or using the Service, or the company, or other legal

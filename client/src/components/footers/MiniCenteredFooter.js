@@ -36,7 +36,7 @@ export default () => {
         <Row>
           <LogoContainer>
             <LogoImg src={logo} />
-            <LogoText>Helaview</LogoText>
+            <LogoText>HelaView</LogoText>
           </LogoContainer>
           <LinksContainer>
             <Link href="#">Home</Link>
@@ -57,7 +57,7 @@ export default () => {
             </SocialLink>
           </SocialLinksContainer>
           <CopyrightText>
-            &copy; Copyright 2022, Helaview All Rights Reserved.
+            &copy; Copyright 2022, HelaView All Rights Reserved.
           </CopyrightText>
         </Row>
       </Content>

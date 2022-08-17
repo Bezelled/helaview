@@ -1,7 +1,7 @@
 {
   "name": "helaview",
   "version": "0.4.0",
-  "description": "A web application for Helaview.lk.",
+  "description": "A web application for HelaView.lk.",
   "private": true,
   "scripts": {
     "tailwind:dev": "tailwindcss build src/assets/css/tailwind.css -o src/assets/css/tailwind.output.css",

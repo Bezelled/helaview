@@ -78,7 +78,7 @@ export default ({ headingText = "Privacy Policy" }) => {
               <li>
                 <p>
                   <strong>Company</strong> (referred to as either "the Company", "We", "Us" or "Our" in this Agreement)
-                  refers to Helaview.
+                  refers to HelaView.
                 </p>
               </li>
               <li>
@@ -91,7 +91,7 @@ export default ({ headingText = "Privacy Policy" }) => {
                 Service.
               </li>
               <li>
-                <strong>Website</strong> refers to Helaview, accessible from https://helaview.lk
+                <strong>Website</strong> refers to HelaView, accessible from https://helaview.lk
               </li>{" "}
               <li>
                 <strong>Service</strong> refers to the Website.

@@ -32,7 +32,7 @@ function ForgotPassword() {
 
               <Label>
                 <span>Email</span>
-                <Input className="mt-1" placeholder="Jane Doe" />
+                <Input className="mt-1" placeholder="Hela View" />
               </Label>
 
               <Button tag={Link} to="/login" block className="mt-4">

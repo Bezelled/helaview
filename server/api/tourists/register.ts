@@ -89,8 +89,9 @@ export default async function addRoute(router: Router): Promise<void>{
         try{
             const phoneNumber = parsePhoneNumber(String(contactNo));
             contactNo = Number(phoneNumber.number);
+            console.log(contactNo);
         } catch (err){
-            return res.status(400).json({ error: `Please enter a valid phone number. Example: ` });
+            return res.status(400).json({ error: `Please enter a valid phone number. ` });
         };
     
         //Validate passport number
@@ -115,11 +116,11 @@ export default async function addRoute(router: Router): Promise<void>{
                 await hdb`
                     INSERT INTO users
                     (
-                        email, hash, account_type
+                        email, hash, contact_no, account_type
                     )
                     VALUES
                     (
-                        ${email}, ${hashedPassword}, 'Tourist'
+                        ${email}, ${hashedPassword}, ${contactNo}, 'Tourist'
                     )
                     ON CONFLICT (email) DO NOTHING;
                 `;
@@ -140,7 +141,7 @@ export default async function addRoute(router: Router): Promise<void>{
             await generateVerificationCode(hdb, email, AccountType.Tourist);
     
             console.log(`[Account created]: ${email}, ${firstName}, ${lastName}, ${password}, ${passportNo}, ${age}, ${gender}, ${country}, ${contactNo}.`);
-            res.status(200).json({ success: `Your account ${firstName} has been created under ${email}.`});
+            res.status(200).json({ message: `Your account ${firstName} has been created under ${email}.`});
         } catch (err: Error | unknown){
             //Pass
         }

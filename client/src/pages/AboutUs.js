@@ -4,13 +4,7 @@ import styled from "styled-components"; //eslint-disable-line
 import { css } from "styled-components/macro"; //eslint-disable-line
 import Header from "../components/headers/light.js";
 import Footer from "../components/footers/FiveColumnWithInputForm.js";
-import MainFeature1 from "../components/features/TwoColWithButton.js";
-import Features from "../components/features/ThreeColSimple.js";
-import TeamCardGrid from "../components/cards/ProfileThreeColGrid.js";
-
-import SupportIconImage from "../assets/img/support-icon.svg";
-import ShieldIconImage from "../assets/img/shield-icon.svg";
-import CustomerLoveIconImage from "../assets/img/simple-icon.svg";
+import Feature from "../components/features/TwoColWithButton.js";
 import { StyledDiv } from "../utils/AnimationRevealPage.js"; 
 const Subheading = tw.span`uppercase tracking-wider text-sm`;
 
@@ -18,46 +12,14 @@ export default () => {
   return (
     <StyledDiv className="App">
       <Header />
-      <MainFeature1
-        subheading={<Subheading>About Helaview</Subheading>}
-        heading="We are a modern design agency."
+      <Feature
+        subheading={<Subheading>About HelaView</Subheading>}
+        heading="A tourism project by Magma®."
+        description="We are a multinational company which also takes up local projects. We have diversified in resourcing projects and software development. We provide resources and develops software applications for local and foreign clients."
         buttonRounded={false}
-        primaryButtonText="See Portfolio"
+        primaryButtonText=""
+        primaryButtonUrl=""
         imageSrc="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=768&q=80"
-      />
-      <MainFeature1
-        subheading={<Subheading>Our Vision</Subheading>}
-        heading="We aim to disrupt the design space."
-        buttonRounded={false}
-        primaryButtonText="Contact Us"
-        imageSrc="https://images.unsplash.com/3/doctype-hi-res.jpg?ixlib=rb-1.2.1&auto=format&fit=crop&w=768&q=80"
-        textOnLeft={false}
-      />
-      <Features
-        subheading={<Subheading>Our Values</Subheading>}
-        heading="We follow these."
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        cards={[
-          {
-            imageSrc: SupportIconImage,
-            title: "24/7 Support",
-            description: "Lorem ipsum donor amet siti ceali placeholder text alipiscing elit sed do eiusmod temport"
-          },
-          {
-            imageSrc: ShieldIconImage,
-            title: "Strong Teams",
-            description: "Lorem ipsum donor amet siti ceali placeholder text alipiscing elit sed do eiusmod temport"
-          },
-          {
-            imageSrc: CustomerLoveIconImage,
-            title: "Customer Satisfaction",
-            description: "Lorem ipsum donor amet siti ceali placeholder text alipiscing elit sed do eiusmod temport"
-          },
-        ]}
-        linkText=""
-      />
-      <TeamCardGrid 
-        subheading={<Subheading>Our Team</Subheading>}
       />
       <Footer />
     </StyledDiv>

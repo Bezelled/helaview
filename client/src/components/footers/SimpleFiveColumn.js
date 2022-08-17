@@ -41,10 +41,10 @@ export default () => {
         <WideColumn>
           <LogoContainer>
             <LogoImg src={LogoImage} />
-            <LogoText>Helaview</LogoText>
+            <LogoText>HelaView</LogoText>
           </LogoContainer>
           <CompanyDescription>
-            Helaview is an Internet Technology company providing design resources such as website templates and themes.
+            HelaView is an Internet Technology company providing design resources such as website templates and themes.
           </CompanyDescription>
           <SocialLinksContainer>
             <SocialLink href="https://facebook.com">
