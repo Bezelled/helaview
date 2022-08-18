@@ -1,12 +1,12 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { HeartIcon, EditIcon } from '../assets/icons'
+import { HeartIcon, EditIcon } from '../assets/icons';
 
-import PageTitle from '../components/typography/PageTitle'
-import SectionTitle from '../components/typography/SectionTitle'
-import CTA from '../components/CTA'
-import { Button } from '@windmill/react-ui'
+import PageTitle from '../components/typography/PageTitle';
+import SectionTitle from '../components/typography/SectionTitle';
+import CTA from '../components/CTA';
+import { Button } from '@windmill/react-ui';
 
 function Buttons() {
   return (

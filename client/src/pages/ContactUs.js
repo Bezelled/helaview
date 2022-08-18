@@ -13,7 +13,7 @@ export default () => {
         <NavLinks key={1}>
           <NavLink href="/about">About</NavLink>
           <NavLink href="/login" tw="lg:ml-12!">Login</NavLink>
-          <PrimaryLink css={false && tw`rounded-full`}href="/register-tourist">Sign Up</PrimaryLink>
+          <PrimaryLink css={false && tw`rounded-full`}href="/register">Sign Up</PrimaryLink>
         </NavLinks>
       ]}/>
       <ContactUsForm />

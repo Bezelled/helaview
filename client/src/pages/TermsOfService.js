@@ -166,7 +166,7 @@ export default ({ headingText = "Terms And Conditions" }) => {
             <p>
               Some states do not allow the exclusion of implied warranties or limitation of liability for incidental or
               consequential damages, which means that some of the above limitations may not apply. In these states, each
-              party's liability will be limited to the greatest extent permitted by law.
+              party&#39;s liability will be limited to the greatest extent permitted by law.
             </p>
 
             <h1>"AS IS" and "AS AVAILABLE" Disclaimer</h1>
@@ -184,7 +184,7 @@ export default ({ headingText = "Terms And Conditions" }) => {
               can or will be corrected.
             </p>
             <p>
-              Without limiting the foregoing, neither the Company nor any of the company's provider makes any
+              Without limiting the foregoing, neither the Company nor any of the company&#39;s provider makes any
               representation or warranty of any kind, express or implied: (i) as to the operation or availability of the
               Service, or the information, content, and materials or products included thereon; (ii) that the Service
               will be uninterrupted or error-free; (iii) as to the accuracy, reliability, or currency of any information
@@ -237,7 +237,7 @@ export default ({ headingText = "Terms And Conditions" }) => {
             <h2>Waiver</h2>
             <p>
               Except as provided herein, the failure to exercise a right or to require performance of an obligation
-              under this Terms shall not effect a party's ability to exercise such right or require such performance at
+              under this Terms shall not effect a party&#39;s ability to exercise such right or require such performance at
               any time thereafter nor shall be the waiver of a breach constitute a waiver of any subsequent breach.
             </p>
 

@@ -46,7 +46,7 @@ export default ({
     <NavLinks key={1}>
       <NavLink href="/about">About</NavLink>
       <NavLink href="/contact-us">Contact</NavLink>
-      <NavLink href="/register-tourist">Sign Up</NavLink>
+      <NavLink href="/register">Sign Up</NavLink>
       <NavLink href="/login">Login</NavLink>
     </NavLinks>
   ],
@@ -59,7 +59,7 @@ export default ({
     </>
   ),
   description = "We assure you that you will always enjoy your stay when booking a Sri Lankan hotel with us.",
-  primaryActionUrl = "/sign-up",
+  primaryActionUrl = "/register",
   primaryActionText = "Sign Up",
   secondaryActionUrl = "/hotel-search",
   secondaryActionText = "Search Hotels"

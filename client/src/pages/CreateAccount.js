@@ -46,7 +46,7 @@ function Login() {
               <Label className="mt-6" check>
                 <Input type="checkbox" />
                 <span className="ml-2">
-                  By registering, I agree to the <span className="underline">privacy policy</span>
+                  By registering, You agree to the <span className="underline">privacy policy</span>
                 </span>
               </Label>
 

@@ -24,7 +24,7 @@ const DecoratorBlob2 = styled(SvgDecoratorBlob2)`
 
 export default ({
   subheading = "Testimonials",
-  heading = "Customer's Review",
+  heading = "Customer&#39;s Review",
   testimonials = [
     {
       imageSrc:

@@ -8,7 +8,8 @@ import { ReactComponent as SignUpIcon } from "feather-icons/dist/icons/user-plus
 import Header, { NavLinks, NavLink, PrimaryLink } from "../components/headers/light.js";
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { StyledDiv } from "../utils/AnimationRevealPage.js"; 
+import { StyledDiv } from "../utils/AnimationRevealPage.js";
+import countries from "countries-list";
 
 const Container = tw(ContainerBase)`min-h-screen border-black text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl shadow-2xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 sm:rounded-lg flex justify-center flex-1`;
@@ -60,14 +61,10 @@ const handleSubmit = async(event) => {
       'gender': event.target.gender.value,
       'contact number': event.target['contact number'].value,
       'passport number': event.target['passport number'].value,
-      'country': 'Sri Lanka',  //  event.target.country.value
+      'country': event.target.country.value
     });
-    console.log("RESP", JSON.stringify(resp));
-    console.log("MESSAGE", resp.data.message);
     toast.success(resp.data.message);
   } catch (e){
-
-    console.log(e);
 
     if (e.response?.data.error)
       return toast.error(e.response.data.error);
@@ -92,6 +89,9 @@ const handleSubmit = async(event) => {
 //     email_verified bool NOT NULL DEFAULT False
 // );
 
+const countryCodes = Object.keys(countries.countries);
+const countryNames = (countryCodes.map(code => countries.countries[code].name)).sort();
+
 export default ({
   logoLinkUrl = "/",
   illustrationImageSrc = illustration,
@@ -108,7 +108,7 @@ export default ({
         <NavLink href="/about">About</NavLink>
         <NavLink href="/contact-us" tw="lg:ml-12!">Contact Us</NavLink>
         <NavLink href="/login" tw="lg:ml-12!">Login</NavLink>
-        <PrimaryLink css={false && tw`rounded-full`} href="/register-tourist">Sign Up</PrimaryLink>
+        <PrimaryLink css={false && tw`rounded-full`} href="/register">Sign Up</PrimaryLink>
       </NavLinks>
     ]} />
       <Container>
@@ -143,12 +143,19 @@ export default ({
                   <Label for="passport number">Passport number:</Label>
                   <Input id="passport number" type="text" placeholder="Passport number" />
 
+                  <Label for="country">Country:</Label>
+                  <Select id="country" name="country" placeholder="Country" required>
+                    {countryNames.map(country => (
+                      <Option value={country}>{country}</Option>
+                    ))}
+                  </Select>
+
                   <SubmitButton type="submit">
                     <SubmitButtonIcon className="icon" />
                     <span className="text">{submitButtonText}</span>
                   </SubmitButton>
                   <p tw="mt-6 text-xs text-gray-600 text-center">
-                    By registering, I agree to abide by HelaView's{" "}
+                    By registering, You agree to abide by HelaView&#39;s{" "}
                     <a href={tosUrl} tw="border-b border-gray-500 border-dotted">
                       Terms of Service
                     </a>{" "}

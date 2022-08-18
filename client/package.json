@@ -24,6 +24,7 @@
     "@windmill/react-ui": "0.3.1",
     "chart.js": "2.9.3",
     "classnames": "2.2.6",
+    "countries-list": "^2.6.1",
     "faker": "4.1.0",
     "feather-icons": "^4.29.0",
     "framer-motion": "4.1.17",
