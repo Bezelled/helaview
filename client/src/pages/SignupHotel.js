@@ -18,7 +18,8 @@ const MainHeading = tw.h1`text-2xl xl:text-3xl font-extrabold text-primary-500`;
 const Heading = tw.h1`text-2xl xl:text-3xl font-extrabold`;
 const FormContainer = tw.div`w-full flex-1 mt-8`;
 const Form = tw.form`mx-auto max-w-xs`;
-const Input = tw.input`w-full px-8 py-4 mb-6 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 first:mt-0`;
+const Input = tw.input`w-full appearance-none px-8 py-4 mb-6 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 first:mt-0`;
+const TextArea = tw.textarea`w-full appearance-none px-8 py-4 mb-6 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 first:mt-0`;
 const Select = tw.select`w-full px-8 py-4 mb-6 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 first:mt-0`;
 const Option = tw.option`w-full px-8 py-4 mb-6 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 first:mt-0`;
 const Label = tw.label``;
@@ -71,18 +72,14 @@ const handleSubmit = async(event) => {
       'full name': event.target['full name'].value,
       'password': event.target.password.value,
       'password confirmation': event.target['password confirmation'].value,
-      'address': event.target.age.value,
-      'gender': event.target.gender.value,
+      'address': event.target.address.value,
       'contact number': event.target['contact number'].value,
       'hotel type': event.target['hotel type'].value,
-      'country': 'Sri Lanka',  //  event.target.country.value
+      'rating': event.target.rating.value,
+      'room count': event.target['room count'].value
     });
-    console.log("RESP", JSON.stringify(resp));
-    console.log("MESSAGE", resp.data.message);
     toast.success(resp.data.message);
   } catch (e){
-
-    console.log(e);
 
     if (e.response?.data.error)
       return toast.error(e.response.data.error);
@@ -109,9 +106,12 @@ export default ({
         <NavLink href="/login" tw="lg:ml-12!">Login</NavLink>
         <PrimaryLink css={false && tw`rounded-full`} href="/register-tourist">Sign Up</PrimaryLink>
       </NavLinks>
-    ]} />
+    ]}/>
       <Container>
         <Content>
+          <IllustrationContainer>
+            <IllustrationImage imageSrc={illustrationImageSrc} />
+          </IllustrationContainer>
           <MainContainer>
             <MainContent>
               <MainHeading>HOTELS</MainHeading>
@@ -123,13 +123,13 @@ export default ({
                   <Label for="email">E-mail address:</Label>
                   <Input id="email" type="email" placeholder="hello@helaview.lk" required/>
                   <Label for="full name">Full name:</Label>
-                  <Input id="full name" type="text" placeholder="John" required/>
-                  <Label for="last name">Last name:</Label>
-                  <Input id="last name" type="text" placeholder="Doe" />
+                  <Input id="full name" type="text" placeholder="HelaView Hotel" required/>
                   <Label for="password">Password (8-20 characters, with upper & lower case alphanumeric and special characters):</Label>
                   <Input id="password" type="password" placeholder="**********" required/>
                   <Label for="password confirmation">Retype password:</Label>
                   <Input id="password confirmation" type="password" placeholder="**********" required/>
+                  <Label for="rating">Rating (select 0.00 for "Unrated", but start from 1.00 if you are rated):</Label>
+                  <Input id="rating" type="number" step="0.25" placeholder="4.50" min="0.00" max="5.00" required/>
                   <Label for="room count">Available room count (HelaView will only allow this number of rooms to be booked at a certain time):</Label>
                   <Input id="room count" type="number" placeholder="5" min="1" max="5000" required/>
                   
@@ -149,8 +149,8 @@ export default ({
                   
                   <Label for="contact number">Contact number:</Label>
                   <Input id="contact number" type="tel" placeholder="+94771002030" required/>
-                  <Label for="passport number">Passport number:</Label>
-                  <Input id="passport number" type="text" placeholder="Passport number" />
+                  <Label for="address">Passport number:</Label>
+                  <TextArea id="address" placeholder="Residential Number, Street Lane, Street Address, City." />
 
                   <SubmitButton type="submit">
                     <SubmitButtonIcon className="icon" />
@@ -178,9 +178,6 @@ export default ({
               </FormContainer>
             </MainContent>
           </MainContainer>
-          <IllustrationContainer>
-            <IllustrationImage imageSrc={illustrationImageSrc} />
-          </IllustrationContainer>
         </Content>
       </Container>
   </StyledDiv>

@@ -72,8 +72,8 @@ export default async function addRoute(router: Router): Promise<void>{
 
         const rating: number = Number(req.body.rating);   //eslint-disable-line @typescript-eslint/no-inferrable-types
 
-        if (isNaN(rating) || ((rating >= 0)  && (rating <= 5)))
-            return res.status(400).json({ error: `Please enter a valid hotel rating between 0.00 and 5.00. Select 0.00 to be classified as "unrated".` });
+        if (isNaN(rating) || (rating > 5) || ((rating > 0)  && (rating < 1)) || (rating % 0.25 === 0))
+            return res.status(400).json({ error: `Please enter a valid hotel rating between 1.00 and 5.00. Select 0.00 to be classified as "unrated".` });
         
         // const images = {'Images': ['']};
 
