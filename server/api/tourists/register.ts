@@ -76,7 +76,7 @@ export default async function addRoute(router: Router): Promise<void>{
         
         const age: number = req.body.age;
     
-        if ((Number.isNaN(age) || (age < 0) || (age > 120)))
+        if ((isNaN(age) || (age < 0) || (age > 120)))
             return res.status(400).json({ error: `Please input a valid age.` });
     
         if (age <  13)
@@ -138,10 +138,10 @@ export default async function addRoute(router: Router): Promise<void>{
                 `;
             });
 
-            await generateVerificationCode(hdb, email, AccountType.Tourist);
+            await generateVerificationCode(hdb, email, AccountType.Tourist, 'Email');
     
-            console.log(`[Account created]: ${email}, ${firstName}, ${lastName}, ${password}, ${passportNo}, ${age}, ${gender}, ${country}, ${contactNo}.`);
-            res.status(200).json({ message: `Your account ${firstName} has been created under ${email}.`});
+            console.log(`[Tourist | Account created]: ${email}, ${firstName}, ${lastName}, ${password}, ${passportNo}, ${age}, ${gender}, ${country}, ${contactNo}.`);
+            res.status(200).json({ message: `Your tourist account ${firstName} has been created under ${email}.`});
         } catch (err: Error | unknown){
             //Pass
         }

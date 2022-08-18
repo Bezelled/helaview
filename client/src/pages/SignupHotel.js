@@ -6,9 +6,9 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 import illustration from "../assets/img/signup-illustration.svg";
 import { ReactComponent as SignUpIcon } from "feather-icons/dist/icons/user-plus.svg";
 import Header, { NavLinks, NavLink, PrimaryLink } from "../components/headers/light.js";
+import { StyledDiv } from "../utils/AnimationRevealPage.js";
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { StyledDiv } from "../utils/AnimationRevealPage.js"; 
 
 const Container = tw(ContainerBase)`min-h-screen border-black text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl shadow-2xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 sm:rounded-lg flex justify-center flex-1`;
@@ -130,10 +130,10 @@ export default ({
                   <Input id="password" type="password" placeholder="**********" required/>
                   <Label for="password confirmation">Retype password:</Label>
                   <Input id="password confirmation" type="password" placeholder="**********" required/>
-                  <Label for="age">Available rooms (HelaView will only customers to allow booking this number of rooms):</Label>
-                  <Input id="age" type="number" placeholder="13" min="13" max="120" required/>
-                  <Label for="hotel type">Hotel Type:</Label>
+                  <Label for="room count">Available room count (HelaView will only allow this number of rooms to be booked at a certain time):</Label>
+                  <Input id="room count" type="number" placeholder="5" min="1" max="5000" required/>
                   
+                  <Label for="hotel type">Hotel Type:</Label>
                   <Select id="hotel type" name="hotel type" placeholder="Hotel Type" required>
                       <Option selected value="Villa">Chain hotel</Option>
                       <Option value="F">Motel</Option>
@@ -142,7 +142,7 @@ export default ({
                       <Option value="F">Conference hotel</Option>
                       <Option value="F">Extended stay hotel</Option>
                       <Option value="F">Boutique</Option>
-                      <Option value="F">Bunkhouse</Option>
+                      <Option value="F">Bungalow</Option>
                       <Option value="F">Bed and Breakfast</Option>
                       <Option value="F">Heritage hotel</Option>
                   </Select>

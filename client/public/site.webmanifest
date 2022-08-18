@@ -1,6 +1,7 @@
 {
     "name": "HelaView.lk",
     "short_name": "HelaView",
+    "start_url": "/",
     "icons": [
         {
             "src": "favicon",

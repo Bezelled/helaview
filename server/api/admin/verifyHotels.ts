@@ -11,7 +11,7 @@ export default async function addRoute(router: Router): Promise<void>{
         // eslint-disable-next-line prefer-const
         let { id, email, name } = req.body;
 
-        if (Number.isNaN(id))
+        if (isNaN(id))
             return res.status(400).json({ error: 'Please enter a valid, integer hotel ID.' });
 
         id = Number(id);

@@ -41,14 +41,14 @@ export default async function addRoute(router: Router): Promise<void>{
 
         //Validate amount
 
-        if (Number.isNaN(req.body.amount))
+        if (isNaN(req.body.amount))
             return res.status(400).json({error: 'Please enter a valid booking price.'});
 
         const amount: number = Number(req.body.amount);
 
         //Validate head count
 
-        if (Number.isNaN(req.body['head count']))
+        if (isNaN(req.body['head count']))
             return res.status(400).json({error: 'Please enter a valid head count.'});
 
         const headCount: number = Number(req.body['head count']);

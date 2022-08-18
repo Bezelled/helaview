@@ -29,7 +29,7 @@ export default async function addRoute(router: Router): Promise<void>{
             SELECT id, first_name, last_name, age, gender, country, contact_no, email_verified FROM tourists WHERE email = ${email};
         `;
 
-        if (Number.isNaN(req.params.offset))
+        if (isNaN(req.params.offset))
             return res.status(400).json({error: 'Please enter a valid, integer offset.'});
 
         const offset: number = Number(req.params.offset);

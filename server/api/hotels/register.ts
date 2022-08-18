@@ -52,29 +52,30 @@ export default async function addRoute(router: Router): Promise<void>{
     
         let contactNo: number = req.body['contact number'];   //eslint-disable-line @typescript-eslint/no-inferrable-types
         
-        if (Number.isNaN(contactNo) || ((contactNo.toString().length) !== 9)){
+        if (isNaN(contactNo) || ((contactNo.toString().length) !== 9)){
             return res.status(400).json({ error: `Please enter a valid phone number.` });
         } else {
             contactNo = Number(contactNo);
         };
+
+        //Validate room count
+    
+        const roomCount: number = Number(req.body['room count']);   //eslint-disable-line @typescript-eslint/no-inferrable-types
+        
+        if (isNaN(roomCount) || ((roomCount > 0) && (roomCount < 5000)))
+            return res.status(400).json({ error: `Please enter a valid available room count.` });
     
         const address: string = req.body.address;
         const hotelType: string = req.body['hotel type'];
 
         //Validate rating
 
-        let rating: number | string | null = req.body.rating;   //eslint-disable-line @typescript-eslint/no-inferrable-types
+        const rating: number = Number(req.body.rating);   //eslint-disable-line @typescript-eslint/no-inferrable-types
 
-        if (rating === 'Unrated'){
-            rating = null;
-        } else {
-            
-            if (Number.isNaN(rating) || (Number(rating) >= 0  && Number(rating) <= 5)){
-                return res.status(400).json({ error: `Please enter a valid hotel rating between 0.00 and 5.00, or select 'Unrated'.` });
-            } else {
-                rating = Number(rating);
-            };
-        };
+        if (isNaN(rating) || ((rating >= 0)  && (rating <= 5)))
+            return res.status(400).json({ error: `Please enter a valid hotel rating between 0.00 and 5.00. Select 0.00 to be classified as "unrated".` });
+        
+        // const images = {'Images': ['']};
 
         // Create password hash and insert to the database, if the password is valid
 
@@ -102,22 +103,38 @@ export default async function addRoute(router: Router): Promise<void>{
                 await hdb`
                     INSERT INTO hotels
                     (
-                        full_name, email, hash, address, contact_no, hotel_type, rating
+                        email, name, hash, address, contact_no, hotel_type, rating, available_rooms
                     )
                     VALUES
                     (
-                        ${fullName}, ${email}, ${hashedPassword}, ${address}, ${contactNo}, ${hotelType}, ${rating}
+                        ${email}, ${fullName}, ${hashedPassword}, ${address}, ${contactNo}, ${hotelType}, ${rating}, ${roomCount}
                     )
                     ON CONFLICT (email) DO NOTHING;
                 `;
             });
 
-            await generateVerificationCode(hdb, email, AccountType.Hotel);
+            await generateVerificationCode(hdb, email, AccountType.Hotel, 'Email');
     
-            console.log(`[Account created]: ${fullName}, ${email}, ${password}, ${passwordConfirmation}, ${address}, ${contactNo}.`);
-            res.status(200).json({ message: `Your account ${fullName} has been created.`});
+            console.log(`[Hotel | Account created]: ${fullName}, ${email}, ${fullName}, ${passwordConfirmation}, ${address}, ${contactNo}, ${hotelType}, ${rating}, ${roomCount}.`);
+            res.status(200).json({ message: `Your hotel account ${fullName} has been created under ${email}.`});
         } catch (err: Error | unknown){
             //Pass
         }
     });
 }
+
+// CREATE TABLE hotels
+// (
+//     id bigserial,
+//     email citext PRIMARY KEY,
+//     name citext NOT NULL,
+//     hash citext NOT NULL,
+//     address citext NOT NULL unique,
+//     contact_no bigint NOT NULL unique,
+//     hotel_type citext, -- Nullable at registration
+//     rating float(2),  -- Nullable at registration
+//     available_rooms smallint NOT NULL DEFAULT 1,
+//     images jsonb NOT NULL DEFAULT '{"Images":[]}'::jsonb,
+//     email_verified bool NOT NULL DEFAULT False,
+//     admin_verified bool NOT NULL DEFAULT False
+// );

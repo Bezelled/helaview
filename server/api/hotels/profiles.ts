@@ -9,7 +9,7 @@ export default async function addRoute(router: Router): Promise<void>{
     
     router.get('/hotels/profiles/:page', async(req: Request, res: Response) => {
 
-        if (Number.isNaN(req.params.page))
+        if (isNaN(req.params.page))
             return res.status(400).json({error: 'Please enter a valid, integer page.'});
 
         const page: number = (Number(req.params.page) * 10);
