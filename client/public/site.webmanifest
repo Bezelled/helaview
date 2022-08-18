@@ -6,27 +6,32 @@
         {
             "src": "favicon",
             "sizes": "64x64",
-            "type": "image/x-icon"
+            "type": "image/x-icon",
+            "purpose": "maskable"
         },
         {
             "src": "favicon-16x16",
             "sizes": "16x16 24x24",
-            "type": "image/x-icon"
+            "type": "image/x-icon",
+            "purpose": "maskable"
         },
         {
             "src": "favicon-32x32",
             "sizes": "32x32",
-            "type": "image/x-icon"
+            "type": "image/x-icon",
+            "purpose": "maskable"
         },
         {
             "src": "/android-chrome-192x192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "maskable"
         },
         {
             "src": "/android-chrome-512x512.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "maskable"
         }
     ],
     "theme_color": "#ffffff",
