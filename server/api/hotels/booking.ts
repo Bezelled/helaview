@@ -6,15 +6,18 @@ import hdb from '../../lib/db.js';
 // CREATE TABLE bookings
 // (
 //     id bigserial PRIMARY KEY,
-//     amount numeric(20) NOT NULL,
-//     head_count smallint NOT NULL,
+//     price numeric(15,6) NOT NULL,
+//     price_per_night numeric(15,6) NOT NULL,
+//     num_of_nights smallint NOT NULL DEFAULT 1,
+//     num_of_rooms smallint NOT NULL DEFAULT 1,
+//     head_count jsonb NOT NULL DEFAULT '{"Adult": 1}'::jsonb,
 //     tourist_id bigint NOT NULL,
 //     tourist_email citext NOT NULL,
 //     hotel_id bigint NOT NULL,
 //     hotel_email citext NOT NULL,
-//     offer_code citext REFERENCES offers(code),
-//     start_date timestamp NOT NULL,
-//     end_date timestamp NOT NULL ,
+//     offer_code citext REFERENCES offers(code) ON DELETE SET NULL,
+//     check_in_date timestamp NOT NULL,
+//     check_out_date timestamp NOT NULL ,
 //     creation_date timestamp NOT NULL DEFAULT now()
 // );
 
@@ -65,7 +68,7 @@ export default async function addRoute(router: Router): Promise<void>{
         //Validate hotel email
 
         const hotelAccount = await hdb`
-            SELECT id FROM hotels WHERE email = ${req.body['hotel email']};
+            SELECT id, name, available_rooms FROM hotels WHERE email = ${req.body['hotel email']};
         `;
 
         const hotelDBID: number = hotelAccount[0]?.id;
@@ -75,6 +78,20 @@ export default async function addRoute(router: Router): Promise<void>{
 
         const hotelID: number = Number(hotelDBID);
         const hotelEmail: string = req.body['hotel email'];
+        const hotelName: string = hotelAccount[0].name;
+        const availableRooms: number = Number(hotelAccount[0].available_rooms);
+
+        const checkInDate: string = new Date(req.body['check in date']).toISOString();
+        const checkOutDate: string = new Date(req.body['check out date']).toISOString();
+
+        const bookings = await hdb`
+            SELECT id FROM bookings
+            WHERE check_in_date > ${checkInDate}::timestamp
+            AND check_out_date < ${checkOutDate}::timestamp;
+        `;
+        
+        if (bookings.length >= availableRooms)
+            return res.status(400).json({ error: `${hotelName} is fully booked during those dates. Please select another hotel, or choose different dates.` });
 
         //Validate offer code
 
@@ -112,9 +129,6 @@ export default async function addRoute(router: Router): Promise<void>{
                 };
             };
         };
-
-        const startDate: string = new Date(req.body['start date']).toISOString();
-        const endDate: string = new Date(req.body['end date']).toISOString();
         
         await hdb`
             INSERT INTO bookings
@@ -123,11 +137,11 @@ export default async function addRoute(router: Router): Promise<void>{
             )
             VALUES
             (
-                ${amount}, ${headCount}, ${touristID}, ${touristEmail}, ${hotelID}, ${hotelEmail}, ${offerCode}, ${startDate}::timestamp, ${endDate}::timestamp
+                ${amount}, ${headCount}, ${touristID}, ${touristEmail}, ${hotelID}, ${hotelEmail}, ${offerCode}, ${checkInDate}::timestamp, ${checkOutDate}::timestamp
             );
         `;
 
-        return res.status(200).json({ message: `Your booking is confirmed for ${startDate}. You will receive an e-mail shortly.` });
+        return res.status(200).json({ message: `Your booking is confirmed for ${new Date(checkInDate).toLocaleString('en-US', { timeZone: 'Asia/Colombo'})}. You will receive an e-mail shortly.` });
     });
 
 }

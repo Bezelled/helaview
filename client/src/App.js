@@ -9,7 +9,8 @@ const About = lazy(() => import('./pages/AboutUs'));
 const ContactUs = lazy(() => import('./pages/ContactUs'));
 const Privacy = lazy(() => import('./pages/PrivacyPolicy'));
 const ToS = lazy(() => import('./pages/TermsOfService'));
-const CreateAccount = lazy(() => import('./pages/SignupTourist'));
+const RegisterTourist = lazy(() => import('./pages/SignupTourist'));
+const RegisterHotel = lazy(() => import('./pages/SignupHotel'));
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
 
 export default function App() {
@@ -23,7 +24,8 @@ export default function App() {
         <Route path="/tos" component={ToS} />
         <Route path="/privacy-policy" component={Privacy}/>
         <Route path="/contact-us" component={ContactUs} />
-        <Route path="/register" component={CreateAccount} />
+        <Route path="/register-tourist" component={RegisterTourist} />
+        <Route path="/register-hotel" component={RegisterHotel} />
         <Route path="/forgot-password" component={ForgotPassword} />
 
         {/* Place new routes over this */}

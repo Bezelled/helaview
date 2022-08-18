@@ -108,7 +108,7 @@ export default ({
         <NavLink href="/about">About</NavLink>
         <NavLink href="/contact-us" tw="lg:ml-12!">Contact Us</NavLink>
         <NavLink href="/login" tw="lg:ml-12!">Login</NavLink>
-        <PrimaryLink css={false && tw`rounded-full`} href="/register">Sign Up</PrimaryLink>
+        <PrimaryLink css={false && tw`rounded-full`} href="/register-tourist">Sign Up</PrimaryLink>
       </NavLinks>
     ]} />
       <Container>

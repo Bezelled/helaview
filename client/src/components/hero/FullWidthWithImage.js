@@ -46,7 +46,7 @@ export default ({
     <NavLinks key={1}>
       <NavLink href="/about">About</NavLink>
       <NavLink href="/contact-us">Contact</NavLink>
-      <NavLink href="/register">Sign Up</NavLink>
+      <NavLink href="/register-tourist">Sign Up</NavLink>
       <NavLink href="/login">Login</NavLink>
     </NavLinks>
   ],

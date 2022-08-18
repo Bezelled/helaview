@@ -1,11 +1,32 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
 
-import ImageLight from '../assets/img/forgot-password-office.jpeg'
-import ImageDark from '../assets/img/forgot-password-office-dark.jpeg'
-import { Label, Input, Button } from '@windmill/react-ui'
+import ImageLight from '../assets/img/forgot-password-office.jpeg';
+import ImageDark from '../assets/img/forgot-password-office-dark.jpeg';
+import { Label, Input, Button } from '@windmill/react-ui';
 
-function ForgotPassword() {
+export default function ForgotPassword() {
+
+  const handleSubmit = async(event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+  
+    if (!email)
+      return toast.error('Please enter a valid e-mail address.');
+  
+    try{
+      const resp = await axios.post('http://127.0.0.1:7788/api/forgotPassword', {
+        'email': event.target.email.value
+      });
+      toast.success(resp.data.message);
+    } catch (e){
+  
+      if (e.response?.data.error)
+        return toast.error(e.response.data.error);
+      
+      toast.error('Uh oh! An error occurred.');
+    };
+  }
+  
   return (
     <div className="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
       <div className="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
@@ -32,10 +53,10 @@ function ForgotPassword() {
 
               <Label>
                 <span>Email</span>
-                <Input className="mt-1" placeholder="Hela View" />
+                <Input id="email" type="email" className="mt-1" placeholder="hello@helaview.lk" />
               </Label>
 
-              <Button tag={Link} to="/login" block className="mt-4">
+              <Button type="submit" onSubmit={handleSubmit} block className="mt-4">
                 Recover password
               </Button>
             </div>
@@ -45,5 +66,3 @@ function ForgotPassword() {
     </div>
   )
 }
-
-export default ForgotPassword

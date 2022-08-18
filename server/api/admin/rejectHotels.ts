@@ -1,9 +1,9 @@
 'use strict';
 
 import { Request, Response, Router } from 'express';
-import { verifyAccount } from '../../lib/shared.js';
+import { Emailer } from '../../lib/shared.js';
 import hdb from '../../lib/db.js';
-import { AccountType } from '../../config/globals.js';
+import { HelaEmail } from 'index.js';
 
 // CREATE TABLE hotel_logs
 // (
@@ -15,6 +15,7 @@ import { AccountType } from '../../config/globals.js';
 export default async function addRoute(router: Router): Promise<void>{
     
     router.post('/admin/rejectHotels', async(req: Request, res: Response) => {
+        // eslint-disable-next-line prefer-const
         let { id, name, message } = req.body;
         
         if (Number.isNaN(id))
@@ -44,6 +45,15 @@ export default async function addRoute(router: Router): Promise<void>{
                 ${id}, ${message}
             );
         `;
+
+        const rejectionEmail: HelaEmail = {
+            recipient: hotelAccount[0].email,
+            subject: 'Your account has been rejected',
+            text: `Your HelaView hotel account has been rejected.`,
+            html: `Your HelaView hotel account has been rejected for the following reason:<br>
+            ${message}`
+        };
+        await Emailer.sendEmail(rejectionEmail);
 
         return res.status(200).json({ message: `${name} hotel's profile was rejected.` });
     });

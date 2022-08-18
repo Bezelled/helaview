@@ -12,6 +12,18 @@ import { HelaEmail } from 'index.js';
 
 const { sign } = jwt;
 
+export function getAccountType(accountType: string | undefined): AccountType | undefined{
+    
+    switch (accountType){
+        case 'Tourist':
+            return AccountType.Tourist;
+        case 'Hotel':
+            return AccountType.Hotel;
+        case 'Admin':
+            return AccountType.Admin;
+    };
+}
+
 /**
  * @param {Request} req
  *  The express request.
@@ -89,38 +101,61 @@ export class Emailer {
      * @param {string} verification
      *  The verification ID.
      */
-    public static async sendVerificationEmail(email: string, senderType: AccountType, verification: string): Promise<void>{
+    public static async sendVerificationEmail(email: string, senderType: AccountType | undefined, codeType: string, verification: string): Promise<void>{
         
         Emailer.createEmailTransport();
 
-        let emailSubject: string = ' account verification for HelaView';
+        let emailSubject: string = '';
+        let emailText: string = '';
+        let emailHTML: string = '';
         let url: string = '';
 
-        switch (senderType){
+        switch (codeType){
             
-            case AccountType.Tourist:
-                emailSubject = 'Tourist' + emailSubject;
-                
-                url = `${DOMAIN}/api/tourists/verify/${email}/${verification}`;
-                break;
-            
-            case AccountType.Hotel:
-                emailSubject = 'Hotel' + emailSubject;
-                url = `${DOMAIN}/api/hotels/verify/email/${email}/${verification}`;
-                break;
+            case 'Email':
+                emailSubject = ' account verification for HelaView';
 
+                switch (senderType){
+            
+                    case AccountType.Tourist:
+                        emailSubject = 'Tourist' + emailSubject;
+                        
+                        url = `${DOMAIN}/api/tourists/verify/${email}/${verification}`;
+                        break;
+                    
+                    case AccountType.Hotel:
+                        emailSubject = 'Hotel' + emailSubject;
+                        url = `${DOMAIN}/api/hotels/verify/email/${email}/${verification}`;
+                        break;
+        
+                    default:
+                        return; //We don't want to verify an admin account
+                };
+        
+                url = encodeURI(url);
+                emailText = 'Please confirm your email account.';
+                emailHTML = `Hello,<br> Please click on the link to verify your email.<br><a href="${url}">Click here to verify</a>`;
+                break;
+            
+            case 'Password':
+                emailSubject = 'Password reset request for HelaView';
+                url = `${DOMAIN}/api/resetPassword/${email}/${verification}`;
+                emailText = 'Click the link below to reset your HelaView password.';
+                emailHTML = `Your HelaView password can be reset by clicking the link below.<br>
+                            <a href="${url}">Click here</a> to reset your password.
+                            If you did not request a new password, please ignore this e-mail.`;
+                break;
+            
             default:
-                return; //We don't want to verify an admin account
+                return;
         };
-
-        url = encodeURI(url);
 
         const info = await Emailer.transport.sendMail({
             from: MAIL_USERNAME,
             to: email,
             subject: emailSubject,
-            text: 'Please confirm your email account.',
-            html: `Hello,<br> Please click on the link to verify your email.<br><a href="${url}">Click here to verify</a>`
+            text: emailText,
+            html: emailHTML
         });
         
         console.log(`[Sent Email]: ${info.messageId}.`);
@@ -174,6 +209,7 @@ export class Emailer {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function* getRoutes(filename: string, fileType: string): AsyncGenerator<any, void, unknown>{
 
     let _dirname: string = '';
@@ -205,26 +241,26 @@ export async function addRoutes(filename: string, fileType: string, router: Rout
     };
 }
 
-export async function generateVerificationCode(hdb: Sql<{bigint: bigint;}>, email: string, accountType: AccountType){
+export async function generateVerificationCode(hdb: Sql<{bigint: bigint;}>, email: string, accountType: AccountType | undefined, codeType: string){
     const token: string = randomBytes(50).toString('hex'); //Generate a token
 
     //Expire previous verification codes if in development mode
     if (process.env.NODE_ENV !== 'production')
         await hdb`
-            UPDATE verification_codes SET expired = True WHERE email = ${email}
+            UPDATE verification_codes SET expired = True WHERE email = ${email} AND type = ${codeType}
         `;
     
     await hdb`
         INSERT INTO verification_codes
         (
-            email, code
+            email, type, code
         )
         VALUES
         (
-            ${email}, ${token}
+            ${email}, ${codeType}, ${token}
         );`;
 
-    await Emailer.sendVerificationEmail(email, accountType, token);
+    await Emailer.sendVerificationEmail(email, accountType, codeType, token);
 }
 
 export async function verifyAccount(hdb: Sql<{bigint: bigint;}>, req: Request, res: Response, accountType: AccountType){
@@ -250,6 +286,7 @@ export async function verifyAccount(hdb: Sql<{bigint: bigint;}>, req: Request, r
         if ((new Date().getTime() - threeDays) < dateCreated.getTime()){    //The code is valid if its creation date is less than 3 days
             
             switch (accountType){
+                
                 case AccountType.Tourist:
                     await hdb`
                         UPDATE tourists SET email_verified = True WHERE email = ${email};
