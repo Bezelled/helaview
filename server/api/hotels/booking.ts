@@ -84,13 +84,19 @@ export default async function addRoute(router: Router): Promise<void>{
         const checkInDate: string = new Date(req.body['check in date']).toISOString();
         const checkOutDate: string = new Date(req.body['check out date']).toISOString();
 
-        const bookings = await hdb`
-            SELECT id FROM bookings
-            WHERE check_in_date > ${checkInDate}::timestamp
-            AND check_out_date < ${checkOutDate}::timestamp;
+        const bookings: Array<> = await hdb`
+            SELECT num_of_rooms FROM bookings
+            WHERE check_in_date >= ${checkInDate}::timestamp
+            AND check_out_date <= ${checkOutDate}::timestamp;
         `;
+
+        let bookedRooms: number = 1;
         
-        if (bookings.length >= availableRooms)
+        for (const booking in bookings){
+            bookedRooms += Number(booking?.num_of_rooms);
+        };
+        
+        if (bookedRooms >= availableRooms)
             return res.status(400).json({ error: `${hotelName} is fully booked during those dates. Please select another hotel, or choose different dates.` });
 
         //Validate offer code

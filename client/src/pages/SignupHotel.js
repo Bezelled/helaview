@@ -130,7 +130,7 @@ export default ({
                   <Input id="password" type="password" placeholder="**********" required/>
                   <Label for="password confirmation">Retype password:</Label>
                   <Input id="password confirmation" type="password" placeholder="**********" required/>
-                  <Label for="age">Age:</Label>
+                  <Label for="age">Available rooms (HelaView will only customers to allow booking this number of rooms):</Label>
                   <Input id="age" type="number" placeholder="13" min="13" max="120" required/>
                   <Label for="hotel type">Hotel Type:</Label>
                   <Select id="hotel type" name="hotel type" placeholder="Hotel Type" required>
