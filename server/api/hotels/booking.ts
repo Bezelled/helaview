@@ -84,7 +84,7 @@ export default async function addRoute(router: Router): Promise<void>{
         const checkInDate: string = new Date(req.body['check in date']).toISOString();
         const checkOutDate: string = new Date(req.body['check out date']).toISOString();
 
-        const bookings: Array<> = await hdb`
+        const bookings = await hdb`
             SELECT num_of_rooms FROM bookings
             WHERE check_in_date >= ${checkInDate}::timestamp
             AND check_out_date <= ${checkOutDate}::timestamp;

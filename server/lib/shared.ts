@@ -15,6 +15,7 @@ const { sign } = jwt;
 export function getAccountType(accountType: string | undefined): AccountType | undefined{
     
     switch (accountType){
+        
         case 'Tourist':
             return AccountType.Tourist;
         case 'Hotel':

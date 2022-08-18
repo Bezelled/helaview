@@ -28,3 +28,107 @@ interface HelaBooking{
     readonly pricePerNight: number;
     readonly price: number;
 }
+
+//Database table types for SQL query return type casting
+
+interface HelaDBUsers
+{
+    email: string;
+    hash: string;
+    contact_no: number;
+    account_type: string;
+}
+
+interface HelaDBTourists
+{
+    id: number;
+    email: string;
+    first_name: string;
+    last_name: string;
+    hash: string;
+    passport_no: string; 
+    age: number;
+    gender: boolean;
+    country: string;
+    contact_no: number;
+    images: object;
+    email_verified: boolean;
+    admin_flagged: boolean;
+}
+
+interface HelaDBHotels
+{
+    id: number;
+    email: string;
+    name: string;
+    hash: string;
+    address: string;
+    contact_no: number;
+    hotel_type: string;
+    rating: number;
+    available_rooms: number;
+    images: object;
+    email_verified: boolean;
+    admin_verified: boolean;
+}
+
+interface HelaDBVerificationCodes
+{
+    email: string;
+    code: string;
+    type: string;
+    expired: boolean;
+    date_created: Date;
+}
+
+interface HelaDBOffers
+{
+    id: number;
+    code: string;
+    name: string;
+    description: string;
+    start_date: Date;
+    end_date: Date;
+    hotels: object;
+}
+
+interface HelaDBBooking{
+
+    id: number;
+    price: number;
+    price_per_night: number;
+    num_of_nights: number;
+    num_of_rooms: number;
+    head_count: object;
+    tourist_id: number;
+    tourist_email: string;
+    hotel_id: number;
+    hotel_email: string;
+    offer_code: string;
+    check_in_date: Date;
+    check_out_date: Date;
+    creation_date: Date;
+}
+
+interface HelaDBAdmins
+{
+    id: number;
+    email: string;
+    name: string;
+    hash: string;
+    images: object;
+}
+
+interface HelaDBTouristLogs
+{
+    description: string;
+    tourist_id: number;
+    admin_id: number;
+}
+
+interface HelaDBHotelLogs
+{
+    description: string;
+    hotel_id: number;
+    admin_id: number;
+}
