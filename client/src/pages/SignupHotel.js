@@ -38,6 +38,22 @@ const IllustrationImage = styled.div`
   ${tw`m-12 xl:m-16 w-full max-w-lg bg-contain bg-center bg-no-repeat`}
 `;
 
+// CREATE TABLE hotels
+// (
+//     id bigserial,
+//     email citext PRIMARY KEY,
+//     name citext NOT NULL,
+//     hash citext NOT NULL,
+//     address citext NOT NULL unique,
+//     contact_no bigint NOT NULL unique,
+//     hotel_type citext, -- Nullable at registration
+//     rating float(2),  -- Nullable at registration
+//     available_rooms smallint NOT NULL DEFAULT 1,
+//     images jsonb NOT NULL DEFAULT '{"Images":[]}'::jsonb,
+//     email_verified bool NOT NULL DEFAULT False,
+//     admin_verified bool NOT NULL DEFAULT False
+// );
+
 const handleSubmit = async(event) => {
   event.preventDefault();
   const email = event.target.email.value;
@@ -75,22 +91,6 @@ const handleSubmit = async(event) => {
   };
 
 }
-
-// CREATE TABLE tourists
-// (
-//     id bigserial,
-//     email citext PRIMARY KEY,
-//     first_name citext NOT NULL,
-//     last_name citext NOT NULL,
-//     hash citext NOT NULL,
-//     passport_no citext unique,  -- Nullable at registration
-//     age smallint NOT NULL,
-//     gender bool NOT NULL DEFAULT True,
-//     country citext NOT NULL,
-//     contact_no bigint NOT NULL unique,
-//     email_verified bool NOT NULL DEFAULT False
-// );
-
 export default ({
   logoLinkUrl = "/",
   illustrationImageSrc = illustration,
@@ -133,6 +133,7 @@ export default ({
                   <Label for="age">Available rooms (HelaView will only customers to allow booking this number of rooms):</Label>
                   <Input id="age" type="number" placeholder="13" min="13" max="120" required/>
                   <Label for="hotel type">Hotel Type:</Label>
+                  
                   <Select id="hotel type" name="hotel type" placeholder="Hotel Type" required>
                       <Option selected value="Villa">Chain hotel</Option>
                       <Option value="F">Motel</Option>
@@ -145,6 +146,7 @@ export default ({
                       <Option value="F">Bed and Breakfast</Option>
                       <Option value="F">Heritage hotel</Option>
                   </Select>
+                  
                   <Label for="contact number">Contact number:</Label>
                   <Input id="contact number" type="tel" placeholder="+94771002030" required/>
                   <Label for="passport number">Passport number:</Label>

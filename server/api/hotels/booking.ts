@@ -1,6 +1,8 @@
 'use strict';
 
 import { Router, Request, Response } from 'express';
+import { HelaDBBooking } from 'index.js';
+import { RowList } from 'postgres';
 import hdb from '../../lib/db.js';
 
 // CREATE TABLE bookings
@@ -84,16 +86,16 @@ export default async function addRoute(router: Router): Promise<void>{
         const checkInDate: string = new Date(req.body['check in date']).toISOString();
         const checkOutDate: string = new Date(req.body['check out date']).toISOString();
 
-        const bookings = await hdb`
+        const bookings: RowList<HelaDBBooking[]> = await hdb<HelaDBBooking[]>`
             SELECT num_of_rooms FROM bookings
             WHERE check_in_date >= ${checkInDate}::timestamp
             AND check_out_date <= ${checkOutDate}::timestamp;
         `;
 
-        let bookedRooms: number = 1;
+        let bookedRooms: number = 0;
         
-        for (const booking in bookings){
-            bookedRooms += Number(booking?.num_of_rooms);
+        for (let i = 0; i < bookings.length; i++) {
+            bookedRooms += Number(bookings[i].num_of_rooms);
         };
         
         if (bookedRooms >= availableRooms)
