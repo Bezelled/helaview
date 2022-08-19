@@ -5,20 +5,6 @@
 import { Request, Response, Router } from 'express';
 import hdb from '../../lib/db.js';
 
-// CREATE TABLE tourists
-// (
-//     id bigserial,
-//     email citext PRIMARY KEY,
-//     first_name citext NOT NULL,
-//     last_name citext NOT NULL,
-//     hash citext NOT NULL,
-//     passport_no citext unique,  -- Nullable at registration
-//     age smallint NOT NULL,
-//     gender bool NOT NULL DEFAULT True,
-//     country citext NOT NULL,
-//     contact_no bigint NOT NULL unique,
-//     email_verified bool NOT NULL DEFAULT False
-// );
 
 export default async function addRoute(router: Router): Promise<void>{
     

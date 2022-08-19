@@ -2,20 +2,6 @@
 
 //Only for admins
 
-// CREATE TABLE hotels
-// (
-//     id bigserial,
-//     email citext PRIMARY KEY,
-//     name citext NOT NULL,
-//     hash citext NOT NULL,
-//     address citext NOT NULL unique,
-//     contact_no bigint NOT NULL unique,
-//     hotel_type citext,   -- Nullable at registration
-//     rating float(2),  -- Nullable at registration
-//     email_verified bool NOT NULL DEFAULT False,
-//     admin_verified bool NOT NULL DEFAULT False
-// );
-
 import { Request, Response, Router } from 'express';
 import hdb from '../../lib/db.js';
 

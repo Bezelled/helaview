@@ -33,13 +33,15 @@ export const PrimaryLink = tw(NavLink)`
   border-b-0
 `;
 
-export const LogoLink = styled(NavLink)`
-  ${tw`flex items-center font-black border-b-0 text-2xl! ml-0!`};
-
-  img {
-    ${tw`w-10 mr-3`}
-  }
+export const LogoLink = tw.img`my-2 mr-3 pb-1 border-b-2 border-transparent hocus:text-primary-500
+transition duration-300 w-24 fill-primary-500
 `;
+
+// export const LogoLink = styled(NavLink)`
+//   img {
+//     ${tw`mr-3`}
+//   }
+// `;
 
 export const MobileNavLinksContainer = tw.nav`flex flex-1 items-center justify-between`;
 export const NavToggle = tw.button`
@@ -83,10 +85,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   const collapseBreakpointCss = collapseBreakPointCssMap[collapseBreakpointClass];
 
   const defaultLogoLink = (
-    <LogoLink href="/">
-      <img src={logo} alt="logo" />
-      HelaView
-    </LogoLink>
+      <LogoLink src={logo} alt="logo" />
   );
 
   logoLink = logoLink || defaultLogoLink;

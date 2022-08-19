@@ -82,13 +82,20 @@ export default async function addRoute(router: Router): Promise<void>{
         const childPrice: number = req.body['child price'];
         const babyPrice: number = req.body['baby price'];
 
-        const prices: number[] = [adultPrice, childPrice, babyPrice];
-        
-        for (let i=0; prices.length; i++){
-            const price: number = prices[i];
-            
-            if (price < 1 || price > 5000)
-                return res.status(400).json({ error: `Please enter a valid price in US Dollars.` });
+        const prices: {
+            'adult_price': number;
+            'child_price': number;
+            'baby_price': number;
+        } = {
+            'adult_price': adultPrice,
+            'child_price': childPrice,
+            'baby_price': babyPrice
+        };
+
+        for (const price in prices){
+
+            if (prices[price as keyof typeof prices] < 1 || prices[price as keyof typeof prices] > 5000)
+                return res.status(400).json({ error: `Please enter a valid nightly price in US Dollars, between $1 and $5000.` });
         };
 
         //Validate rating
@@ -111,6 +118,8 @@ export default async function addRoute(router: Router): Promise<void>{
                     throw err;
                 };
 
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 await hdb`
                     INSERT INTO users
                     (
@@ -124,11 +133,11 @@ export default async function addRoute(router: Router): Promise<void>{
                 
                     INSERT INTO hotels
                     (
-                        email, name, hash, address, district, contact_no, hotel_type, rating, available_rooms, images
+                        email, name, hash, address, district, contact_no, hotel_type, rating, available_rooms, prices
                     )
                     VALUES
                     (
-                        ${email}, ${fullName}, ${hashedPassword}, ${address}, ${contactNo}, ${hotelType}, ${rating}, ${roomCount}
+                        ${email}, ${fullName}, ${hashedPassword}, ${address}, ${district}, ${contactNo}, ${hotelType}, ${rating}, ${roomCount}, ${prices}::jsonb
                     )
                     ON CONFLICT (email) DO NOTHING;
                 `;
@@ -139,23 +148,7 @@ export default async function addRoute(router: Router): Promise<void>{
             console.log(`[Hotel | Account created]: ${fullName}, ${email}, ${fullName}, ${passwordConfirmation}, ${address}, ${contactNo}, ${hotelType}, ${rating}, ${roomCount}.`);
             res.status(200).json({ message: `Your hotel account ${fullName} has been created under ${email}.`});
         } catch (err: Error | unknown){
-            //Pass
+            res.status(400).json({ message: `Could not create a HelaView hotel account under ${email}.`});
         }
     });
 }
-
-// CREATE TABLE hotels
-// (
-//     id bigserial,
-//     email citext PRIMARY KEY,
-//     name citext NOT NULL,
-//     hash citext NOT NULL,
-//     address citext NOT NULL unique,
-//     contact_no bigint NOT NULL unique,
-//     hotel_type citext, -- Nullable at registration
-//     rating float(2),  -- Nullable at registration
-//     available_rooms smallint NOT NULL DEFAULT 1,
-//     images jsonb NOT NULL DEFAULT '{"Images":[]}'::jsonb,
-//     email_verified bool NOT NULL DEFAULT False,
-//     admin_verified bool NOT NULL DEFAULT False
-// );

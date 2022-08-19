@@ -35,7 +35,7 @@ const CardLinks = styled.div`
   .link {
     ${tw`mr-8 last:mr-0 text-gray-400 hocus:text-primary-500 transition duration-300`}
     .icon {
-      ${tw`fill-current w-6 h-6`}
+      ${tw`fill-primary-500 w-6 h-6`}
     }
   }
 `

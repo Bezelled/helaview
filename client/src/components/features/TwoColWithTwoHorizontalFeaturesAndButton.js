@@ -26,7 +26,7 @@ const Image = styled.img(props => [
 
 const DecoratorBlob = tw(
   SvgDotPattern
-)`w-20 h-20 absolute right-0 bottom-0 transform translate-x-1/2 translate-y-1/2 fill-current text-primary-500 -z-10`;
+)`w-20 h-20 absolute right-0 bottom-0 transform translate-x-1/2 translate-y-1/2 fill-primary-500 text-primary-500 -z-10`;
 
 const TextContent = tw.div`lg:py-8 text-center md:text-left`;
 

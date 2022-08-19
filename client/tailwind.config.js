@@ -251,9 +251,7 @@ module.exports = windmill({
       'not-allowed': 'not-allowed',
       'col-resize': 'col-resize',
     },
-    fill: {
-      current: 'currentColor',
-    },
+    fill: theme => theme('colors'),
     flex: {
       '100': '1 1 100%',
       '1': '1 1 0%',
@@ -707,7 +705,7 @@ module.exports = windmill({
     boxSizing: ['responsive'],
     cursor: ['responsive'],
     display: ['responsive'],
-    fill: ['responsive'],
+    fill: ['responsive', 'hover', 'focus'],
     flex: ['responsive'],
     flexDirection: ['responsive'],
     flexGrow: ['responsive'],

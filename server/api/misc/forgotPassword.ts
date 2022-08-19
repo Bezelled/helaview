@@ -6,15 +6,6 @@ import { HelaDBUsers } from 'index.js';
 import hdb from '../../lib/db.js';
 import { generateVerificationCode, getAccountType, validatePostData } from '../../lib/shared.js';
 
-// CREATE TABLE verification_codes
-// (
-//     email citext NOT NULL,
-//     code citext NOT NULL,
-//     type citext NOT NULL DEFAULT 'Email',
-//     expired bool NOT NULL DEFAULT False,
-//     date_created timestamp NOT NULL DEFAULT now()
-// );
-
 export default async function addRoute(router: Router): Promise<void>{
 
     router.post('/forgotPassword', async (req: Request, res: Response) => {

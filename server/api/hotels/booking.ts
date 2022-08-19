@@ -5,36 +5,6 @@ import { HelaDBBooking } from 'index.js';
 import { RowList } from 'postgres';
 import hdb from '../../lib/db.js';
 
-// CREATE TABLE bookings
-// (
-//     id bigserial PRIMARY KEY,
-//     price numeric(15,6) NOT NULL,
-//     price_per_night numeric(15,6) NOT NULL,
-//     num_of_nights smallint NOT NULL DEFAULT 1,
-//     num_of_rooms smallint NOT NULL DEFAULT 1,
-//     head_count jsonb NOT NULL DEFAULT '{"Adult": 1}'::jsonb,
-//     tourist_id bigint NOT NULL,
-//     tourist_email citext NOT NULL,
-//     hotel_id bigint NOT NULL,
-//     hotel_email citext NOT NULL,
-//     offer_code citext REFERENCES offers(code) ON DELETE SET NULL,
-//     check_in_date timestamp NOT NULL,
-//     check_out_date timestamp NOT NULL ,
-//     creation_date timestamp NOT NULL DEFAULT now()
-// );
-
-// CREATE TABLE offers
-// (
-//     id bigserial,
-//     code citext PRIMARY KEY,
-//     name citext NOT NULL,
-//     description citext NOT NULL,
-//     start_date timestamp NOT NULL,
-//     end_date timestamp,  -- Nullable at addition
-//     expired bool NOT NULL DEFAULT False,
-//     hotels jsonb NOT NULL DEFAULT '[]'
-// );
-
 export default async function addRoute(router: Router): Promise<void>{
 
     router.post('/booking', async(req: Request, res: Response) => {

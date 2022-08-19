@@ -43,7 +43,7 @@ const TestimonialSlider = styled(Slider)`
 
 const Testimonial = tw.div`outline-none h-full flex! flex-col`;
 const StarsContainer = styled.div``;
-const StarIcon = tw(StarIconBase)`inline-block w-5 h-5 text-orange-400 fill-current mr-1 last:mr-0`;
+const StarIcon = tw(StarIconBase)`inline-block w-5 h-5 text-orange-400 fill-primary-500 mr-1 last:mr-0`;
 const TestimonialHeading = tw.div`mt-4 text-xl font-bold`;
 const Quote = tw.blockquote`mt-4 mb-8 sm:mb-10 leading-relaxed font-medium text-gray-700`;
 

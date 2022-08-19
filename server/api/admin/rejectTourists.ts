@@ -5,13 +5,6 @@ import { HelaEmail } from 'index.js';
 import { Emailer } from '../../lib/shared.js';
 import hdb from '../../lib/db.js';
 
-// CREATE TABLE tourist_logs
-// (
-//     description citext NOT NULL,
-//     tourist_id bigint NOT NULL,
-//     admin_id bigint NOT NULL
-// );
-
 export default async function addRoute(router: Router): Promise<void>{
     
     router.post('/admin/rejectTourists', async(req: Request, res: Response) => {

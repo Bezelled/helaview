@@ -34,7 +34,7 @@ const CardRatingContainer = tw.div`leading-none absolute inline-flex bg-gray-100
 const CardRating = styled.div`
   ${tw`mr-1 text-sm font-bold flex items-end`}
   svg {
-    ${tw`w-4 h-4 fill-current text-orange-400 mr-1`}
+    ${tw`w-4 h-4 fill-primary-500 text-orange-400 mr-1`}
   }
 `;
 
