@@ -48,13 +48,19 @@ export default async function addRoute(router: Router): Promise<void>{
         if (hotelDBID === undefined)
             return res.status(400).json({ error: `That hotel account does not exist. Please consider registering beforehand.` });
 
+        // Get hotel account details
+
         const hotelID: number = Number(hotelDBID);
         const hotelEmail: string = req.body['hotel email'];
         const hotelName: string = hotelAccount[0].name;
         const availableRooms: number = Number(hotelAccount[0].available_rooms);
 
+        //Need to cast the user's Dates to timestamps, so we can store it in the database
+
         const checkInDate: string = new Date(req.body['check in date']).toISOString();
         const checkOutDate: string = new Date(req.body['check out date']).toISOString();
+
+        // Check if the hotel is available during those dates
 
         const bookings: RowList<HelaDBBooking[]> = await hdb<HelaDBBooking[]>`
             SELECT num_of_rooms FROM bookings
