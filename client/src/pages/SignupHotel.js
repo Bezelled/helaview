@@ -33,7 +33,7 @@ const IllustratedContent = styled.div`
   ${props => `background-image: url("${props.imageSrc}");`}
   ${tw`max-w-screen-xl shadow-2xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 sm:rounded-lg flex justify-center flex-1 bg-center bg-cover bg-no-repeat`}
 `;
-const districts = ["Colombo", "Gampaha", "Kalutara", "Kandy", "Matale", "Nuwara Eliya", "Galle", "Hambantota", "Matara", "Kurunegala", "Puttalam", "Batticaloa", "Trincomalee", "Ampara", "Ratnapura", "Kegalle", "Anuradhapura", "Polonnaruwa", "Jaffna", "Mulativu", "Vavuniya", "Kilinochchi", "Mannar", "Badulla", "Monaragala"];
+const districts = ["Colombo", "Gampaha", "Kalutara", "Kandy", "Matale", "Nuwara Eliya", "Galle", "Hambantota", "Matara", "Kurunegala", "Puttalam", "Batticaloa", "Trincomalee", "Ampara", "Ratnapura", "Kegalle", "Anuradhapura", "Polonnaruwa", "Jaffna", "Mullaitivu", "Vavuniya", "Kilinochchi", "Mannar", "Badulla", "Monaragala"];
 
 const handleSubmit = async(event) => {
   event.preventDefault();

@@ -123,9 +123,7 @@ export default async function addRoute(router: Router): Promise<void>{
                         ${email}, ${hashedPassword}, ${contactNo}, 'Tourist'
                     )
                     ON CONFLICT (email) DO NOTHING;
-                `;
-                
-                await hdb`
+
                     INSERT INTO tourists
                     (
                         email, first_name, last_name, hash, passport_no, age, gender, country, contact_no

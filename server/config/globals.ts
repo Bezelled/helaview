@@ -27,9 +27,10 @@ export const dirname: string = __filename.substring(0, __filename.lastIndexOf('\
 export const helaPlatform: string = platform();
 export const saltRounds: number = 10;
 export const threeDays: number = 30 * 24 * 60 * 60 * 1000;
-export const userRegistrationKeys: string[] = ['first name', 'last name', 'email', 'password', 'password confirmation', 'passport number', 'gender', 'age', 'country', 'address', 'contact number'];
-export const hotelRegistrationKeys: string[] = ['full name', 'password', 'password confirmation', 'email', 'address', 'contact number', 'hotel type', 'rating'];
+export const userRegistrationKeys: string[] = ['first name', 'last name', 'email', 'password', 'password confirmation', 'passport number', 'gender', 'age', 'country', 'contact number'];
+export const hotelRegistrationKeys: string[] = ['email', 'full name', 'contact number', 'password', 'password confirmation', 'address', 'district', 'adult price', 'child price', 'baby price', 'room count', 'rating', 'hotel type'];
 export const userLoginKeys: string[] = ['email', 'password'];
+export const districts = ['Colombo', 'Gampaha', 'Kalutara', 'Kandy', 'Matale', 'Nuwara Eliya', 'Galle', 'Hambantota', 'Matara', 'Kurunegala', 'Puttalam', 'Batticaloa', 'Trincomalee', 'Ampara', 'Ratnapura', 'Kegalle', 'Anuradhapura', 'Polonnaruwa', 'Jaffna', 'Mullaitivu', 'Vavuniya', 'Kilinochchi', 'Mannar', 'Badulla', 'Monaragala'];
 const fileStorage: StorageEngine = diskStorage({
     destination: (
         req: Request,
@@ -52,6 +53,7 @@ const fileFilter = (
     file: Express.Multer.File,
     callback: FileFilterCallback
 ): void => {
+    
     switch (file.mimetype){
         case 'image/png':
         case 'image/jpg':
@@ -73,7 +75,7 @@ export const mult = multer({ storage: fileStorage, limits: fileLimits, fileFilte
 export const emailRegExp: RegExp = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/); 
 export const passwordRegExp: RegExp = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$');
 export const passportRegExp: RegExp = new RegExp('^[A-Z0-9<]{9}[0-9]{1}[A-Z]{3}[0-9]{7}[A-Z]{1}[0-9]{7}[A-Z0-9<]{14}[0-9]{2}$'); 
-export const addressRegExp: RegExp = new RegExp("/^[a-zA-Z0-9\s,.'-]{3,}$/ . "); //eslint-disable-line no-useless-escape
+export const addressRegExp: RegExp = new RegExp('/^[a-zA-Z0-9\s,.'-]{3,}$/ . '); //eslint-disable-line no-useless-escape
 
 //Enums
 export enum AccountType {

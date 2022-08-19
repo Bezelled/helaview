@@ -1,9 +1,11 @@
 'use strict';
 
 import { Request, Response, Router } from 'express';
+import { RowList } from 'postgres';
 import { hash } from 'bcrypt';
-import { hotelRegistrationKeys, emailRegExp, passwordRegExp, saltRounds, AccountType } from '../../config/globals.js';
+import { hotelRegistrationKeys, emailRegExp, passwordRegExp, saltRounds, AccountType, districts } from '../../config/globals.js';
 import { validatePostData, generateVerificationCode } from '../../lib/shared.js';
+import { HelaDBHotels } from 'index.js';
 import hdb from '../../lib/db.js';
 
 export default async function addRoute(router: Router): Promise<void>{
@@ -22,16 +24,16 @@ export default async function addRoute(router: Router): Promise<void>{
         if (!(emailRegExp.test(email)))
             return res.status(400).json({ error: `Please enter a valid e-mail address.` });
     
-        const exists = await hdb`
+        const exists: RowList<HelaDBHotels[]> = await hdb<HelaDBHotels[]>`
             SELECT true FROM hotels where email = ${email};
         `;  //check if e-mail exists
     
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        if (exists === undefined)
+        if (!exists.length)
             return res.status(400).json({ error: `An account under that e-mail address already exists.` });
     
-        // Validate names
+        // Validate name
     
         const fullName: string = req.body['full name'];
     
@@ -62,11 +64,32 @@ export default async function addRoute(router: Router): Promise<void>{
     
         const roomCount: number = Number(req.body['room count']);   //eslint-disable-line @typescript-eslint/no-inferrable-types
         
-        if (isNaN(roomCount) || ((roomCount > 0) && (roomCount < 5000)))
+        if (isNaN(roomCount) || ((roomCount < 1) && (roomCount > 5000)))
             return res.status(400).json({ error: `Please enter a valid available room count.` });
     
+        //Validate address
         const address: string = req.body.address;
+        const district: string = req.body.district;
+
+        if (districts.indexOf(district) === -1)
+            return res.status(400).json({ error: `Please select a valid Sri Lankan district.` });
+        
         const hotelType: string = req.body['hotel type'];
+
+        //Validate prices
+
+        const adultPrice: number = req.body['adult price'];
+        const childPrice: number = req.body['child price'];
+        const babyPrice: number = req.body['baby price'];
+
+        const prices: number[] = [adultPrice, childPrice, babyPrice];
+        
+        for (let i=0; prices.length; i++){
+            const price: number = prices[i];
+            
+            if (price < 1 || price > 5000)
+                return res.status(400).json({ error: `Please enter a valid price in US Dollars.` });
+        };
 
         //Validate rating
 
@@ -98,12 +121,10 @@ export default async function addRoute(router: Router): Promise<void>{
                         ${email}, ${hashedPassword}, 'Hotel'
                     )
                     ON CONFLICT (email) DO NOTHING;
-                `;
                 
-                await hdb`
                     INSERT INTO hotels
                     (
-                        email, name, hash, address, contact_no, hotel_type, rating, available_rooms
+                        email, name, hash, address, district, contact_no, hotel_type, rating, available_rooms, images
                     )
                     VALUES
                     (

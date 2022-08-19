@@ -63,6 +63,7 @@ interface HelaDBHotels
     name: string;
     hash: string;
     address: string;
+    district: string;
     contact_no: number;
     hotel_type: string;
     rating: number;
