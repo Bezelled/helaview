@@ -68,9 +68,11 @@ export default async function addRoute(router: Router): Promise<void>{
         
         if (isNaN(roomCount) || ((roomCount < 1) && (roomCount > 5000)))
             return res.status(400).json({ error: `Please enter a valid available room count.` });
-    
-        //Validate address
+
         const address: string = req.body.address;
+
+        //Validate district
+        
         const district: string = req.body.district;
 
         if (districts.indexOf(district) === -1)
