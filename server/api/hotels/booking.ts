@@ -9,21 +9,21 @@ export default async function addRoute(router: Router): Promise<void>{
 
     router.post('/booking', async(req: Request, res: Response) => {
 
-        //Validate amount
+        // Validate amount
 
         if (isNaN(req.body.amount))
             return res.status(400).json({error: 'Please enter a valid booking price.'});
 
         const amount: number = Number(req.body.amount);
 
-        //Validate head count
+        // Validate head count
 
         if (isNaN(req.body['head count']))
             return res.status(400).json({error: 'Please enter a valid head count.'});
 
         const headCount: number = Number(req.body['head count']);
 
-        //Validate tourist email
+        // Validate tourist email
 
         const touristAccount = await hdb`
             SELECT id FROM tourists WHERE email = ${req.body['tourist email']};
@@ -37,7 +37,7 @@ export default async function addRoute(router: Router): Promise<void>{
         const touristID: number = Number(touristDBID);
         const touristEmail: string = req.body['tourist email'];
 
-        //Validate hotel email
+        // Validate hotel email
 
         const hotelAccount = await hdb`
             SELECT id, name, available_rooms FROM hotels WHERE email = ${req.body['hotel email']};
@@ -77,7 +77,7 @@ export default async function addRoute(router: Router): Promise<void>{
         if (bookedRooms >= availableRooms)
             return res.status(400).json({ error: `${hotelName} is fully booked during those dates. Please select another hotel, or choose different dates.` });
 
-        //Validate offer code
+        // Validate offer code
 
         let offerCode: string | null = null;
         

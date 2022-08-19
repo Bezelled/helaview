@@ -18,7 +18,7 @@ export default async function addRoute(router: Router): Promise<void>{
         if (proceed === false)
             return;
     
-        //Validate email
+        // Validate email
     
         const email: string = req.body.email;
     
@@ -40,7 +40,7 @@ export default async function addRoute(router: Router): Promise<void>{
     
         // TODO: strip out illegal characters
     
-        //Validate password
+        // Validate password
     
         const password: string = req.body.password;
         const passwordConfirmation: string = req.body['password confirmation'];
@@ -51,7 +51,7 @@ export default async function addRoute(router: Router): Promise<void>{
         if (!(passwordRegExp.test(password)))
             return res.status(400).json({ error: `Please enter a valid, 8 to 20 character length password, consisting of upper & lower case alphanumeric and special characters.` });
 
-        //Validate contact number
+        // Validate contact number
     
         let contactNo: number | string = req.body['contact number'];   //eslint-disable-line @typescript-eslint/no-inferrable-types
         
@@ -62,7 +62,7 @@ export default async function addRoute(router: Router): Promise<void>{
             return res.status(400).json({ error: `Please enter a valid phone number with your country code. Ex: +94771002030 ` });
         };
 
-        //Validate room count
+        // Validate room count
     
         const roomCount: number = Number(req.body['room count']);   //eslint-disable-line @typescript-eslint/no-inferrable-types
         
@@ -71,8 +71,8 @@ export default async function addRoute(router: Router): Promise<void>{
 
         const address: string = req.body.address;
 
-        //Validate district
-        
+        // Validate district
+
         const district: string = req.body.district;
 
         if (districts.indexOf(district) === -1)
@@ -80,7 +80,7 @@ export default async function addRoute(router: Router): Promise<void>{
         
         const hotelType: string = req.body['hotel type'];
 
-        //Validate prices
+        // Validate prices
 
         const adultPrice: number = req.body['adult price'];
         const childPrice: number = req.body['child price'];
@@ -102,7 +102,7 @@ export default async function addRoute(router: Router): Promise<void>{
                 return res.status(400).json({ error: `Please enter a valid nightly price in US Dollars, between $1 and $5000.` });
         };
 
-        //Validate rating
+        // Validate rating
 
         const rating: number = Number(req.body.rating);   //eslint-disable-line @typescript-eslint/no-inferrable-types
 

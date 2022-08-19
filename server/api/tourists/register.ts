@@ -16,7 +16,7 @@ export default async function addRoute(router: Router): Promise<void>{
         if (proceed === false)
             return;
     
-        //Validate email
+        // Validate email
     
         const email: string = req.body.email;
     
@@ -39,7 +39,7 @@ export default async function addRoute(router: Router): Promise<void>{
     
         // TODO: strip out illegal characters
     
-        //Validate password
+        // Validate password
     
         const password: string = req.body.password;
         const passwordConfirmation: string = req.body['password confirmation'];
@@ -50,14 +50,14 @@ export default async function addRoute(router: Router): Promise<void>{
         if (!(passwordRegExp.test(password)))
             return res.status(400).json({ error: `Please enter a valid, 8 to 20 character length password, consisting of upper & lower case alphanumeric and special characters.` });
     
-        //Validate gender
+        // Validate gender
     
         if (['M', 'F'].indexOf(req.body.gender) === -1)
             return res.status(400).json({ error: `Please select a valid gender: Male or Female.` });
             
         const gender: boolean = (req.body.gender === 'M');
     
-        //Validate age
+        // Validate age
         
         const age: number = req.body.age;
     
@@ -67,7 +67,7 @@ export default async function addRoute(router: Router): Promise<void>{
         if (age <  13)
             return res.status(400).json({ error: `You need to be at least 13 years old to have an account.` });
     
-        //Validate contact number
+        // Validate contact number
     
         let contactNo: number | string = req.body['contact number'];   //eslint-disable-line @typescript-eslint/no-inferrable-types
         
@@ -80,7 +80,7 @@ export default async function addRoute(router: Router): Promise<void>{
 
         const passportNo: string = req.body['passport number'];
 
-        //Validate country
+        // Validate country
     
         const country = req.body.country;
 
