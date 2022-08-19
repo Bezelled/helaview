@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
 
 import Header, { NavLinks, NavLink as NavLinkBase, LogoLink } from "../headers/light.js";
+import Island from '../../assets/img/island.webp';
 
 const StyledHeader = styled(Header)`
   ${tw`justify-between`}
@@ -19,9 +20,8 @@ const NavLink = tw(NavLinkBase)`
 const Container = tw.div`relative -mx-8 -mt-8`;
 const TwoColumn = tw.div`flex flex-col lg:flex-row bg-gray-100`;
 const LeftColumn = tw.div`ml-8 mr-8 xl:pl-10 py-8`;
-const RightColumn = styled.div`
-  background-image: url("https://cdn.discordapp.com/attachments/871462760519729153/1008364850285658122/island.jpg");
-  ${tw`bg-green-500 bg-cover bg-center xl:ml-24 h-96 lg:h-auto lg:w-1/2 lg:flex-1`}
+const RightColumn = tw.img`
+  bg-green-500 bg-cover bg-center xl:ml-24 h-96 lg:h-auto lg:w-1/2 lg:flex-1
 `;
 
 const Content = tw.div`mt-24 lg:mt-24 lg:mb-24 flex flex-col sm:items-center lg:items-stretch`;
@@ -82,7 +82,7 @@ export default ({
             </Actions>
           </Content>
         </LeftColumn>
-        <RightColumn></RightColumn>
+        <RightColumn src={Island} />
       </TwoColumn>
     </Container>
   );
