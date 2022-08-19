@@ -37,12 +37,6 @@ export const LogoLink = tw.img`my-2 mr-3 pb-1 border-b-2 border-transparent hocu
 transition duration-300 w-24 fill-primary-500
 `;
 
-// export const LogoLink = styled(NavLink)`
-//   img {
-//     ${tw`mr-3`}
-//   }
-// `;
-
 export const MobileNavLinksContainer = tw.nav`flex flex-1 items-center justify-between`;
 export const NavToggle = tw.button`
   lg:hidden z-20 focus:outline-none hocus:text-primary-500 transition duration-300
@@ -94,18 +88,18 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   return (
     <Header className={className || "header-light"}>
       <DesktopNavLinks css={collapseBreakpointCss.desktopNavLinks}>
-        {logoLink}
+        <a href="/">{logoLink}</a>
         {links}
       </DesktopNavLinks>
 
       <MobileNavLinksContainer css={collapseBreakpointCss.mobileNavLinksContainer}>
-        {logoLink}
-        <MobileNavLinks initial={{ x: "150%", display: "none" }} animate={animation} css={collapseBreakpointCss.mobileNavLinks}>
-          {links}
-        </MobileNavLinks>
-        <NavToggle onClick={toggleNavbar} className={showNavLinks ? "open" : "closed"}>
-          {showNavLinks ? <CloseIcon tw="w-6 h-6" /> : <MenuIcon tw="w-6 h-6" />}
-        </NavToggle>
+        <a href="/">{logoLink}</a>
+          <MobileNavLinks initial={{ x: "150%", display: "none" }} animate={animation} css={collapseBreakpointCss.mobileNavLinks}>
+            {links}
+          </MobileNavLinks>
+          <NavToggle onClick={toggleNavbar} className={showNavLinks ? "open" : "closed"}>
+            {showNavLinks ? <CloseIcon tw="w-6 h-6" /> : <MenuIcon tw="w-6 h-6" />}
+          </NavToggle>
       </MobileNavLinksContainer>
     </Header>
   );

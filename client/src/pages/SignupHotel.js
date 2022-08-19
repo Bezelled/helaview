@@ -157,6 +157,10 @@ export default ({
             <Option value="Motel">Motel</Option>
         </Select>
 
+        <SubmitButton>
+          <span className="text">Pay with PayPal</span>
+        </SubmitButton>
+
         <SubmitButton type="submit">
           <SubmitButtonIcon className="icon" />
           <span className="text">{submitButtonText}</span>

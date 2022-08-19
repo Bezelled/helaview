@@ -2,11 +2,10 @@
 
 import { Request, Response, Router } from 'express';
 import { hash } from 'bcrypt';
-import { userRegistrationKeys, emailRegExp, passwordRegExp, saltRounds, AccountType } from '../../config/globals.js';
+import { userRegistrationKeys, emailRegExp, passwordRegExp, saltRounds, AccountType, countryNames } from '../../config/globals.js';
 import { validatePostData, generateVerificationCode } from '../../lib/shared.js';
 import hdb from '../../lib/db.js';
 import { parsePhoneNumber } from 'libphonenumber-js';
-
 
 export default async function addRoute(router: Router): Promise<void>{
     
@@ -54,7 +53,7 @@ export default async function addRoute(router: Router): Promise<void>{
         //Validate gender
     
         if (['M', 'F'].indexOf(req.body.gender) === -1)
-            return res.status(400).json({ error: `Please select a valid gender: 'M' or 'F'.` });
+            return res.status(400).json({ error: `Please select a valid gender: Male or Female.` });
             
         const gender: boolean = (req.body.gender === 'M');
     
@@ -75,19 +74,18 @@ export default async function addRoute(router: Router): Promise<void>{
         try{
             const phoneNumber = parsePhoneNumber(String(contactNo));
             contactNo = Number(phoneNumber.number);
-            console.log(contactNo);
         } catch (err){
-            return res.status(400).json({ error: `Please enter a valid phone number. ` });
+            return res.status(400).json({ error: `Please enter a valid phone number with your country code. Ex: +94771002030 ` });
         };
-    
-        //Validate passport number
 
         const passportNo: string = req.body['passport number'];
-    
-        // if (!(passportRegExp.test(passportNo)))
-        //     return res.status(400).json({ error: `Please enter a valid passport number.` });
+
+        //Validate country
     
         const country = req.body.country;
+
+        if (countryNames.indexOf((country)) === -1)
+            return res.status(400).json({ error: `Please select a valid country from the list.` });
 
         // Create password hash and insert to the database, if the password is valid
 
@@ -109,7 +107,9 @@ export default async function addRoute(router: Router): Promise<void>{
                         ${email}, ${hashedPassword}, ${contactNo}, 'Tourist'
                     )
                     ON CONFLICT (email) DO NOTHING;
-
+                `;
+                
+                await hdb`
                     INSERT INTO tourists
                     (
                         email, first_name, last_name, hash, passport_no, age, gender, country, contact_no

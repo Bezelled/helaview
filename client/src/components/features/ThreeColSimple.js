@@ -55,23 +55,23 @@ export default ({
     {
       imageSrc: ShieldIconImage,
       title: "Secure",
-      description: "We strictly only deal with vendors that provide top notch security.",
-      url: "https://timerse.com"
+      description: "We only show hotels that have been verified by Magma administrators.",
+      url: ""
     },
     {
       imageSrc: SupportIconImage,
       title: "24/7 Support",
       description: "Lorem ipsum donor amet siti ceali placeholder text",
-      url: "https://google.com"
+      url: ""
     },
     {
       imageSrc: CustomizeIconImage,
       title: "Customizable",
       description: "Lorem ipsum donor amet siti ceali placeholder text",
-      url: "https://reddit.com"
+      url: ""
     }
   ],
-  linkText = "Learn More",
+  linkText = "",
   heading = "",
   subheading = "",
   description = "",
@@ -79,7 +79,7 @@ export default ({
   imageCss = null
 }) => {
   /*
-   * This componets accepts a prop - `cards` which is an array of object denoting the cards. Each object in the cards array can have the following keys (Change it according to your need, you can also add more objects to have more cards in this feature component):
+   * This component accepts a prop - `cards` which is an array of object denoting the cards. Each object in the cards array can have the following keys (Change it according to your need, you can also add more objects to have more cards in this feature component):
    *  1) imageSrc - the image shown at the top of the card
    *  2) title - the title of the card
    *  3) description - the description of the card

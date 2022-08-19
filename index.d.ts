@@ -68,6 +68,7 @@ interface HelaDBHotels
     hotel_type: string;
     rating: number;
     available_rooms: number;
+    prices: object;
     images: object;
     email_verified: boolean;
     admin_verified: boolean;

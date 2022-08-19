@@ -60,7 +60,7 @@ export default ({ cards = null, heading = "Our Offices", subheading = "Locations
   const defaultCards = [
     {
       title: "Secure",
-      description: "We strictly only deal with vendors that provide top notch security."
+      description: "We only show hotels that have been verified by Magma administrators."
     },
     { 
       title: "24/7 Support",

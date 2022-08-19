@@ -71,7 +71,7 @@ export default ({ cards = null, heading = "Amazing Features", subheading = "Feat
     {
       imageSrc: ShieldIconImage,
       title: "Secure",
-      description: "We strictly only deal with vendors that provide top notch security."
+      description: "We only show hotels that have been verified by Magma administrators."
     },
     { imageSrc: SupportIconImage, title: "24/7 Support" },
     { imageSrc: CustomizeIconImage, title: "Customizable" },

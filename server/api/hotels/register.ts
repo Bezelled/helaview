@@ -3,6 +3,7 @@
 import { Request, Response, Router } from 'express';
 import { RowList } from 'postgres';
 import { hash } from 'bcrypt';
+import { parsePhoneNumber } from 'libphonenumber-js';
 import { hotelRegistrationKeys, emailRegExp, passwordRegExp, saltRounds, AccountType, districts } from '../../config/globals.js';
 import { validatePostData, generateVerificationCode } from '../../lib/shared.js';
 import { HelaDBHotels } from 'index.js';
@@ -30,7 +31,7 @@ export default async function addRoute(router: Router): Promise<void>{
     
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        if (!exists.length)
+        if (exists.length)
             return res.status(400).json({ error: `An account under that e-mail address already exists.` });
     
         // Validate name
@@ -49,15 +50,16 @@ export default async function addRoute(router: Router): Promise<void>{
     
         if (!(passwordRegExp.test(password)))
             return res.status(400).json({ error: `Please enter a valid, 8 to 20 character length password, consisting of upper & lower case alphanumeric and special characters.` });
-    
+
         //Validate contact number
     
-        let contactNo: number = req.body['contact number'];   //eslint-disable-line @typescript-eslint/no-inferrable-types
+        let contactNo: number | string = req.body['contact number'];   //eslint-disable-line @typescript-eslint/no-inferrable-types
         
-        if (isNaN(contactNo) || ((contactNo.toString().length) !== 9)){
-            return res.status(400).json({ error: `Please enter a valid phone number.` });
-        } else {
-            contactNo = Number(contactNo);
+        try{
+            const phoneNumber = parsePhoneNumber(String(contactNo));
+            contactNo = Number(phoneNumber.number);
+        } catch (err){
+            return res.status(400).json({ error: `Please enter a valid phone number with your country code. Ex: +94771002030 ` });
         };
 
         //Validate room count
@@ -102,9 +104,11 @@ export default async function addRoute(router: Router): Promise<void>{
 
         const rating: number = Number(req.body.rating);   //eslint-disable-line @typescript-eslint/no-inferrable-types
 
-        if (isNaN(rating) || (rating > 5) || ((rating > 0)  && (rating < 1)) || (rating % 0.25 === 0))
-            return res.status(400).json({ error: `Please enter a valid hotel rating between 1.00 and 5.00. Select 0.00 to be classified as "unrated".` });
-        
+        if (rating !== 0.00){
+
+            if (!(rating > 1 && rating < 5) && (rating % 0.25 === 0))
+                return res.status(400).json({ error: `Please enter a valid hotel rating between 1.00 and 5.00. Select 0.00 to be classified as "unrated".` });
+        };
         // const images = {'Images': ['']};
 
         // Create password hash and insert to the database, if the password is valid
@@ -118,19 +122,21 @@ export default async function addRoute(router: Router): Promise<void>{
                     throw err;
                 };
 
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
                 await hdb`
                     INSERT INTO users
                     (
-                        email, hash, account_type
+                        email, hash, contact_no, account_type
                     )
                     VALUES
                     (
-                        ${email}, ${hashedPassword}, 'Hotel'
+                        ${email}, ${hashedPassword}, ${contactNo}, 'Hotel'
                     )
                     ON CONFLICT (email) DO NOTHING;
-                
+                `;
+
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                await hdb`
                     INSERT INTO hotels
                     (
                         email, name, hash, address, district, contact_no, hotel_type, rating, available_rooms, prices
@@ -148,7 +154,7 @@ export default async function addRoute(router: Router): Promise<void>{
             console.log(`[Hotel | Account created]: ${fullName}, ${email}, ${fullName}, ${passwordConfirmation}, ${address}, ${contactNo}, ${hotelType}, ${rating}, ${roomCount}.`);
             res.status(200).json({ message: `Your hotel account ${fullName} has been created under ${email}.`});
         } catch (err: Error | unknown){
-            res.status(400).json({ message: `Could not create a HelaView hotel account under ${email}.`});
+            res.status(400).json({ error: `Could not create a HelaView hotel account under ${email}.`});
         }
     });
 }

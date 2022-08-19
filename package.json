@@ -32,6 +32,7 @@
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
+    "countries-list": "^2.6.1",
     "country-list": "^2.2.0",
     "dataclass": "^2.0.0",
     "dayjs": "^1.11.5",

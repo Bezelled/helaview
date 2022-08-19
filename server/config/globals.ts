@@ -6,6 +6,7 @@ import { platform } from 'os';
 import { Request } from 'express';
 import multer, { diskStorage, StorageEngine, FileFilterCallback  } from 'multer';
 import { randomUUID } from 'crypto';
+import countries from 'countries-list';
 
 dotenv.config();    //To load our .env file for environmental variables
 
@@ -30,6 +31,10 @@ export const threeDays: number = 30 * 24 * 60 * 60 * 1000;
 export const userRegistrationKeys: string[] = ['first name', 'last name', 'email', 'password', 'password confirmation', 'passport number', 'gender', 'age', 'country', 'contact number'];
 export const hotelRegistrationKeys: string[] = ['email', 'full name', 'contact number', 'password', 'password confirmation', 'address', 'district', 'adult price', 'child price', 'baby price', 'room count', 'rating', 'hotel type'];
 export const userLoginKeys: string[] = ['email', 'password'];
+const countryCodes = Object.keys(countries.countries);
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export const countryNames = (countryCodes.map(code => countries.countries[code].name)).sort();
 export const districts = ['Colombo', 'Gampaha', 'Kalutara', 'Kandy', 'Matale', 'Nuwara Eliya', 'Galle', 'Hambantota', 'Matara', 'Kurunegala', 'Puttalam', 'Batticaloa', 'Trincomalee', 'Ampara', 'Ratnapura', 'Kegalle', 'Anuradhapura', 'Polonnaruwa', 'Jaffna', 'Mullaitivu', 'Vavuniya', 'Kilinochchi', 'Mannar', 'Badulla', 'Monaragala'];
 const fileStorage: StorageEngine = diskStorage({
     destination: (
