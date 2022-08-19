@@ -37,8 +37,12 @@ const districts = ["Colombo", "Gampaha", "Kalutara", "Kandy", "Matale", "Nuwara 
 
 const handleSubmit = async(event) => {
   event.preventDefault();
+  
   const email = event.target.email.value;
   const password = event.target.password.value;
+
+  if (event.target.password.value !== event.target['password confirmation'].value)
+    return toast.error('Passwords do not match.');
 
   if (!email)
     return toast.error('Please enter a valid e-mail address.');
@@ -50,13 +54,17 @@ const handleSubmit = async(event) => {
     const resp = await axios.post('http://127.0.0.1:7788/api/hotels/register', {
       'email': event.target.email.value,
       'full name': event.target['full name'].value,
+      'contact number': event.target['contact number'].value,
       'password': event.target.password.value,
       'password confirmation': event.target['password confirmation'].value,
       'address': event.target.address.value,
-      'contact number': event.target['contact number'].value,
-      'hotel type': event.target['hotel type'].value,
+      'district':event.target.district.value,
+      'adult price':event.target['adult price'].value,
+      'child price':event.target['child price'].value,
+      'baby price':event.target['baby price'].value,
+      'room count': event.target['room count'].value,
       'rating': event.target.rating.value,
-      'room count': event.target['room count'].value
+      'hotel type': event.target['hotel type'].value
     });
     toast.success(resp.data.message);
   } catch (e){
