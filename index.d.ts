@@ -1,22 +1,28 @@
 import { AccountType } from './server/config/globals.js';
 
-declare module 'jsonwebtoken' {
-    export interface HelaJWTPayload extends JwtPayload {
-        accountType: AccountType
+declare module 'jsonwebtoken'
+{
+    export interface HelaJWTPayload extends JwtPayload
+    {
+        userID: bigint;
+        email: string;
+        accountType: AccountType;
     }
 }
 
-interface HelaEmail{
+interface HelaEmail
+{
     readonly recipient: string;
     readonly subject: string;
     readonly text: string;
     readonly html: string;
 }
 
-interface HelaBooking{
-    readonly id: number;
+interface HelaBooking
+{
+    readonly id: bigint;
     readonly touristEmail: string;
-    readonly hotelId: number;
+    readonly hotelid: bigint;
     readonly hotelEmail: string;
     readonly checkIn: Date;
     readonly checkOut: Date;
@@ -41,7 +47,7 @@ interface HelaDBUsers
 
 interface HelaDBTourists
 {
-    id: number;
+    id: bigint;
     email: string;
     first_name: string;
     last_name: string;
@@ -58,7 +64,7 @@ interface HelaDBTourists
 
 interface HelaDBHotels
 {
-    id: number;
+    id: bigint;
     email: string;
     name: string;
     hash: string;
@@ -85,7 +91,7 @@ interface HelaDBVerificationCodes
 
 interface HelaDBOffers
 {
-    id: number;
+    id: bigint;
     code: string;
     name: string;
     description: string;
@@ -94,17 +100,17 @@ interface HelaDBOffers
     hotels: object;
 }
 
-interface HelaDBBooking{
-
-    id: number;
+interface HelaDBBooking
+{
+    id: bigint;
     price: number;
     price_per_night: number;
     num_of_nights: number;
     num_of_rooms: number;
     head_count: object;
-    tourist_id: number;
+    tourist_id: bigint;
     tourist_email: string;
-    hotel_id: number;
+    hotel_id: bigint;
     hotel_email: string;
     offer_code: string;
     check_in_date: Date;
@@ -114,7 +120,7 @@ interface HelaDBBooking{
 
 interface HelaDBAdmins
 {
-    id: number;
+    id: bigint;
     email: string;
     name: string;
     hash: string;
@@ -124,13 +130,13 @@ interface HelaDBAdmins
 interface HelaDBTouristLogs
 {
     description: string;
-    tourist_id: number;
-    admin_id: number;
+    tourist_id: bigint;
+    admin_id: bigint;
 }
 
 interface HelaDBHotelLogs
 {
     description: string;
-    hotel_id: number;
-    admin_id: number;
+    hotel_id: bigint;
+    admin_id: bigint;
 }

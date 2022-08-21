@@ -14,7 +14,12 @@ import cors from 'cors';
 const app: Application = express();
 
 app.set('trust proxy', true);
-app.use(express.json(), cors(), express.urlencoded({ extended: false }), express.static(join(dirname, '../client/build')));
+app.use(
+    cors(),
+    express.json(),
+    express.urlencoded({ extended: false }),
+    express.static(join(dirname, '../client/build'))
+);
 app.disable('x-powered-by');
 
 //Default routes + handlers

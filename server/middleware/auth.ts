@@ -14,22 +14,33 @@ const { verify } = jwt;
  * 
  * @param accountType the account type that can access that endpoint
  */
-export const authenticateJWT = (accountType: AccountType) => {
+export const authenticateJWT = (allowedAccountTypes?: AccountType[]) => {
     return async (request: Request, response: Response, next: NextFunction) => {
+        
         try {
             const authHeader: string | undefined = request.headers['authorization'];
             const token: string | undefined = authHeader && authHeader.split(' ')[1];
             
-            if (token == null)
+            if (!token)
                 return response.status(401).json({ error: 'Unauthorized access. Please login and re-try.' });
 
-            const { clientAccountType } = <HelaJWTPayload>verify(token, JWT_SECRET);
-            const hasAccess: boolean = clientAccountType === accountType;
+            verify(token, JWT_SECRET, (err, payload) => {
+                
+                if (err)
+                    return response.status(401).json({ error: 'Unauthorized access. Please login and re-try.' });
 
-            if (hasAccess === false)
-                return response.status(401).json({ error: 'You do not have enough access to complete this action.' });
+                if (allowedAccountTypes !== undefined)
+                {
+                    const { accountType } = <HelaJWTPayload>payload;
+                    const hasAccess: boolean = accountType in allowedAccountTypes;
 
-            next();
+                    if (hasAccess === false)
+                        return response.status(403).json({ error: 'You do not have enough access to complete this action.' });
+                };
+
+                next();
+            });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             
             if (error.name === 'TokenExpiredError')
