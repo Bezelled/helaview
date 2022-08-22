@@ -32,7 +32,7 @@ export const authenticateJWT = (allowedAccountTypes?: AccountType[]) => {
                 if (allowedAccountTypes !== undefined)
                 {
                     const { accountType } = <HelaJWTPayload>payload;
-                    const hasAccess: boolean = accountType in allowedAccountTypes;
+                    const hasAccess: boolean = (allowedAccountTypes.indexOf(accountType) !== -1);
 
                     if (hasAccess === false)
                         return response.status(403).json({ error: 'You do not have enough access to complete this action.' });

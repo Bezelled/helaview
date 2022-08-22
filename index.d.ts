@@ -5,7 +5,6 @@ declare module 'jsonwebtoken'
     export interface HelaJWTPayload extends JwtPayload
     {
         userID: bigint;
-        email: string;
         accountType: AccountType;
     }
 }
