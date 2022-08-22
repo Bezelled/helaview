@@ -9,7 +9,7 @@ import { HelaDBBooking, HelaDBHotels } from 'index.js';
 
 export default async function addRoute(router: Router): Promise<void>{
 
-    router.delete('/delete/:email',
+    router.delete('/hotels/delete/:email',
         authenticateJWT([AccountType.Hotel, AccountType.Admin]),
         async(req: Request, res: Response) => {
             const email: string = req.params.email;
@@ -28,7 +28,9 @@ export default async function addRoute(router: Router): Promise<void>{
             // Check if the hotel has any incomplete bookings
 
             const pendingBookings: RowList<HelaDBBooking[]> = await hdb<HelaDBBooking[]>`
-                SELECT * FROM bookings WHERE hotel_id = ${hotelDBID} AND check_out_date > ${Date.now()};
+                SELECT * FROM bookings
+                WHERE hotel_id = ${hotelDBID}
+                AND check_out_date > ${new Date().toISOString()}::timestamp;
             `;
 
             if (pendingBookings.length){ // If the hotel has pending bookings
@@ -47,7 +49,7 @@ export default async function addRoute(router: Router): Promise<void>{
             try{
                 await hdb`
                     DELETE FROM hotels WHERE email = ${email};
-                    DELETE FROM bookings WHERE hotel_email = ${email} AND check_out_date > ${Date.now()};
+                    DELETE FROM bookings WHERE hotel_email = ${email} AND check_out_date > ${new Date().toISOString()}::timestamp;
                     DELETE FROM verification_codes WHERE email = ${email};
                 `;
             } catch(err){

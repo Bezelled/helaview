@@ -9,21 +9,21 @@ import hdb from '../../lib/db.js';
 
 export default async function addRoute(router: Router): Promise<void>{
 
-    router.post('/booking',
+    router.post('/hotels/booking',
         authenticateJWT([AccountType.Tourist]),
         async(req: Request, res: Response) => {
 
             // Validate amount
 
             if (isNaN(req.body.amount))
-                return res.status(400).json({error: 'Please enter a valid booking price.'});
+                return res.status(400).json({ error: 'Please enter a valid booking price.' });
 
             const amount: number = Number(req.body.amount);
 
             // Validate head count
 
             if (isNaN(req.body['head count']))
-                return res.status(400).json({error: 'Please enter a valid head count.'});
+                return res.status(400).json({ error: 'Please enter a valid head count.' });
 
             const headCount: number = Number(req.body['head count']);
 

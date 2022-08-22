@@ -20,18 +20,25 @@ export const authenticateJWT = (allowedAccountTypes?: AccountType[]) => {
         try {
             const authHeader: string | undefined = request.headers['authorization'];
             const token: string | undefined = authHeader && authHeader.split(' ')[1];
+
+            // If there is no JWT token
             
             if (!token)
-                return response.status(401).json({ error: 'Unauthorized access. Please login and re-try.' });
+                return response.status(401).json({ error: 'Unauthorized access. Please login and retry.' });
 
             verify(token, JWT_SECRET, (err, payload) => {
+
+                // If authentication fails - expired JWT, etc...
                 
                 if (err)
-                    return response.status(401).json({ error: 'Unauthorized access. Please login and re-try.' });
+                    return response.status(401).json({ error: 'Unauthorized access. Please relogin and retry.' });
+
+                // If the route is restricted to certain account types
 
                 if (allowedAccountTypes !== undefined)
                 {
                     const { accountType } = <HelaJWTPayload>payload;
+                    // If the user's account type is allowed to access this route
                     const hasAccess: boolean = (allowedAccountTypes.indexOf(accountType) !== -1);
 
                     if (hasAccess === false)
@@ -46,7 +53,7 @@ export const authenticateJWT = (allowedAccountTypes?: AccountType[]) => {
             if (error.name === 'TokenExpiredError')
                 return response.status(401).json({ error: 'Expired token.' });
 
-            response.status(500).json({ error: 'Failed to authenticate user.' });
+            return response.status(500).json({ error: 'Failed to authenticate user.' });
         };
     };
 };
