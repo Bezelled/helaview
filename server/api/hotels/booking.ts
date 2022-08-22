@@ -1,7 +1,7 @@
 'use strict';
 
 import { Router, Request, Response } from 'express';
-import { HelaDBBooking } from 'index.js';
+import { HelaDBBooking, HelaDBHotels, HelaDBOffers } from 'index.js';
 import { RowList } from 'postgres';
 import { AccountType } from 'server/config/globals.js';
 import { authenticateJWT } from 'server/middleware/auth.js';
@@ -43,14 +43,14 @@ export default async function addRoute(router: Router): Promise<void>{
 
             // Validate hotel email
 
-            const hotelAccount = await hdb`
+            const hotelAccount: RowList<HelaDBHotels[]> = await hdb<HelaDBHotels[]>`
                 SELECT id, name, available_rooms FROM hotels WHERE email = ${req.body['hotel email']};
             `;
-
-            const hotelDBID: number = hotelAccount[0]?.id;
         
-            if (hotelDBID === undefined)
+            if (!hotelAccount.length)
                 return res.status(400).json({ error: `That hotel account does not exist. Please consider registering beforehand.` });
+
+            const hotelDBID: bigint = hotelAccount[0]?.id;
 
             // Get hotel account details
 
@@ -86,13 +86,11 @@ export default async function addRoute(router: Router): Promise<void>{
             let offerCode: string | null = null;
             
             if (req.body['offer code'] !== null){
-                const offerDetails = await hdb`
+                const offerDetails: RowList<HelaDBOffers[]> = await hdb<HelaDBOffers[]>`
                     SELECT name, expired, end_date, hotels FROM offers WHERE code = ${req.body['offer code']};
                 `;
 
-                const offerDBName: string | undefined = offerDetails[0]?.name;
-            
-                if (offerDBName === undefined)
+                if (!offerDetails.length)
                     return res.status(400).json({ error: `That offer code does not exist.` });
 
                 const offerDBExpired: boolean = offerDetails[0]?.expired;

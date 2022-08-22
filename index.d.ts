@@ -1,11 +1,18 @@
+import { HelaJWTPayload } from 'jsonwebtoken';
 import { AccountType } from './server/config/globals.js';
 
-declare module 'jsonwebtoken'
-{
-    export interface HelaJWTPayload extends JwtPayload
-    {
+declare module 'jsonwebtoken'{
+    export interface HelaJWTPayload extends JwtPayload{
         userID: bigint;
         accountType: AccountType;
+    }
+}
+
+declare global{
+    namespace Express{
+        interface Request{
+            user?: HelaJWTPayload;
+        }
     }
 }
 
@@ -94,6 +101,7 @@ interface HelaDBOffers
     code: string;
     name: string;
     description: string;
+    expired: boolean;
     start_date: Date;
     end_date: Date;
     hotels: object;

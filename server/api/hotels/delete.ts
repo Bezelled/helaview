@@ -49,7 +49,13 @@ export default async function addRoute(router: Router): Promise<void>{
             try{
                 await hdb`
                     DELETE FROM hotels WHERE email = ${email};
-                    DELETE FROM bookings WHERE hotel_email = ${email} AND check_out_date > ${new Date().toISOString()}::timestamp;
+                `;
+                await hdb`
+                    DELETE FROM bookings
+                    WHERE hotel_email = ${email}
+                    AND check_out_date > ${new Date().toISOString()}::timestamp;
+                `;
+                await hdb`
                     DELETE FROM verification_codes WHERE email = ${email};
                 `;
             } catch(err){
