@@ -2,7 +2,7 @@
 
 import { Router, Request, Response } from 'express';
 import { JWT_SECRET } from '../../config/globals.js';
-import { authenticateJWT } from 'server/middleware/auth.js';
+import { authenticateJWT } from '../../middleware/auth.js';
 import jwt from 'jsonwebtoken';
 
 const { sign } = jwt;

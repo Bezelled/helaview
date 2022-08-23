@@ -27,7 +27,7 @@ const TestimonialText = tw.div`outline-none`;
 const ImageAndControlContainer = tw.div`relative outline-none`;
 const Image = styled.div(props => [
   `background-image: url("${props.imageSrc}");`,
-  tw`rounded bg-cover bg-center h-80 sm:h-96 lg:h-144`
+  tw`rounded bg-cover bg-center h-80 sm:h-96 lg:h-144 border border-primary-500`
 ]);
 
 const ControlContainer = tw.div`absolute bottom-0 right-0 bg-gray-100 px-6 py-4 rounded-tl-3xl border`;
@@ -68,7 +68,7 @@ const DecoratorBlob2 = tw(
 export default ({
   subheading = "",
   heading = "Testimonials",
-  description = "Here are what some of our amazing customers are saying about our hotels & tours. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  description = "Here are what some of our loyal customers are saying about our amazing hotels & tours.",
   testimonials = null,
   textOnLeft = false
 }) => {

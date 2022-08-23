@@ -11,22 +11,14 @@ import { ReactComponent as YoutubeIcon } from "assets/img/youtube-icon.svg";
 const Container = tw.div`relative bg-gray-900 text-gray-100 -mx-8 -mb-8 px-8`;
 const Content = tw.div`max-w-screen-xl mx-auto pt-16 pb-8`
 const FiveColumns = tw.div`flex flex-wrap justify-between`;
-
 const Column = tw.div`w-1/2 md:w-1/5 mb-8 md:mb-0 text-sm sm:text-base text-center md:text-left`;
 const CompanyColumn = tw.div`text-center md:text-left mb-16 lg:mb-0 w-full lg:w-1/5`;
-
 const ColumnHeading = tw.h5`font-bold uppercase`;
-
 const LinkList = tw.ul`mt-4 text-sm font-medium`;
 const LinkListItem = tw.li`mt-3`;
 const Link = tw.a`border-b-2 border-transparent hocus:text-gray-300 hocus:border-gray-100 pb-1 transition duration-300`;
-
-const LogoContainer = tw.div`flex items-center justify-center lg:justify-start`;
 const LogoImg = tw.img`w-8`;
-const LogoText = tw.h5`ml-2 text-xl font-black`;
-
 const CompanyAddress = tw.p`mt-4 max-w-xs font-medium text-sm mx-auto lg:mx-0 lg:mr-4 leading-loose text-center lg:text-left`;
-
 const SocialLinksContainer = tw.div`mt-4 text-center lg:text-left`;
 const SocialLink = styled.a`
   ${tw`cursor-pointer inline-block p-2 rounded-full bg-gray-100 text-gray-900 hover:bg-gray-500 transition duration-300 mr-4 last:mr-0`}
@@ -46,10 +38,7 @@ export default () => {
       <Content>
         <FiveColumns>
           <CompanyColumn>
-            <LogoContainer>
-              <LogoImg src={LogoImage} />
-              <LogoText>HelaView</LogoText>
-            </LogoContainer>
+          <LogoImg src={LogoImage} />
             <CompanyAddress>
               123 Road, New Startup Building
               Carter Road, San Francisco
@@ -105,16 +94,10 @@ export default () => {
             <ColumnHeading>Legal</ColumnHeading>
             <LinkList>
               <LinkListItem>
-                <Link href="#">GDPR</Link>
-              </LinkListItem>
-              <LinkListItem>
                 <Link href="/privacy-policy">Privacy Policy</Link>
               </LinkListItem>
               <LinkListItem>
                 <Link href="/tos">Terms of Service</Link>
-              </LinkListItem>
-              <LinkListItem>
-                <Link href="#">Disclaimer</Link>
               </LinkListItem>
             </LinkList>
           </Column>
@@ -122,10 +105,10 @@ export default () => {
             <ColumnHeading>Contact</ColumnHeading>
             <LinkList>
               <LinkListItem>
-                +1 (234) (567)-8901
+                (+94) 117 675 100
               </LinkListItem>
               <LinkListItem>
-                <Link href="mailto:support@servana.com">support@servana.com</Link>
+                <Link href="mailto:support@helaview.lk">support@helaview.lk</Link>
               </LinkListItem>
               <LinkListItem>
                 <Link href="#">Sales</Link>

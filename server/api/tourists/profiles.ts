@@ -5,7 +5,7 @@
 import { Request, Response, Router } from 'express';
 import { authenticateJWT } from '../../middleware/auth.js';
 import hdb from '../../lib/db.js';
-import { AccountType } from 'server/config/globals.js';
+import { AccountType } from '../../config/globals.js';
 import { RowList } from 'postgres';
 import { HelaDBTourists } from 'index.js';
 

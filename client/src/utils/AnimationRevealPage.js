@@ -1,12 +1,12 @@
 import React from "react";
 import tw from "twin.macro";
-
+import Header, { NavLinks, NavLink, PrimaryLink } from "../components/headers/light.js";
 /* framer-motion and useInView here are used to animate the sections in when we reach them in the viewport
  */
 import { motion } from "framer-motion";
 import useInView from "@owaiswiz/use-in-view";
 
-export const StyledDiv = tw.div`font-display min-h-screen text-secondary-500 p-8 overflow-hidden`;
+export const StyledDiv = tw.div`font-display min-h-screen text-secondary-500 p-6 overflow-hidden`;
 function AnimationReveal({ disabled, children }) {
   if (disabled) {
     return <>{children}</>;

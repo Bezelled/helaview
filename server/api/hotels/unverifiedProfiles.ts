@@ -3,8 +3,8 @@
 //Only for admins
 
 import { Request, Response, Router } from 'express';
-import { AccountType } from 'server/config/globals.js';
-import { authenticateJWT } from 'server/middleware/auth.js';
+import { AccountType } from '../../config/globals.js';
+import { authenticateJWT } from '../../middleware/auth.js';
 import hdb from '../../lib/db.js';
 
 

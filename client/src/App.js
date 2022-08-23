@@ -16,6 +16,7 @@ const RegisterTourist = lazy(() => import('./pages/SignupTourist'));
 const RegisterHotel = lazy(() => import('./pages/SignupHotel'));
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
 const NotFound = lazy(() => import('./pages/404'));
+const Profile = lazy(() => import('./pages/Profile'));
 
 export default function App() {
   return (
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="/register-tourist" component={RegisterTourist} />
         <Route path="/register-hotel" component={RegisterHotel} />
         <Route path="/forgot-password" component={ForgotPassword} />
+        <Route path="/profile/me" component={Profile} />
         <Route path="/app" component={Layout} />
         <Route component={NotFound} />
       </Switch>

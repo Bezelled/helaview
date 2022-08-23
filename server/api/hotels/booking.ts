@@ -3,8 +3,8 @@
 import { Router, Request, Response } from 'express';
 import { HelaDBBooking, HelaDBHotels, HelaDBOffers } from 'index.js';
 import { RowList } from 'postgres';
-import { AccountType } from 'server/config/globals.js';
-import { authenticateJWT } from 'server/middleware/auth.js';
+import { AccountType } from '../../config/globals.js';
+import { authenticateJWT } from '../../middleware/auth.js';
 import hdb from '../../lib/db.js';
 
 export default async function addRoute(router: Router): Promise<void>{
