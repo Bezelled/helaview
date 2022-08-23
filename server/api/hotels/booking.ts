@@ -85,9 +85,15 @@ export default async function addRoute(router: Router): Promise<void>{
 
             let offerCode: string | null = null;
             
-            if (req.body['offer code'] !== null){
+            if (!req.body['offer code']){
                 const offerDetails: RowList<HelaDBOffers[]> = await hdb<HelaDBOffers[]>`
-                    SELECT name, expired, end_date, hotels FROM offers WHERE code = ${req.body['offer code']};
+                    SELECT
+                        name,
+                        expired,
+                        end_date,
+                        hotels
+                    FROM offers
+                    WHERE code = ${req.body['offer code']};
                 `;
 
                 if (!offerDetails.length)
@@ -119,7 +125,15 @@ export default async function addRoute(router: Router): Promise<void>{
             await hdb`
                 INSERT INTO bookings
                 (
-                    amount, head_count, tourist_id, tourist_email, hotel_id, hotel_email, offer_code, start_date, end_date
+                    amount,
+                    head_count,
+                    tourist_id,
+                    tourist_email,
+                    hotel_id,
+                    hotel_email,
+                    offer_code,
+                    start_date,
+                    end_date
                 )
                 VALUES
                 (

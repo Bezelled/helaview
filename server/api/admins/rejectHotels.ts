@@ -33,11 +33,11 @@ export default async function addRoute(router: Router): Promise<void>{
         await hdb`
             INSERT INTO hotel_logs
             (
-                hotel_id, message
+                description, hotel_id, admin_id
             )
             VALUES
             (
-                ${id}, ${message}
+                'A hotel was rejected: ${message}', ${id}, ${req.user.userID}
             );
         `;
 

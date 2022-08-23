@@ -30,13 +30,13 @@ export default async function addRoute(router: Router): Promise<void>{
             DELETE * FROM tourists WHERE id = ${id};
         `;
         await hdb`
-            INSERT INTO hotel_logs
+            INSERT INTO tourist_logs
             (
-                hotel_id, message
+                description, tourist_id, admin_id
             )
             VALUES
             (
-                ${id}, ${message}
+                'A tourist was flagged: ${message}', ${id}, ${req.user.userID}
             );
         `;
 
