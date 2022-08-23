@@ -1,16 +1,25 @@
 'use strict';
 
 import { Router, Request, Response } from 'express';
-import { compare } from 'bcrypt';
-import { userLoginKeys } from '../../config/globals.js';
-import hdb from '../../lib/db.js';
-import { validatePostData } from '../../lib/shared.js';
+import { JWT_SECRET } from '../../config/globals.js';
 import { authenticateJWT } from 'server/middleware/auth.js';
+import jwt from 'jsonwebtoken';
+
+const { sign } = jwt;
 
 export default async function addRoute(router: Router): Promise<void>{
 
     router.post('/logout', authenticateJWT, async(req: Request, res: Response) => {
-        //  TODO: logout
-        return res.status(200).json({ message: 'Successfully logged out.' });
+        const authHeader: string = String(req.headers['authorization']);
+        
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        sign(authHeader, JWT_SECRET, { expiresIn: 1 } , (logout, err) => {
+            
+            if (logout){
+                return res.status(200).json({ message: 'Successfully logged out.' });
+            } else {
+                return res.status(500).json({ error: 'Could not log you out.' });
+            };
+        });
     });
 }

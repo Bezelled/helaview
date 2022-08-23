@@ -1,6 +1,6 @@
 'use strict';
 
-//for all users - only verified profiles
+// for all users - only verified profiles
 
 import { Request, Response, Router } from 'express';
 import { HelaDBHotels } from 'index.js';
