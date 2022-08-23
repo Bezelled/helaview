@@ -3,7 +3,8 @@
 import { Request, Response, Router } from 'express';
 import { Emailer } from '../../lib/shared.js';
 import hdb from '../../lib/db.js';
-import { HelaEmail } from 'index.js';
+import { HelaDBHotels, HelaEmail } from 'index.js';
+import { RowList } from 'postgres';
 
 export default async function addRoute(router: Router): Promise<void>{
     
@@ -16,11 +17,11 @@ export default async function addRoute(router: Router): Promise<void>{
 
         id = Number(id);
 
-        const hotelAccount = await hdb`
-            SELECT email FROM hotels WHERE id = ${id}`;
-        ;
+        const hotelAccount: RowList<HelaDBHotels[]> = await hdb<HelaDBHotels[]>`
+            SELECT email FROM hotels WHERE id = ${id};
+        `;
 
-        if (hotelAccount[0]?.email === undefined)
+        if (!hotelAccount.length)
             return res.status(400).json({ error: 'That hotel profile does not exist.' });
 
         if (!message)
@@ -28,7 +29,8 @@ export default async function addRoute(router: Router): Promise<void>{
         
         await hdb`
             UPDATE hotels SET admin_verified = False WHERE id = ${id};
-            
+        `;
+        await hdb`
             INSERT INTO hotel_logs
             (
                 hotel_id, message
@@ -46,8 +48,8 @@ export default async function addRoute(router: Router): Promise<void>{
             html: `Your HelaView hotel account has been rejected for the following reason:<br>
             ${message}`
         };
-        await Emailer.sendEmail(rejectionEmail);
 
+        await Emailer.sendEmail(rejectionEmail);
         return res.status(200).json({ message: `${name} hotel's profile was rejected.` });
     });
 }

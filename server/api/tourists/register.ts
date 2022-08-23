@@ -6,6 +6,8 @@ import { userRegistrationKeys, emailRegExp, passwordRegExp, saltRounds, AccountT
 import { validatePostData, generateVerificationCode } from '../../lib/shared.js';
 import hdb from '../../lib/db.js';
 import { parsePhoneNumber } from 'libphonenumber-js';
+import { RowList } from 'postgres';
+import { HelaDBTourists } from 'index.js';
 
 export default async function addRoute(router: Router): Promise<void>{
     
@@ -23,13 +25,12 @@ export default async function addRoute(router: Router): Promise<void>{
         if (!(emailRegExp.test(email)))
             return res.status(400).json({ error: `Please enter a valid e-mail address.` });
     
-        const exists = await hdb`
-            SELECT true FROM tourists where email = ${email};
-        `;  //check if e-mail exists
-    
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        if (exists === undefined)
+        // Check if e-mail exists
+        const exists: RowList<HelaDBTourists[]> = await hdb<HelaDBTourists[]>`
+            SELECT true FROM tourists WHERE email = ${email};
+        `;
+
+        if (!exists.length)
             return res.status(400).json({ error: `An account under that e-mail address already exists.` });
     
         // Validate names
@@ -123,7 +124,6 @@ export default async function addRoute(router: Router): Promise<void>{
             });
 
             await generateVerificationCode(hdb, email, AccountType.Tourist, 'Email');
-    
             console.log(`[Tourist | Account created]: ${email}, ${firstName}, ${lastName}, ${password}, ${passportNo}, ${age}, ${gender}, ${country}, ${contactNo}.`);
             res.status(200).json({ message: `Your tourist account ${firstName} has been created under ${email}.`});
         } catch (err: Error | unknown){

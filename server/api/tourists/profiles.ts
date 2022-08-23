@@ -9,24 +9,19 @@ import { AccountType } from 'server/config/globals.js';
 import { RowList } from 'postgres';
 import { HelaDBTourists } from 'index.js';
 
-
 export default async function addRoute(router: Router): Promise<void>{
     
     router.get('/tourist/profiles/:id',
-        authenticateJWT([AccountType.Tourist, AccountType.Admin]),
+        authenticateJWT([AccountType.Admin]),
         async(req: Request, res: Response) => {
             const id: number = Number(req.params.id);
-
-            // Only allow tourist to access his/her own profile
-            if ((req.user.accountType === AccountType.Tourist) && (Number(req.user.userID) !== id))
-                return res.status(404).json({ error: 'Page not found.' });
 
             const touristAccount: RowList<HelaDBTourists[]> = await hdb<HelaDBTourists[]>`
                 SELECT first_name, last_name, age, gender, country, contact_no, email_verified FROM tourists WHERE id = ${id};
             `;
 
             if (!touristAccount.length)
-                return res.status(404).json({ error: 'Page not found.' });
+                return res.status(404).json({ error: 'Tourist not found.' });
             
             return res.status(200).json({
                 message: 'HelaView | Profile',

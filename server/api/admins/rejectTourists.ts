@@ -28,7 +28,8 @@ export default async function addRoute(router: Router): Promise<void>{
         
         await hdb`
             DELETE * FROM tourists WHERE id = ${id};
-            
+        `;
+        await hdb`
             INSERT INTO hotel_logs
             (
                 hotel_id, message
