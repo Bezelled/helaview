@@ -18,8 +18,10 @@ export default () => (
                 <PrimaryLink css={tw`rounded-full lg:ml-12!`} href="/login">Login</PrimaryLink>
             </NavLinks>
       ]}/>
-        <div className="flex w-full min-h-screen overflow-x-hidden items-center rounded-lg bg-gray-100 p-20 dark:bg-gray-900">
-            <div className="flex-1 h-full max-w-xl mx-auto overflow-hidden p-6 bg-white border-dashed border-4 border-primary-500 rounded-lg shadow-xl dark:bg-gray-800">
+        <div className="flex w-full min-h-screen overflow-x-hidden items-center rounded-lg bg-gray-100 p-20">
+            {/* dark:bg-gray-900 */}
+            <div className="flex-1 h-full max-w-xl mx-auto overflow-hidden p-6 bg-white border-dashed border-4 border-primary-500 rounded-lg shadow-xl">
+                {/* dark:bg-gray-800 */}
                 <MainHeading>HOLD ON!</MainHeading>
                 <Heading>Are you a...</Heading>
                 <div className="p-6 grid grid-cols-2 gap-4 place-content-stretch ">
