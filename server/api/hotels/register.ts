@@ -122,7 +122,7 @@ export default async function addRoute(router: Router): Promise<void>{
 
         if (rating !== 0.00){
 
-            if (!(rating > 1 && rating < 5) && (rating % 0.25 === 0))
+            if (!(rating >= 1 && rating <= 5) && (rating % 0.25 === 0))
                 return res.status(400).json({ error: `Please enter a valid hotel rating between 1.00 and 5.00. Select 0.00 to be classified as "unrated".` });
         };
         // const images = {'Images': ['']};
