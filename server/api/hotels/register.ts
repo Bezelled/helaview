@@ -170,7 +170,8 @@ export default async function addRoute(router: Router): Promise<void>{
             console.log(`[Hotel | Account created]: ${fullName}, ${email}, ${fullName}, ${passwordConfirmation}, ${address}, ${contactNo}, ${hotelType}, ${rating}, ${roomCount}.`);
             res.status(200).json({ message: `Your hotel account ${fullName} has been created under ${email}.`});
         } catch (err: Error | unknown){
-            res.status(400).json({ error: `Could not create a HelaView hotel account under ${email}.`});
+            console.log(err);
+            res.status(500).json({ error: `Could not create a HelaView hotel account under ${email}.`});
         }
     });
 }
