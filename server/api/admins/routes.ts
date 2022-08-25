@@ -9,7 +9,7 @@ import { authenticateJWT } from '../../middleware/auth.js';
 const adminRouter: Router = Router();
 
 //  Implement JWT authorisation for all /admin routes
-adminRouter.use(authenticateJWT([AccountType.Admin]));
+adminRouter.use('/admin', authenticateJWT([AccountType.Admin]));
 
 //  Import all files under the admin folder, so they can add their routes to the router
 (async () => {

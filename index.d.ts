@@ -49,6 +49,7 @@ interface HelaDBUsers
     hash: string;
     contact_no: number;
     account_type: string;
+    active: boolean;
 }
 
 interface HelaDBTourists

@@ -61,7 +61,7 @@ export default ({
   description = "We assure you that you will always enjoy your stay when booking a Sri Lankan hotel with us.",
   primaryActionUrl = "/register",
   primaryActionText = "Sign Up",
-  secondaryActionUrl = "/hotel-search",
+  secondaryActionUrl = "/search",
   secondaryActionText = "Search Hotels"
 }) => {
   return (

@@ -1,13 +1,12 @@
 import React, { useContext, Suspense, useEffect, lazy } from 'react'
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom'
+import { Switch, Route, useLocation } from 'react-router-dom'
 import routes from '../routes'
-
-import Sidebar from '../components/sidebars'
-import Header from '../components/Header'
-import Main from '../containers/Main'
-import ThemedSuspense from '../components/ThemedSuspense'
 import { SidebarContext } from '../context/SidebarContext'
 
+const Sidebar = lazy(() => import('../components/sidebars'))
+const Header = lazy(() => import('../components/Header'))
+const Main = lazy(() => import('../containers/Main'))
+const ThemedSuspense = lazy(() => import('../components/ThemedSuspense'))
 const Page404 = lazy(() => import('../pages/404'))
 
 function Layout() {
@@ -34,7 +33,7 @@ function Layout() {
                   <Route
                     key={i}
                     exact={true}
-                    path={route.path}
+                    path={`/admin/dashboard${route.path}`}
                     render={(props) => <route.component {...props} />}
                   />
                 ) : null
