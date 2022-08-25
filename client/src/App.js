@@ -15,6 +15,7 @@ const Register = lazy(() => import('./pages/Signup'));
 const RegisterTourist = lazy(() => import('./pages/SignupTourist'));
 const RegisterHotel = lazy(() => import('./pages/SignupHotel'));
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
+const Search = lazy(() => import('./pages/Search'));
 const NotFound = lazy(() => import('./pages/404'));
 const Profile = lazy(() => import('./pages/Profile'));
 
@@ -35,8 +36,9 @@ export default function App() {
         <Route path="/register-tourist" component={RegisterTourist} />
         <Route path="/register-hotel" component={RegisterHotel} />
         <Route path="/forgot-password" component={ForgotPassword} />
+        <Route path="/search" component={Search} />
         <Route path="/profile/me" component={Profile} />
-        <Route path="/app" component={Layout} />
+        <Route path="/" component={Layout} />
         <Route component={NotFound} />
       </Switch>
     </Router>
