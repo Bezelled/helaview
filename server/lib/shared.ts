@@ -216,12 +216,12 @@ async function* getRoutes(filename: string, fileType: string): AsyncGenerator<an
     let _dirname: string = '';
     let _filename: string = '';
 
-    if (helaPlatform === 'linux'){
-        _dirname = filename.substring(0, filename.lastIndexOf('/routes.js'));
-        _filename = _dirname;
-    } else {
+    if (helaPlatform === 'win32'){
         _dirname = filename.substring(0, filename.lastIndexOf('\\routes.js'));
         _filename = `file:///${_dirname}`;
+    } else {
+        _dirname = filename.substring(0, filename.lastIndexOf('/routes.js'));
+        _filename = _dirname;
     };
 
     for (const routeFile of readdirSync(_dirname)) {

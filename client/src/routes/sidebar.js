@@ -12,14 +12,14 @@ const routes = [
     name: 'Dashboard', // name that appear in Sidebar
   },
   {
-    path: '/forms',
+    path: '/hotels',
     icon: 'FormsIcon',
-    name: 'Forms',
+    name: 'Hotels',
   },
   {
-    path: '/cards',
+    path: '/tourists',
     icon: 'CardsIcon',
-    name: 'Cards',
+    name: 'Tourists',
   },
   {
     path: '/charts',
