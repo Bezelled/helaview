@@ -66,7 +66,7 @@ export default async function addRoute(router: Router): Promise<void>{
             SELECT * FROM users WHERE contact_no = ${contactNo};
         `;
 
-        if (!contactExists.length)
+        if (contactExists.length)
             return res.status(400).json({ error: `A HelaView account under that contact number already exists.` });
 
         // Validate room count
@@ -82,7 +82,7 @@ export default async function addRoute(router: Router): Promise<void>{
             SELECT * FROM hotels WHERE address = ${address};
         `;
 
-        if (!addressExists.length)
+        if (addressExists.length)
             return res.status(400).json({ error: `A hotel under that address already exists.` });
 
         // Validate district
