@@ -6,7 +6,7 @@ import { hash } from 'bcrypt';
 import { parsePhoneNumber } from 'libphonenumber-js';
 import { hotelRegistrationKeys, emailRegExp, passwordRegExp, saltRounds, AccountType, districts } from '../../config/globals.js';
 import { validatePostData, generateVerificationCode } from '../../lib/shared.js';
-import { HelaDBHotels } from 'index.js';
+import { HelaDBHotels, HelaDBUsers } from 'index.js';
 import hdb from '../../lib/db.js';
 
 export default async function addRoute(router: Router): Promise<void>{
@@ -62,6 +62,13 @@ export default async function addRoute(router: Router): Promise<void>{
             return res.status(400).json({ error: `Please enter a valid phone number with your country code. Ex: +94771002030 ` });
         };
 
+        const contactExists: RowList<HelaDBUsers[]> = await hdb<HelaDBUsers[]>`
+            SELECT * FROM users WHERE contact_no = ${contactNo};
+        `;
+
+        if (!contactExists.length)
+            return res.status(400).json({ error: `A HelaView account under that contact number already exists.` });
+
         // Validate room count
     
         const roomCount: number = Number(req.body['room count']);   //eslint-disable-line @typescript-eslint/no-inferrable-types
@@ -70,6 +77,13 @@ export default async function addRoute(router: Router): Promise<void>{
             return res.status(400).json({ error: `Please enter a valid available room count.` });
 
         const address: string = req.body.address;
+
+        const addressExists: RowList<HelaDBHotels[]> = await hdb<HelaDBHotels[]>`
+            SELECT * FROM hotels WHERE address = ${address};
+        `;
+
+        if (!addressExists.length)
+            return res.status(400).json({ error: `A hotel under that address already exists.` });
 
         // Validate district
 
