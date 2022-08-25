@@ -151,15 +151,15 @@ export class Emailer {
                 return;
         };
 
-        const info = await Emailer.transport.sendMail({
-            from: MAIL_USERNAME,
-            to: email,
-            subject: emailSubject,
+        const helaEmail: HelaEmail = {
+            recipient: email,
+            subject:emailSubject,
             text: emailText,
             html: emailHTML
-        });
+        };
+
+        Emailer.sendEmail(helaEmail);
         
-        console.log(`[Sent Email]: ${info.messageId}.`);
     }
 
     public static async sendBookingConfirmationEmail(email: string): Promise<void>{
@@ -197,16 +197,19 @@ export class Emailer {
     public static async sendEmail(email: HelaEmail): Promise<void>{
         
         Emailer.createEmailTransport();
-        
-        const info = await Emailer.transport.sendMail({
-            from: MAIL_USERNAME,
-            to: email.recipient,
-            subject: email.subject,
-            text: email.text,
-            html: email.html
-        });
-        
-        console.log(`[Sent Email]: ${info.messageId}.`);
+
+        try{
+            const info = await Emailer.transport.sendMail({
+                from: MAIL_USERNAME,
+                to: email.recipient,
+                subject: email.subject,
+                text: email.text,
+                html: email.html
+            });
+            console.log(`[Sent Email]: ${info.messageId}.`);
+        } catch (e){
+            console.log(`Could not send email: ${e}`);
+        };
     }
 }
 
