@@ -48,7 +48,7 @@ export default ({
       <NavLink href="#">Features</NavLink>
       <NavLink href="#">Pricing</NavLink>
       <NavLink href="/login">Login</NavLink>
-      <PrimaryLink href="#">Signup</PrimaryLink>
+      <PrimaryLink href="/register">Signup</PrimaryLink>
     </NavLinks>
   ];
   return (

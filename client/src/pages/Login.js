@@ -5,8 +5,8 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import tw from "twin.macro";
 
-import ImageLight from '../assets/img/login-office.jpeg';
-import ImageDark from '../assets/img/login-office-dark.jpeg';
+import ImageLight from '../assets/img/nine-arch-light.webp';
+import ImageDark from '../assets/img/perahera-dark.png';
 import Header, { NavLinks, NavLink, PrimaryLink } from "../components/headers/light.js";
 
 export default function Login() {
@@ -64,7 +64,7 @@ export default function Login() {
             <main className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
 
               <div className="w-full">
-                <h1 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">Login</h1>
+                <h1 className="mb-4 text-xl text-center font-semibold text-gray-700 dark:text-gray-200">LOGIN</h1>
 
                 <form onSubmit={handleSubmit}>
 

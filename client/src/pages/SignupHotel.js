@@ -1,13 +1,14 @@
 import React from "react";
+import { useHistory } from 'react-router-dom';
 import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
+import axios from 'axios';
+import toast from 'react-hot-toast';
 import illustration from "../assets/img/signup-illustration.svg";
 import { ReactComponent as SignUpIcon } from "feather-icons/dist/icons/user-plus.svg";
 import Header, { NavLinks, NavLink, PrimaryLink } from "../components/headers/light.js";
 import { StyledDiv } from "../utils/AnimationRevealPage.js";
-import axios from 'axios';
-import toast from 'react-hot-toast';
 
 const MainHeading = tw.h1`mx-auto max-w-xs text-center text-2xl xl:text-3xl font-extrabold text-primary-500`;
 const Heading = tw.h1`mx-auto max-w-xs text-2xl mb-4 text-center xl:text-3xl font-extrabold`;
@@ -35,168 +36,178 @@ const IllustratedContainer = styled.div`
 `;
 const districts = ["Colombo", "Gampaha", "Kalutara", "Kandy", "Matale", "Nuwara Eliya", "Galle", "Hambantota", "Matara", "Kurunegala", "Puttalam", "Batticaloa", "Trincomalee", "Ampara", "Ratnapura", "Kegalle", "Anuradhapura", "Polonnaruwa", "Jaffna", "Mullaitivu", "Vavuniya", "Kilinochchi", "Mannar", "Badulla", "Monaragala"];
 
-const handleSubmit = async(event) => {
-  event.preventDefault();
-  
-  const email = event.target.email.value;
-  const password = event.target.password.value;
-
-  if (event.target.password.value !== event.target['password confirmation'].value)
-    return toast.error('Passwords do not match.');
-
-  if (!email)
-    return toast.error('Please enter a valid e-mail address.');
-
-  if (!password)
-    return toast.error('Please enter a valid password.');
-
-  try{
-    const resp = await axios.post('http://127.0.0.1:7788/api/hotels/register', {
-      'email': event.target.email.value,
-      'full name': event.target['full name'].value,
-      'contact number': event.target['contact number'].value,
-      'password': event.target.password.value,
-      'password confirmation': event.target['password confirmation'].value,
-      'address': event.target.address.value,
-      'district':event.target.district.value,
-      'adult price':event.target['adult price'].value,
-      'child price':event.target['child price'].value,
-      'baby price':event.target['baby price'].value,
-      'room count': event.target['room count'].value,
-      'rating': event.target.rating.value,
-      'hotel type': event.target['hotel type'].value
-    });
-    toast.success(resp.data.message);
-  } catch (e){
-
-    if (e.response?.data.error)
-      return toast.error(e.response.data.error);
-    
-    toast.error('Uh oh! An error occurred.');
-  };
-
-}
-export default ({
+const SignUpPage =({
   headingText = "Sign Up For HelaView",
   submitButtonText = "Sign Up",
   SubmitButtonIcon = SignUpIcon,
   tosUrl = "/tos",
   privacyPolicyUrl = "/privacy-policy",
   signInUrl = "/login"
-}) => (
-  <StyledDiv className="App">
-    <Header links={[
-      <NavLinks key={1}>
-        <NavLink href="/about">About</NavLink>
-        <NavLink href="/contact-us" tw="lg:ml-12!">Contact Us</NavLink>
-        <PrimaryLink css={tw`lg:ml-12!`} href="/login">Login</PrimaryLink>
-      </NavLinks>
-    ]}/>
-    <IllustratedContainer imageSrc={illustration}>
-    <FormContainer>
-      <Form onSubmit={handleSubmit}>
-      <MainHeading>HOTELS</MainHeading>
-      <Heading>{headingText}</Heading>
-      <SubHeading>Contact Information</SubHeading>
-        
-        <Label for="email">E-mail address:
-        <Input id="email" type="email" placeholder="hello@helaview.lk" required/>
-        </Label>
-        
-        <Label for="full name">Full name:
-        <Input id="full name" type="text" placeholder="HelaView Hotel" required/>
-        </Label>
+}) => {
 
-        <Label for="contact number">Contact number:
-        <Input id="contact number" type="tel" placeholder="+94771002030" required/>
-        </Label>
+  const history = useHistory();
 
-        <Label for="address">Address:
-        <TextArea id="address" placeholder="Residential Number, Street Lane, Street Address, City." />
-        </Label>
+  const handleSubmit = async(event) => {
+    event.preventDefault();
+    
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+  
+    if (event.target.password.value !== event.target['password confirmation'].value)
+      return toast.error('Passwords do not match.');
+  
+    if (!email)
+      return toast.error('Please enter a valid e-mail address.');
+  
+    if (!password)
+      return toast.error('Please enter a valid password.');
+  
+    try{
+      const resp = await axios.post('http://127.0.0.1:7788/api/hotels/register', {
+        'email': event.target.email.value,
+        'full name': event.target['full name'].value,
+        'contact number': event.target['contact number'].value,
+        'password': event.target.password.value,
+        'password confirmation': event.target['password confirmation'].value,
+        'address': event.target.address.value,
+        'district':event.target.district.value,
+        'adult price':event.target['adult price'].value,
+        'child price':event.target['child price'].value,
+        'baby price':event.target['baby price'].value,
+        'room count': event.target['room count'].value,
+        'rating': event.target.rating.value,
+        'hotel type': event.target['hotel type'].value
+      });
+      toast.success(resp.data.message);
+      setTimeout( () => {
+        history.push("/login");
+      }, 5000);
+    } catch (e){
+  
+      if (e.response?.data?.error)
+        return toast.error(e.response.data.error);
+      
+      toast.error('Uh oh! An error occurred.');
+    };
+  
+  }
+  return(
+    <StyledDiv className="App">
+      <Header links={[
+        <NavLinks key={1}>
+          <NavLink href="/about">About</NavLink>
+          <NavLink href="/contact-us" tw="lg:ml-12!">Contact Us</NavLink>
+          <PrimaryLink css={tw`lg:ml-12!`} href="/login">Login</PrimaryLink>
+        </NavLinks>
+      ]}/>
+      <IllustratedContainer imageSrc={illustration}>
+      <FormContainer>
+        <Form onSubmit={handleSubmit}>
+        <MainHeading>HOTELS</MainHeading>
+        <Heading>{headingText}</Heading>
+        <SubHeading>Contact Information</SubHeading>
+          
+          <Label for="email">E-mail address:
+          <Input id="email" type="email" placeholder="hello@helaview.lk" required/>
+          </Label>
+          
+          <Label for="full name">Full name:
+          <Input id="full name" type="text" placeholder="HelaView Hotel" required/>
+          </Label>
+  
+          <Label for="contact number">Contact number:
+          <Input id="contact number" type="tel" placeholder="+94771002030" required/>
+          </Label>
+  
+          <Label for="address">Address:
+          <TextArea id="address" placeholder="Residential Number, Street Lane, Street Address, City." />
+          </Label>
+  
+          <Label for="district">District:
+          <Select id="district" name="district" placeholder="District" required>
+            {districts.map(district => (
+              <Option value={district}>{district}</Option>
+            ))}
+          </Select>
+          </Label>
+  
+          <Label for="password">Password (8-20 characters, with upper & lower case alphanumeric and special characters):
+          <Input id="password" type="password" placeholder="**********" required/>
+          </Label>
+  
+          <Label for="password confirmation">Retype password:
+          <Input id="password confirmation" type="password" placeholder="**********" required/>
+          </Label>
+  
+          <SubHeading>Prices per night (in US$)</SubHeading>
+          
+          <Label for="adult price">Nightly USD price per adult:
+          <Input id="adult price" type="number" placeholder="5" min="1" max="5000" required/>
+          </Label>
+  
+          <Label for="child price">Nightly USD price per child:
+          <Input id="child price" type="number" placeholder="5" min="1" max="5000" required/>
+          </Label>
+  
+          <Label for="baby price">Nightly USD price per baby:
+          <Input id="baby price" type="number" placeholder="5" min="1" max="5000" required/>
+          </Label>
+          <SubHeading>Miscellaneous</SubHeading>
+          
+          <Label for="room count">Available room count (HelaView will only allow this number of rooms to be booked at any given time):
+          <Input id="room count" type="number" placeholder="5" min="1" max="5000" required/>
+          </Label>
+          <Label for="rating">Rating (if you are unrated, select 0.00, else, start from 1.00):
+          <Input id="rating" type="number" step="0.25" placeholder="4.50" min="0.00" max="5.00" required/>
+          </Label>
+  
+          <Label for="hotel type">Hotel Type:
+          <Select id="hotel type" name="hotel type" placeholder="Hotel Type">
+              <Option value="Villa">Villa</Option>
+              <Option value="Resort">Resort</Option>
+              <Option value="Chain hotel">Chain hotel</Option>
+              <Option value="Inn">Inn</Option>
+              <Option value="Conference hotel">Conference hotel</Option>
+              <Option value="Extended stay hotel">Extended stay hotel</Option>
+              <Option value="Boutique">Boutique</Option>
+              <Option value="Bungalow">Bungalow</Option>
+              <Option value="Bed and Breakfast">Bed and Breakfast</Option>
+              <Option value="Heritage hotel">Heritage hotel</Option>
+              <Option value="Motel">Motel</Option>
+          </Select>
+          </Label>
+          
+          <SubmitButton>
+            <span className="text">Pay with PayPal</span>
+          </SubmitButton>
+  
+          <SubmitButton type="submit">
+            <SubmitButtonIcon className="icon" />
+            <span className="text">{submitButtonText}</span>
+          </SubmitButton>
+          <p tw="mt-6 text-xs text-gray-600 text-center">
+            By registering, You agree to abide by HelaView&#39;s{" "}
+            <a href={tosUrl} tw="border-b border-gray-500 border-dotted">
+              Terms of Service
+            </a>{" "}
+            and its{" "}
+            <a href={privacyPolicyUrl} tw="border-b border-gray-500 border-dotted">
+              Privacy Policy
+            </a>
+            .
+          </p>
+  
+          <p tw="mt-8 text-sm text-gray-600 text-center">
+            Already have an account?{" "}
+            <a href={signInUrl} tw="border-b border-gray-500 border-dotted">
+              Sign In
+            </a>
+          </p>
+        </Form>
+      </FormContainer>
+      </IllustratedContainer>
+    </StyledDiv>
+  );
+}
 
-        <Label for="district">District:
-        <Select id="district" name="district" placeholder="District" required>
-          {districts.map(district => (
-            <Option value={district}>{district}</Option>
-          ))}
-        </Select>
-        </Label>
-
-        <Label for="password">Password (8-20 characters, with upper & lower case alphanumeric and special characters):
-        <Input id="password" type="password" placeholder="**********" required/>
-        </Label>
-
-        <Label for="password confirmation">Retype password:
-        <Input id="password confirmation" type="password" placeholder="**********" required/>
-        </Label>
-
-        <SubHeading>Prices per night (in US$)</SubHeading>
-        
-        <Label for="adult price">Nightly USD price per adult:
-        <Input id="adult price" type="number" placeholder="5" min="1" max="5000" required/>
-        </Label>
-
-        <Label for="child price">Nightly USD price per child:
-        <Input id="child price" type="number" placeholder="5" min="1" max="5000" required/>
-        </Label>
-
-        <Label for="baby price">Nightly USD price per baby:
-        <Input id="baby price" type="number" placeholder="5" min="1" max="5000" required/>
-        </Label>
-        <SubHeading>Miscellaneous</SubHeading>
-        
-        <Label for="room count">Available room count (HelaView will only allow this number of rooms to be booked at any given time):
-        <Input id="room count" type="number" placeholder="5" min="1" max="5000" required/>
-        </Label>
-        <Label for="rating">Rating (if you are unrated, select 0.00, else, start from 1.00):
-        <Input id="rating" type="number" step="0.25" placeholder="4.50" min="0.00" max="5.00" required/>
-        </Label>
-
-        <Label for="hotel type">Hotel Type:
-        <Select id="hotel type" name="hotel type" placeholder="Hotel Type">
-            <Option value="Villa">Villa</Option>
-            <Option value="Resort">Resort</Option>
-            <Option value="Chain hotel">Chain hotel</Option>
-            <Option value="Inn">Inn</Option>
-            <Option value="Conference hotel">Conference hotel</Option>
-            <Option value="Extended stay hotel">Extended stay hotel</Option>
-            <Option value="Boutique">Boutique</Option>
-            <Option value="Bungalow">Bungalow</Option>
-            <Option value="Bed and Breakfast">Bed and Breakfast</Option>
-            <Option value="Heritage hotel">Heritage hotel</Option>
-            <Option value="Motel">Motel</Option>
-        </Select>
-        </Label>
-        
-        <SubmitButton>
-          <span className="text">Pay with PayPal</span>
-        </SubmitButton>
-
-        <SubmitButton type="submit">
-          <SubmitButtonIcon className="icon" />
-          <span className="text">{submitButtonText}</span>
-        </SubmitButton>
-        <p tw="mt-6 text-xs text-gray-600 text-center">
-          By registering, You agree to abide by HelaView&#39;s{" "}
-          <a href={tosUrl} tw="border-b border-gray-500 border-dotted">
-            Terms of Service
-          </a>{" "}
-          and its{" "}
-          <a href={privacyPolicyUrl} tw="border-b border-gray-500 border-dotted">
-            Privacy Policy
-          </a>
-          .
-        </p>
-
-        <p tw="mt-8 text-sm text-gray-600 text-center">
-          Already have an account?{" "}
-          <a href={signInUrl} tw="border-b border-gray-500 border-dotted">
-            Sign In
-          </a>
-        </p>
-      </Form>
-    </FormContainer>
-    </IllustratedContainer>
-  </StyledDiv>
-);
+export default SignUpPage;
