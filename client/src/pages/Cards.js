@@ -46,7 +46,7 @@ function Cards() {
           />
         </InfoCard>
 
-        <InfoCard title="New sales" value="376">
+        <InfoCard title="New accounts" value="376">
           <RoundIcon
             icon={CartIcon}
             iconColorClass="text-blue-500 dark:text-blue-100"

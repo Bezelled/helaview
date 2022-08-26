@@ -52,7 +52,7 @@ export default function Dashboard(){
 
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <InfoCard title="Total clients" value="6389">
+        <InfoCard title="Total hotels" value="6389">
           <RoundIcon
             icon={PeopleIcon}
             iconColorClass="text-orange-500 dark:text-orange-100"
@@ -61,7 +61,7 @@ export default function Dashboard(){
           />
         </InfoCard>
 
-        <InfoCard title="Account balance" value="$ 46,760.89">
+        <InfoCard title="Total revenue" value="$ 46,760.89">
           <RoundIcon
             icon={MoneyIcon}
             iconColorClass="text-green-500 dark:text-green-100"
@@ -70,7 +70,7 @@ export default function Dashboard(){
           />
         </InfoCard>
 
-        <InfoCard title="New sales" value="376">
+        <InfoCard title="New accounts" value="376">
           <RoundIcon
             icon={CartIcon}
             iconColorClass="text-blue-500 dark:text-blue-100"
@@ -79,7 +79,7 @@ export default function Dashboard(){
           />
         </InfoCard>
 
-        <InfoCard title="Pending contacts" value="35">
+        <InfoCard title="Pending email verification" value="35">
           <RoundIcon
             icon={ChatIcon}
             iconColorClass="text-teal-500 dark:text-teal-100"

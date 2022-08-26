@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { SidebarContext } from '../context/SidebarContext'
 import {
-  SearchIcon,
   MoonIcon,
   SunIcon,
   BellIcon,
@@ -10,7 +9,7 @@ import {
   OutlineCogIcon,
   OutlineLogoutIcon,
 } from '../assets/icons'
-import { Avatar, Badge, Input, Dropdown, DropdownItem, WindmillContext } from '@windmill/react-ui'
+import { Avatar, Badge, Dropdown, DropdownItem, WindmillContext } from '@windmill/react-ui'
 
 function Header() {
   const { mode, toggleMode } = useContext(WindmillContext)
@@ -40,7 +39,7 @@ function Header() {
         </button>
         {/* <!-- Search input --> */}
         <div className="flex justify-center flex-1 lg:mr-32">
-          <div className="relative w-full max-w-xl mr-6 focus-within:text-primary-500">
+          {/* <div className="relative w-full max-w-xl mr-6 focus-within:text-primary-500">
             <div className="absolute inset-y-0 flex items-center pl-2">
               <SearchIcon className="w-4 h-4" aria-hidden="true" />
             </div>
@@ -49,7 +48,7 @@ function Header() {
               placeholder="Search"
               aria-label="Search"
             />
-          </div>
+          </div> */}
         </div>
         <ul className="flex items-center flex-shrink-0 space-x-6">
           {/* <!-- Theme toggler --> */}

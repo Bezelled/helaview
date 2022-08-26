@@ -21,29 +21,29 @@ const routes = [
     icon: 'CardsIcon',
     name: 'Tourists',
   },
-  {
-    path: '/charts',
-    icon: 'ChartsIcon',
-    name: 'Charts',
-  },
-  {
-    path: '/buttons',
-    icon: 'ButtonsIcon',
-    name: 'Buttons',
-  },
-  {
-    path: '/modals',
-    icon: 'ModalsIcon',
-    name: 'Modals',
-  },
-  {
-    path: '/tables',
-    icon: 'TablesIcon',
-    name: 'Tables',
-  },
+  // {
+  //   path: '/charts',
+  //   icon: 'ChartsIcon',
+  //   name: 'Charts',
+  // },
+  // {
+  //   path: '/buttons',
+  //   icon: 'ButtonsIcon',
+  //   name: 'Buttons',
+  // },
+  // {
+  //   path: '/modals',
+  //   icon: 'ModalsIcon',
+  //   name: 'Modals',
+  // },
+  // {
+  //   path: '/tables',
+  //   icon: 'TablesIcon',
+  //   name: 'Tables',
+  // },
   {
     icon: 'PagesIcon',
-    name: 'Pages',
+    name: 'Other Admin Pages...',
     routes: [
       // submenu
       {
