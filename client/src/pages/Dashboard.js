@@ -26,15 +26,15 @@ import {
   doughnutLegends,
   lineLegends,
 } from '../utils/demo/chartsData';
+import axios from 'axios';
 
 export default function Dashboard(){
   const [pageTable, setPage] = useState(1);
   const [dataTable, setDataTable] = useState([]);
+  const [totalResults, setTotalResults] = useState([]);
 
   // pagination setup
   const resultsPerPage = 10;
-  const totalResults = response.length;
-
   // pagination change control
   function onPageChange(p) {
     setPage(p)
@@ -43,8 +43,17 @@ export default function Dashboard(){
   // on page change, load new sliced data
   // here you would make another server request for new data
   useEffect(() => {
-    setDataTable(response.slice((pageTable - 1) * resultsPerPage, pageTable * resultsPerPage))
-  }, [pageTable]);
+      let isSubscribed = true;
+      const fetchData = async () => {
+        const resp = await axios.get(`http://localhost:7788/api/hotels/profiles/${pageTable}`);
+        
+        if (isSubscribed)
+          setDataTable(resp.data.profiles);
+      };
+      fetchData()
+        .catch(console.error);
+      return () => isSubscribed = false;
+    }, [pageTable]);
 
   return (
     <>
@@ -93,33 +102,33 @@ export default function Dashboard(){
         <Table>
           <TableHeader>
             <tr>
-              <TableCell>Client</TableCell>
-              <TableCell>Amount</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Date</TableCell>
+              <TableCell>Hotel</TableCell>
+              <TableCell>Contact No</TableCell>
+              <TableCell>Rating</TableCell>
+              <TableCell>Email</TableCell>
               <TableCell>Actions</TableCell>
             </tr>
           </TableHeader>
           <TableBody>
-            {dataTable.map((user, i) => (
+            {dataTable.map((hotel, i) => (
               <TableRow key={i}>
                 <TableCell>
                   <div className="flex items-center text-sm">
-                    <Avatar className="hidden mr-3 md:block" src={user.avatar} alt="AV" />
+                    {/* <Avatar className="hidden mr-3 md:block" src={hotel.avatar} alt="AV" /> */}
                     <div>
-                      <p className="font-semibold">{user.name}</p>
-                      <p className="text-xs text-gray-600 dark:text-gray-400">{user.job}</p>
+                      <p className="font-semibold">{hotel.name}</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">{hotel["hotel type"]}</p>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">$ {user.amount}</span>
+                  <a className="text-sm" href={`tel:${hotel["contact no"]}`}>{`+${hotel["contact no"]}`}</a>
                 </TableCell>
                 <TableCell>
-                  <Badge type={user.status}>{user.status}</Badge>
+                  <span className="text-sm items-center">{hotel.rating}</span>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">{new Date(user.date).toLocaleDateString()}</span>
+                  <span className="text-sm">{hotel.email}</span>
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center space-x-4">
