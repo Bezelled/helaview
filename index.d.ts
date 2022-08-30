@@ -96,6 +96,16 @@ interface HelaDBVerificationCodes
     date_created: Date;
 }
 
+interface HelaDBReviews
+{
+    id: bigint;
+    hotel_id: bigint;
+    tourist_id: bigint;
+    rating: number;
+    review: string;
+    date_created: Date;
+}
+
 interface HelaDBOffers
 {
     id: bigint;
