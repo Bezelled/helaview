@@ -10,6 +10,7 @@
     "start": "react-scripts start",
     "prebuild": "npm run tailwind:build",
     "build": "react-scripts build",
+    "build:prod": "react-scripts --openssl-legacy-provider build",
     "cz": "git-cz",
     "release": "release-it",
     "test": "react-scripts test",

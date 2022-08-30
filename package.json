@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "buildC": "cd client && npm run prebuild && npm run build",
+    "buildC:prod": "cd client && npm run prebuild && npm run build:prod",
     "buildS": "tsc && npm run buildC",
     "client": "cd client && npm run start",
     "server": "concurrently \"tsc --watch\" \"nodemon dist/app.js\"",
