@@ -17,13 +17,12 @@ app.set('trust proxy', true);
 app.use(
     cors(),
     express.json(),
-    express.urlencoded({ extended: false }),
-    express.static(join(dirname, '../client/build'))
+    express.urlencoded({ extended: false })
 );
 app.disable('x-powered-by');
 
 //Default routes + handlers
-app.use('/', logger);
+app.use('/', logger, express.static(join(dirname, '../client/build')));
 
 //API routes + handlers
 app.use('/api/', touristRouter, hotelRouter, adminRouter, miscRouter, onlyAllowPosts);
