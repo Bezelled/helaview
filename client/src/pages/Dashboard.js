@@ -6,7 +6,6 @@ import ChartLegend from '../components/charts/ChartLegend';
 import PageTitle from '../components/typography/PageTitle';
 import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon, EditIcon, TrashIcon } from '../assets/icons';
 import RoundIcon from '../components/RoundIcon';
-import response from '../utils/demo/tableData';
 import {
   TableBody,
   TableContainer,
@@ -15,8 +14,6 @@ import {
   TableCell,
   TableRow,
   TableFooter,
-  Avatar,
-  Badge,
   Button,
   Pagination,
 } from '@windmill/react-ui';
