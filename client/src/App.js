@@ -1,6 +1,8 @@
 import React, { lazy } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AccessibleNavigationAnnouncer from './components/AccessibleNavigationAnnouncer';
+import { ProtectedRoute } from "./components/misc/ProtectedRoute"
+import { history } from './utils/browserHistory';
 
 // lazy() ensures code splitting - so user will not have to download a large JS file
 
@@ -21,7 +23,7 @@ const Profile = lazy(() => import('./pages/Profile'));
 
 export default function App() {
   return (
-    <Router>
+    <Router history={history}>
         {/* Helps accessibility by announcing to screen readers */}
       <AccessibleNavigationAnnouncer />
       <Switch>
@@ -37,7 +39,8 @@ export default function App() {
         <Route path="/register-hotel" component={RegisterHotel} />
         <Route path="/forgot-password" component={ForgotPassword} />
         <Route path="/search" component={Search} />
-        <Route path="/profile/me" component={Profile} />
+        {/* Place protected routes over this */}
+        <ProtectedRoute path="/profile/me" component={Profile} />
         <Route path="/" component={Layout} />
         <Route component={NotFound} />
       </Switch>

@@ -10,12 +10,14 @@ import { PORT, dirname } from './server/config/globals.js';
 import logger from './server/middleware/log.js';
 import onlyAllowPosts from './server/middleware/methods.js';
 import cors from 'cors';
+import helmet from 'helmet';
 
 const app: Application = express();
 
 app.set('trust proxy', true);
 app.use(
     cors(),
+    helmet(),
     express.json(),
     express.urlencoded({ extended: false })
 );
