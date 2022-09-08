@@ -8,7 +8,7 @@ import { DOMAIN, MAIL_SERVICE, MAIL_USERNAME, MAIL_PASSWORD, helaPlatform, three
 import { readdirSync } from 'fs';
 import { join }  from 'path';
 import jwt from 'jsonwebtoken';
-import { HelaEmail } from 'index.js';
+import { HelaBooking, HelaEmail } from 'index.js';
 
 const { sign } = jwt;
 
@@ -162,26 +162,25 @@ export class Emailer {
         
     }
 
-    public static async sendBookingConfirmationEmail(email: string): Promise<void>{
+    public static async sendBookingConfirmationEmail(booking: HelaBooking): Promise<void>{
         
         Emailer.createEmailTransport();
 
         const info = await Emailer.transport.sendMail({
             from: MAIL_USERNAME,
-            to: email,
+            to: booking.touristEmail,
             subject: 'Booking confirmation for HelaView',
             text: 'Your booking has been confirmed.',
             html: `Your booking has been successfully confirmed!<br>
                         <b><u>Booking details:</u></b><br><br>
-                        ID: <br>
-                        Start date:<br>
-                        End date:<br>
-                        Duration:<br>
-                        Number of rooms:<br>
-                        Number of adults:<br>
-                        Number of children:<br>
-                        Number of babies:<br>
-                        Price:<br>
+                        <b>ID:</b> ${booking.id}<br>
+                        <b>Start date:</b> ${booking.checkIn}<br>
+                        <b>End date:</b> ${booking.checkOut}<br>
+                        <b>Number of rooms:</b> ${booking.numOfRooms}<br>
+                        <b>Number of adults:</b> ${booking.numOfAdults}<br>
+                        <b>Number of children:</b> ${booking.numOfChildren}<br>
+                        <b>Number of babies:</b> ${booking.numOfBabies}<br>
+                        <b>Price:</b> ${booking.price}<br>
                     `   //Add details
         });
         

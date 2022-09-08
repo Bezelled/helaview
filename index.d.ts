@@ -28,17 +28,19 @@ interface HelaBooking
 {
     readonly id: bigint;
     readonly touristEmail: string;
-    readonly hotelid: bigint;
-    readonly hotelEmail: string;
+    readonly hotelId?: bigint;
+    readonly hotelEmail?: string;
+    readonly hotelName: string;
     readonly checkIn: Date;
     readonly checkOut: Date;
     readonly numOfAdults: number;
     readonly numOfChildren: number;
     readonly numOfBabies: number;
     readonly numOfRooms: number;
-    readonly numOfNights: number;
-    readonly pricePerNight: number;
+    readonly numOfNights?: number;
     readonly price: number;
+    readonly pricePerNight?: number;
+    readonly offerCode: string | null;
 }
 
 //Database table types for SQL query return type casting
@@ -120,6 +122,7 @@ interface HelaDBOffers
 
 interface HelaDBBooking
 {
+    start_date: any;
     id: bigint;
     price: number;
     price_per_night: number;

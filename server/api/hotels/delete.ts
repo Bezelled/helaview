@@ -18,10 +18,10 @@ export default async function addRoute(router: Router): Promise<void>{
                 SELECT id FROM hotels WHERE email = ${email});
             `;
 
-            const hotelDBID: bigint = hotelAccount[0]?.id;
-        
-            if (hotelDBID === undefined)
+            if (!hotelAccount.length)
                 return res.status(400).json({ error: `That hotel account does not exist.` });
+
+            const hotelDBID: bigint = hotelAccount[0].id;
 
             // TODO: Deleting profile logic - delete all bookings, offers, and reviews
 

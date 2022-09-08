@@ -776,5 +776,8 @@ module.exports = windmill({
     transitionDuration: ['responsive'],
   },
   corePlugins: {},
-  plugins: [],
+  plugins: [
+    require('@headlessui/tailwindcss'),
+    require('@tailwindcss/forms')
+  ],
 })

@@ -1,11 +1,15 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 'use strict';
 
 import { Router, Request, Response } from 'express';
-import { HelaDBBooking, HelaDBHotels, HelaDBOffers } from 'index.js';
+import { HelaBooking, HelaDBBooking, HelaDBHotels, HelaDBOffers, HelaDBTourists } from 'index.js';
 import { RowList } from 'postgres';
 import { AccountType } from '../../config/globals.js';
 import { authenticateJWT } from '../../middleware/auth.js';
 import hdb from '../../lib/db.js';
+import { Emailer } from '../../lib/shared.js';
 
 export default async function addRoute(router: Router): Promise<void>{
 
@@ -22,23 +26,30 @@ export default async function addRoute(router: Router): Promise<void>{
 
             // Validate head count
 
-            if (isNaN(req.body['head count']))
-                return res.status(400).json({ error: 'Please enter a valid head count.' });
+            const numOfAdults: number = Number(req.body['num of adults']);
+            const numOfChildren: number = Number(req.body['num of children']);
+            const numOfBabies: number = Number(req.body['num of babies']);
 
-            const headCount: number = Number(req.body['head count']);
+            const headCount: {
+                'adults': number;
+                'children': number;
+                'babies': number;
+            } = {
+                'adults': numOfAdults,
+                'children': numOfChildren,
+                'babies': numOfBabies
+            };
 
             // Validate tourist email
 
-            const touristAccount = await hdb`
+            const touristAccount: RowList<HelaDBTourists[]> = await hdb<HelaDBTourists[]>`
                 SELECT id FROM tourists WHERE email = ${req.body['tourist email']};
             `;
 
-            const touristDBID: number = touristAccount[0]?.id;
-        
-            if (touristDBID === undefined)
+            if (!touristAccount.length)
                 return res.status(400).json({ error: `That tourist account does not exist. Please consider registering beforehand.` });
 
-            const touristID: number = Number(touristDBID);
+            const touristID: number = Number(touristAccount[0].id);
             const touristEmail: string = req.body['tourist email'];
 
             // Validate hotel email
@@ -58,6 +69,7 @@ export default async function addRoute(router: Router): Promise<void>{
             const hotelEmail: string = req.body['hotel email'];
             const hotelName: string = hotelAccount[0].name;
             const availableRooms: number = Number(hotelAccount[0].available_rooms);
+            const touristRooms: number = Number(req.body['rooms']);
 
             //Need to cast the user's Dates to timestamps, so we can store it in the database
 
@@ -80,6 +92,11 @@ export default async function addRoute(router: Router): Promise<void>{
             
             if (bookedRooms >= availableRooms)
                 return res.status(400).json({ error: `${hotelName} is fully booked during those dates. Please select another hotel, or choose different dates.` });
+
+            // Check if the hotel has enough rooms
+
+            if (touristRooms > availableRooms)
+                return res.status(400).json({ error: `${hotelName} does not have enough rooms. Please select another hotel, or choose a smaller number of rooms.` });
 
             // Validate offer code
 
@@ -122,25 +139,43 @@ export default async function addRoute(router: Router): Promise<void>{
                 };
             };
             
-            await hdb`
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            const helaDBBooking: RowList<HelaDBBooking[]> = await hdb<HelaDBBooking[]>`
                 INSERT INTO bookings
                 (
-                    amount,
-                    head_count,
-                    tourist_id,
-                    tourist_email,
-                    hotel_id,
-                    hotel_email,
-                    offer_code,
-                    start_date,
-                    end_date
+                    amount, head_count, tourist_id, tourist_email, hotel_id, hotel_email, offer_code, start_date, end_date
                 )
                 VALUES
                 (
-                    ${amount}, ${headCount}, ${touristID}, ${touristEmail}, ${hotelID}, ${hotelEmail}, ${offerCode}, ${checkInDate}::timestamp, ${checkOutDate}::timestamp
-                );
+                    ${amount},
+                    ${headCount}::jsonb,
+                    ${touristID},
+                    ${touristEmail},
+                    ${hotelID},
+                    ${hotelEmail},
+                    ${offerCode},
+                    ${checkInDate}::timestamp,
+                    ${checkOutDate}::timestamp
+                )
+                RETURNING (id);
             `;
 
+            const helaBooking: HelaBooking = {
+                id: helaDBBooking[0].id,
+                price: amount,
+                numOfAdults: numOfAdults,
+                numOfChildren: numOfChildren,
+                numOfBabies: numOfBabies,
+                touristEmail: touristEmail,
+                offerCode: offerCode,
+                checkIn: new Date(req.body['check in date']),
+                checkOut: new Date(req.body['check out date']),
+                hotelName: hotelName,
+                numOfRooms: touristRooms
+            };
+
+            await Emailer.sendBookingConfirmationEmail(helaBooking);
             return res.status(200).json({ message: `Your booking is confirmed for ${new Date(checkInDate).toLocaleString('en-US', { timeZone: 'Asia/Colombo'})}. You will receive an e-mail shortly.` });
         }
     );

@@ -9,7 +9,7 @@ import Header, { NavLinks, NavLink, PrimaryLink } from "../components/headers/li
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { StyledDiv } from "../utils/AnimationRevealPage.js";
-import countries from "countries-list";
+import { countryNames } from "../utils/shared";
 
 const Container = tw(ContainerBase)`min-h-screen border-black text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl shadow-2xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 sm:rounded-lg flex justify-center flex-1`;
@@ -73,10 +73,6 @@ const handleSubmit = async(event) => {
   };
 
 }
-
-
-const countryCodes = Object.keys(countries.countries);
-const countryNames = (countryCodes.map(code => countries.countries[code].name)).sort();
 
 export default ({
   logoLinkUrl = "/",

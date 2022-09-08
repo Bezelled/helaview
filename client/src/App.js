@@ -19,7 +19,8 @@ const RegisterHotel = lazy(() => import('./pages/SignupHotel'));
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
 const Search = lazy(() => import('./pages/Search'));
 const NotFound = lazy(() => import('./pages/404'));
-const Profile = lazy(() => import('./pages/Profile'));
+const HotelProfile = lazy(() => import('./pages/HotelProfile'));
+const HotelBooking = lazy(() => import('./pages/HotelBooking'));
 
 export default function App() {
   return (
@@ -39,8 +40,11 @@ export default function App() {
         <Route path="/register-hotel" component={RegisterHotel} />
         <Route path="/forgot-password" component={ForgotPassword} />
         <Route path="/search" component={Search} />
+        <Route path="/profile-hotel" component={HotelProfile} />
+        <Route path="/booking/hotel"  component={HotelBooking} />
+
         {/* Place protected routes over this */}
-        <ProtectedRoute path="/profile/me" component={Profile} />
+        <ProtectedRoute path="/profile/me" component={HotelProfile} />
         <Route path="/" component={Layout} />
         <Route component={NotFound} />
       </Switch>
