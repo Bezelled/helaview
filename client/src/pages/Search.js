@@ -8,7 +8,7 @@ import { ReactComponent as LocationIcon } from "feather-icons/dist/icons/map-pin
 import { ReactComponent as CalendarIcon } from "feather-icons/dist/icons/calendar.svg";
 import { ReactComponent as UsersIcon } from "feather-icons/dist/icons/users.svg";
 import { StyledDiv } from "../utils/AnimationRevealPage.js";
-import Header from "../components/headers/light.js";
+import Header from "../components/headers/dark.js";
 
 export default function Search(){
 
@@ -45,8 +45,9 @@ export default function Search(){
   };
 
   return (
+    <>
+    <Header />
     <StyledDiv className="App">
-        <Header />
         <div className="headerSearch">
           <div className="headerSearchItem">
             <LocationIcon />
@@ -179,5 +180,6 @@ export default function Search(){
           </div>
         </div>
     </StyledDiv>
+    </>
   )
 }

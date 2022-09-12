@@ -300,7 +300,7 @@ export default function Example() {
                               Featured
                             </p>
                             <ul
-                              role="list"
+                              
                               aria-labelledby={`mobile-featured-heading-${categoryIdx}`}
                               className="mt-6 space-y-6"
                             >
@@ -317,7 +317,7 @@ export default function Example() {
                             <p id="mobile-categories-heading" className="font-medium text-gray-900">
                               Categories
                             </p>
-                            <ul role="list" aria-labelledby="mobile-categories-heading" className="mt-6 space-y-6">
+                            <ul  aria-labelledby="mobile-categories-heading" className="mt-6 space-y-6">
                               {category.categories.map((item) => (
                                 <li key={item.name} className="flex">
                                   <a href={item.href} className="text-gray-500">
@@ -333,7 +333,7 @@ export default function Example() {
                             <p id="mobile-collection-heading" className="font-medium text-gray-900">
                               Collection
                             </p>
-                            <ul role="list" aria-labelledby="mobile-collection-heading" className="mt-6 space-y-6">
+                            <ul  aria-labelledby="mobile-collection-heading" className="mt-6 space-y-6">
                               {category.collection.map((item) => (
                                 <li key={item.name} className="flex">
                                   <a href={item.href} className="text-gray-500">
@@ -348,7 +348,7 @@ export default function Example() {
                             <p id="mobile-brand-heading" className="font-medium text-gray-900">
                               Brands
                             </p>
-                            <ul role="list" aria-labelledby="mobile-brand-heading" className="mt-6 space-y-6">
+                            <ul  aria-labelledby="mobile-brand-heading" className="mt-6 space-y-6">
                               {category.brands.map((item) => (
                                 <li key={item.name} className="flex">
                                   <a href={item.href} className="text-gray-500">
@@ -552,7 +552,7 @@ export default function Example() {
                                                 Featured
                                               </p>
                                               <ul
-                                                role="list"
+                                                
                                                 aria-labelledby={`desktop-featured-heading-${categoryIdx}`}
                                                 className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                               >
@@ -570,7 +570,7 @@ export default function Example() {
                                                 Categories
                                               </p>
                                               <ul
-                                                role="list"
+                                                
                                                 aria-labelledby="desktop-categories-heading"
                                                 className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                               >
@@ -590,7 +590,7 @@ export default function Example() {
                                                 Collection
                                               </p>
                                               <ul
-                                                role="list"
+                                                
                                                 aria-labelledby="desktop-collection-heading"
                                                 className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                               >
@@ -609,7 +609,7 @@ export default function Example() {
                                                 Brands
                                               </p>
                                               <ul
-                                                role="list"
+                                                
                                                 aria-labelledby="desktop-brand-heading"
                                                 className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                               >
@@ -715,7 +715,7 @@ export default function Example() {
 
       <main className="pt-10 sm:pt-16">
         <nav aria-label="Breadcrumb">
-          <ol role="list" className="max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
+          <ol  className=" mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
             {product.breadcrumbs.map((breadcrumb) => (
               <li key={breadcrumb.id}>
                 <div className="flex items-center">
@@ -745,7 +745,7 @@ export default function Example() {
         </nav>
 
         {/* Image gallery */}
-        <div className="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:grid lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+        <div className="mt-6 mx-auto sm:px-6 lg:max-w-7xl lg:grid lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block">
             <img
               src={product.images[0].src}
@@ -779,7 +779,7 @@ export default function Example() {
         </div>
 
         {/* Product info */}
-        <div className="max-w-2xl mx-auto pt-10 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+        <div className="mx-auto pt-10 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
             <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{product.name}</h1>
           </div>
@@ -934,7 +934,7 @@ export default function Example() {
               <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
 
               <div className="mt-4">
-                <ul role="list" className="pl-4 list-disc text-sm space-y-2">
+                <ul  className="pl-4 list-disc text-sm space-y-2">
                   {product.highlights.map((highlight) => (
                     <li key={highlight} className="text-gray-400">
                       <span className="text-gray-600">{highlight}</span>
@@ -1000,39 +1000,6 @@ export default function Example() {
             </section>
           </div>
         </div>
-        <section aria-labelledby="related-products-heading" className="bg-white">
-          <div className="max-w-2xl mx-auto py-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-            <h2 id="related-products-heading" className="text-xl font-bold tracking-tight text-gray-900">
-              Customers also purchased
-            </h2>
-
-            <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-              {products.map((product) => (
-                <div key={product.id} className="group relative">
-                  <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-                    <img
-                      src={product.imageSrc}
-                      alt={product.imageAlt}
-                      className="w-full h-full object-center object-cover lg:w-full lg:h-full"
-                    />
-                  </div>
-                  <div className="mt-4 flex justify-between">
-                    <div>
-                      <h3 className="text-sm text-gray-700">
-                        <a href={product.href}>
-                          <span aria-hidden="true" className="absolute inset-0" />
-                          {product.name}
-                        </a>
-                      </h3>
-                      <p className="mt-1 text-sm text-gray-500">{product.color}</p>
-                    </div>
-                    <p className="text-sm font-medium text-gray-900">{product.price}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
       </main>
 
       <footer aria-labelledby="footer-heading" className="bg-white border-t border-gray-200">
@@ -1044,7 +1011,7 @@ export default function Example() {
             <div className="grid grid-cols-1 gap-y-10 lg:col-span-2 lg:grid-cols-2 lg:gap-y-0 lg:gap-x-8">
               <div>
                 <h3 className="text-sm font-medium text-gray-900">Account</h3>
-                <ul role="list" className="mt-6 space-y-6">
+                <ul  className="mt-6 space-y-6">
                   {footerNavigation.account.map((item) => (
                     <li key={item.name} className="text-sm">
                       <a href={item.href} className="text-gray-500 hover:text-gray-600">
@@ -1056,7 +1023,7 @@ export default function Example() {
               </div>
               <div>
                 <h3 className="text-sm font-medium text-gray-900">Service</h3>
-                <ul role="list" className="mt-6 space-y-6">
+                <ul  className="mt-6 space-y-6">
                   {footerNavigation.service.map((item) => (
                     <li key={item.name} className="text-sm">
                       <a href={item.href} className="text-gray-500 hover:text-gray-600">
@@ -1070,7 +1037,7 @@ export default function Example() {
             <div className="grid grid-cols-1 gap-y-10 lg:col-span-2 lg:grid-cols-2 lg:gap-y-0 lg:gap-x-8">
               <div>
                 <h3 className="text-sm font-medium text-gray-900">Company</h3>
-                <ul role="list" className="mt-6 space-y-6">
+                <ul  className="mt-6 space-y-6">
                   {footerNavigation.company.map((item) => (
                     <li key={item.name} className="text-sm">
                       <a href={item.href} className="text-gray-500 hover:text-gray-600">
@@ -1082,7 +1049,7 @@ export default function Example() {
               </div>
               <div>
                 <h3 className="text-sm font-medium text-gray-900">Connect</h3>
-                <ul role="list" className="mt-6 space-y-6">
+                <ul  className="mt-6 space-y-6">
                   {footerNavigation.connect.map((item) => (
                     <li key={item.name} className="text-sm">
                       <a href={item.href} className="text-gray-500 hover:text-gray-600">

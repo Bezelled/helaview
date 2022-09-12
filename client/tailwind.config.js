@@ -778,6 +778,7 @@ module.exports = windmill({
   corePlugins: {},
   plugins: [
     require('@headlessui/tailwindcss'),
-    require('@tailwindcss/forms')
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio')
   ],
 })
