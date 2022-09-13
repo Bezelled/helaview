@@ -474,7 +474,7 @@ export default function Example() {
                         Ornare eu a volutpat eget vulputate. Fringilla commodo amet.
                       </p>
                     </div>
-                    <ul role="list" className="mt-2 divide-y divide-gray-200">
+                    <ul className="mt-2 divide-y divide-gray-200">
                       <Switch.Group as="li" className="py-4 flex items-center justify-between">
                         <div className="flex flex-col">
                           <Switch.Label as="p" className="text-sm font-medium text-gray-900" passive>
