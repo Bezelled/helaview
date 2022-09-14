@@ -9,7 +9,7 @@ import { HelaDBHotels } from 'index.js';
 
 export default async function addRoute(router: Router): Promise<void>{
     
-    router.get('/hotels/review',
+    router.get('/hotels/addReview',
         authenticateJWT([AccountType.Tourist]),
         async(req: Request, res: Response) => {
             const { hotelID, rating, review } = req.params;

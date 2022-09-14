@@ -1,5 +1,8 @@
 import React from "react";
 import { districts } from "../utils/shared";
+import Header from "../components/headers/dark.js";
+
+
 /*
   This example requires Tailwind CSS v2.0+ 
   
@@ -16,9 +19,10 @@ import { districts } from "../utils/shared";
   }
   ```
 */
-export default function NewProfile() {
+export default function HotelProfile() {
     return (
       <div className="space-y-6">
+        <Header />
         <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
           <div className="md:grid md:grid-cols-3 md:gap-6">
             <div className="md:col-span-1">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Label, Input, Button } from '@windmill/react-ui';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -9,8 +9,11 @@ import ImageLight from '../assets/img/nine-arch-light.webp';
 import ImageDark from '../assets/img/perahera-dark.png';
 import Header, { NavLinks, NavLink, PrimaryLink } from "../components/headers/light.js";
 import { setAuthToken } from '../utils/setAuthToken';
+import { AccountType } from '../utils/shared';
 
 export default function Login() {
+
+  const history = useHistory();
 
   const handleSubmit = async(event) => {
     event.preventDefault();
@@ -37,7 +40,16 @@ export default function Login() {
       //set token to axios common header
       setAuthToken(token);
 
-      toast.success(`${resp.data.message} | ${token}`);
+      toast.success(`${resp.data.message}`);
+      switch (resp.data.accountType)
+      {
+        case AccountType.Hotel:
+          setTimeout( () => {
+            history.push("/hotels/addOffers");
+          }, 5000);
+          break;
+      };
+
     } catch (e){
 
       if (e.response?.data?.error)

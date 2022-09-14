@@ -52,11 +52,11 @@ export default function App() {
         <Route path="/profile-hotel" component={HotelProfile} />
         <Route path="/booking/hotel"  component={HotelBooking} />
         <Route path="/settings"  component={NewSettings} />
-        <Route path="/hotels/addOffers"  component={AddOffers} />
         <Route path="/list"  component={HotelsList} />
 
         {/* Place protected routes over this */}
         <ProtectedRoute path="/profile/me" component={HotelProfile} />
+        <ProtectedRoute path="/hotels/addOffers"  component={AddOffers} />
         <Route path="/" component={Layout} />
         <Route component={NotFound} />
       </Switch>

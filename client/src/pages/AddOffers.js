@@ -3,6 +3,8 @@ import DatePicker from "react-datepicker";
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import "react-datepicker/dist/react-datepicker.css";
+import Header from "../components/headers/dark.js";
+
 /*
   This example requires Tailwind CSS v2.0+ 
   
@@ -36,7 +38,6 @@ export default function AddOffers() {
             'end date': event.target['end date'].value
           });
           toast.success(resp.data.message);
-          event.target.reset();
         } catch (e){
 
         console.log(e);
@@ -50,6 +51,7 @@ export default function AddOffers() {
 
     return (
       <div className="space-y-6">
+        <Header />
   
         <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
           <div className="md:grid md:grid-cols-3 md:gap-6">

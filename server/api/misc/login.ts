@@ -56,11 +56,11 @@ export default async function addRoute(router: Router): Promise<void>{
                 case AccountType.Hotel:
                     // eslint-disable-next-line no-case-declarations
                     const hotelDetails: RowList<HelaDBHotels[]> = await hdb<HelaDBHotels[]>`
-                        SELECT id FROM tourists WHERE email = ${email};`
+                        SELECT id FROM hotels WHERE email = ${email};`
                     ;
                     
                     if (!hotelDetails.length)
-                        return res.status(400).json({ error: `That tourist account does not exist. Please consider registering beforehand.` });
+                        return res.status(400).json({ error: `That hotel account does not exist. Please consider registering beforehand.` });
                     
                     id = Number(hotelDetails[0].id);
                     break;
@@ -68,11 +68,11 @@ export default async function addRoute(router: Router): Promise<void>{
                 case AccountType.Admin:
                     // eslint-disable-next-line no-case-declarations
                     const adminDetails: RowList<HelaDBAdmins[]> = await hdb<HelaDBAdmins[]>`
-                        SELECT id FROM tourists WHERE email = ${email};`
+                        SELECT id FROM admins WHERE email = ${email};`
                     ;
                     
                     if (!adminDetails.length)
-                        return res.status(400).json({ error: `That tourist account does not exist. Please consider registering beforehand.` });
+                        return res.status(400).json({ error: `That admin account does not exist. Please consider registering beforehand.` });
                     
                     id = Number(adminDetails[0].id);
                     break;
@@ -82,7 +82,11 @@ export default async function addRoute(router: Router): Promise<void>{
                 accountType: getAccountType(accountType)
             });
             console.log(`${email} | ${accountType} has successfully logged in.`);   //redirect to relevant account type page
-            return res.status(200).json({ message: `${email} has successfully logged in.`, token: JWT});
+            return res.status(200).json({
+                message: `${email} has successfully logged in.`,
+                token: JWT,
+                accountType: helaAccountType
+            });
         } else {
             console.log(`${email} has not logged in.`);
             return res.status(400).json({ error: `Invalid password.` });

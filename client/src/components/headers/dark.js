@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
-import React, { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import React, { Fragment } from 'react';
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 import tw from "twin.macro";
 import logo from "../../assets/img/logo.svg";
 
@@ -9,10 +9,13 @@ export const LogoLink = tw.img`hidden lg:block h-8 w-auto my-2 mr-3 pb-1 border-
   transition duration-300 w-24 fill-primary-500
 `;
 
+// const navigation = [
+//   { name: 'About', href: '/about', current: true },
+//   { name: 'Sign Up', href: '/register', current: false },
+//   { name: 'Contact', href: '/contact-us', current: false }
+// ]
+
 const navigation = [
-  { name: 'About', href: '/about', current: true },
-  { name: 'Sign Up', href: '/register', current: false },
-  { name: 'Contact', href: '/contact-us', current: false }
 ]
 
 function classNames(...classes) {

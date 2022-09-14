@@ -15,6 +15,7 @@ export default async function addRoute(router: Router): Promise<void>{
             const { userID, accountType } = req.user;
 
             switch (accountType){
+                
                 case AccountType.Tourist:{
                     const touristAccount: RowList<HelaDBTourists[]> = await hdb<HelaDBTourists[]>`
                             SELECT
