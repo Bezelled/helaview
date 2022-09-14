@@ -7,12 +7,12 @@ import { Transporter, createTransport } from 'nodemailer';
 import { DOMAIN, MAIL_SERVICE, MAIL_USERNAME, MAIL_PASSWORD, helaPlatform, threeDays, AccountType, JWT_SECRET } from '../config/globals.js';
 import { readdirSync } from 'fs';
 import { join }  from 'path';
-import jwt from 'jsonwebtoken';
+import jwt, { HelaJWTPayload } from 'jsonwebtoken';
 import { HelaBooking, HelaEmail } from 'index.js';
 
 const { sign } = jwt;
 
-export function getAccountType(accountType: string | undefined): AccountType | undefined{
+export function getAccountType(accountType: string | undefined): AccountType{
     
     switch (accountType){
         
@@ -61,8 +61,8 @@ export function validatePostData(req: Request, res: Response, keys: string[]): b
     return true;
 }
 
-export function generateJWT(options: object): string{
-    return sign(options, JWT_SECRET);
+export function generateJWT(helaPayload: HelaJWTPayload): string{
+    return sign(helaPayload, JWT_SECRET);
 }
 
 export class Emailer {
@@ -237,6 +237,7 @@ async function* getRoutes(filename: string, fileType: string): AsyncGenerator<an
 }
 
 export async function addRoutes(filename: string, fileType: string, router: Router): Promise<void>{
+    
     for await (const {default: route} of getRoutes(filename, fileType)) {
         
         if (typeof route === 'function')

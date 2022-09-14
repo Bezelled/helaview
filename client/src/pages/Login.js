@@ -8,6 +8,7 @@ import tw from "twin.macro";
 import ImageLight from '../assets/img/nine-arch-light.webp';
 import ImageDark from '../assets/img/perahera-dark.png';
 import Header, { NavLinks, NavLink, PrimaryLink } from "../components/headers/light.js";
+import { setAuthToken } from '../utils/setAuthToken';
 
 export default function Login() {
 
@@ -27,16 +28,23 @@ export default function Login() {
         'email': event.target.email.value,
         'password': event.target.password.value
       });
+      //get token from response
+      const token = resp.data.token;
+ 
+      //set JWT token to local
+      localStorage.setItem("token", token);
 
-      toast.success(resp.data.message);
+      //set token to axios common header
+      setAuthToken(token);
+
+      toast.success(`${resp.data.message} | ${token}`);
     } catch (e){
 
-      if (e.response.data.error)
-        return toast.error(e.response.data.error);
+      if (e.response?.data?.error)
+        return toast.error(e.response?.data?.error);
       
       toast.error('Uh oh! An error occurred.');
     };
-
   }
 
   return (

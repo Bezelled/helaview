@@ -9,19 +9,19 @@ import { RowList } from 'postgres';
 
 export default async function addRoute(router: Router): Promise<void>{
 
-    router.post('/hotels/offers',
+    router.post('/hotels/addOffers',
         authenticateJWT([AccountType.Hotel]),
         async(req: Request, res: Response) => {
-            const hotelID: number = Number(req.user.userID);
+            const hotelID: number = Number(req.user?.userID) || 1;
             const hotel: number[] = [hotelID];
-            const { offerCode, name, description } = req.body;
+            const { code, name, description } = req.body;
             const startDate: Date = new Date(req.body['start date']);
             const endDate: Date | null = new Date(req.body['end date']);
 
             // Validate offer code
 
             const dbOffer: RowList<HelaDBOffers[]> = await hdb<HelaDBOffers[]>`
-                SELECT * FROM offers WHERE code = ${offerCode};
+                SELECT * FROM offers WHERE code = ${code};
             `;
 
             if (dbOffer.length)
@@ -52,7 +52,7 @@ export default async function addRoute(router: Router): Promise<void>{
                     )
                     VALUES
                     (
-                        ${offerCode},
+                        ${code},
                         ${name},
                         ${description},
                         ${startDate}::timestamp,
@@ -60,7 +60,7 @@ export default async function addRoute(router: Router): Promise<void>{
                         ${hotel}::jsonb
                     );
                 `;
-                return res.status(200).json({ message: `Successfully added your offer with code ${offerCode}.` });
+                return res.status(200).json({ message: `Successfully added your offer with code ${code}.` });
             } catch(err){
                 return res.status(500).json({ error: 'Could not add that offer.' });
             };
