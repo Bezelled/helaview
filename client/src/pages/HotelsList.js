@@ -21,138 +21,75 @@ import Header from "../components/headers/dark.js";
 import Footer from "../components/footers/FiveColumnWithInputForm.js";
 import axios from 'axios';
 
-
-const breadcrumbs = [{ id: 1, name: 'Men', href: '#' }]
 const filters = [
   {
-    id: 'color',
-    name: 'Color',
+    id: 'price',
+    name: 'Prices per night (adult)',
     options: [
-      { value: 'white', label: 'White' },
-      { value: 'beige', label: 'Beige' },
-      { value: 'blue', label: 'Blue' },
-      { value: 'brown', label: 'Brown' },
-      { value: 'green', label: 'Green' },
-      { value: 'purple', label: 'Purple' },
+      { value: 'Below $500', label: 'Below $500' },
+      { value: 'Below $400', label: 'Below $400' },
+      { value: 'Below $300', label: 'Below $300' },
+      { value: 'Below $200', label: 'Below $200' },
+      { value: 'Below $100', label: 'Below $100' }
     ],
   },
-  {
-    id: 'category',
-    name: 'Category',
-    options: [
-      { value: 'new-arrivals', label: 'All New Arrivals' },
-      { value: 'tees', label: 'Tees' },
-      { value: 'crewnecks', label: 'Crewnecks' },
-      { value: 'sweatshirts', label: 'Sweatshirts' },
-      { value: 'pants-shorts', label: 'Pants & Shorts' },
-    ],
-  },
-  {
-    id: 'sizes',
-    name: 'Sizes',
-    options: [
-      { value: 'xs', label: 'XS' },
-      { value: 's', label: 'S' },
-      { value: 'm', label: 'M' },
-      { value: 'l', label: 'L' },
-      { value: 'xl', label: 'XL' },
-      { value: '2xl', label: '2XL' },
-    ],
-  },
+  // {
+  //   id: 'category',
+  //   name: 'Category',
+  //   options: [
+  //     { value: 'new-arrivals', label: 'All New Arrivals' },
+  //     { value: 'tees', label: 'Tees' },
+  //     { value: 'crewnecks', label: 'Crewnecks' },
+  //     { value: 'sweatshirts', label: 'Sweatshirts' },
+  //     { value: 'pants-shorts', label: 'Pants & Shorts' },
+  //   ],
+  // },
+  // {
+  //   id: 'sizes',
+  //   name: 'Sizes',
+  //   options: [
+  //     { value: 'xs', label: 'XS' },
+  //     { value: 's', label: 'S' },
+  //     { value: 'm', label: 'M' },
+  //     { value: 'l', label: 'L' },
+  //     { value: 'xl', label: 'XL' },
+  //     { value: '2xl', label: '2XL' },
+  //   ],
+  // },
 ]
-const hotels = [
-  {
-    id: 1,
-    name: 'Basic Tee 8-Pack',
-    href: '#',
-    price: '$256',
-    description: 'Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.',
-    rating: '8',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg',
-    imageAlt: 'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
-  },
-  {
-    id: 2,
-    name: 'Basic Tee',
-    href: '#',
-    price: '$32',
-    description: 'Look like a visionary CEO and wear the same black t-shirt every day.',
-    rating: 'Black',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-02.jpg',
-    imageAlt: 'Front of plain black t-shirt.',
-  },
-  {
-    id: 3,
-    name: 'Basic Tee 3',
-    href: '#',
-    price: '$32',
-    description: 'Look like a visionary CEO and wear the same black t-shirt every day.',
-    rating: 'Black',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-02.jpg',
-    imageAlt: 'Front of plain black t-shirt.',
-  },
-  {
-    id: 4,
-    name: 'Basic Tee 8-Pack',
-    href: '#',
-    price: '$256',
-    description: 'Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.',
-    rating: '8',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg',
-    imageAlt: 'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
-  },
-  {
-    id: 5,
-    name: 'Basic Tee 8-Pack',
-    href: '#',
-    price: '$256',
-    description: 'Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.',
-    rating: '8',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg',
-    imageAlt: 'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
-  },
-  {
-    id: 6,
-    name: 'Basic Tee 8-Pack',
-    href: '#',
-    price: '$256',
-    description: 'Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.',
-    rating: '8',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg',
-    imageAlt: 'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
-  },
-  {
-    id: 7,
-    name: 'Basic Tee 8-Pack',
-    href: '#',
-    price: '$256',
-    description: 'Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.',
-    rating: '8',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg',
-    imageAlt: 'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
-  },
-  {
-    id: 8,
-    name: 'Basic Tee 8-Pack',
-    href: '#',
-    price: '$256',
-    description: 'Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.',
-    rating: '8',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg',
-    imageAlt: 'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
-  },
-  {
-    id: 9,
-    name: 'Basic Tee 8-Pack',
-    href: '#',
-    price: '$256',
-    description: 'Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.',
-    rating: '8',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg',
-    imageAlt: 'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
-  }
-  // More hotels...
-]
+// const hotels = [
+//   {
+//     id: 1,
+//     name: 'Basic Tee 8-Pack',
+//     href: '#',
+//     price: '$256',
+//     description: 'Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.',
+//     rating: '8',
+//     imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg',
+//     imageAlt: 'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
+//   },
+//   {
+//     id: 2,
+//     name: 'Basic Tee',
+//     href: '#',
+//     price: '$32',
+//     description: 'Look like a visionary CEO and wear the same black t-shirt every day.',
+//     rating: 'Black',
+//     imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-02.jpg',
+//     imageAlt: 'Front of plain black t-shirt.',
+//   },
+//   {
+//     id: 3,
+//     name: 'Basic Tee 3',
+//     href: '#',
+//     price: '$32',
+//     description: 'Look like a visionary CEO and wear the same black t-shirt every day.',
+//     rating: 'Black',
+//     imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-02.jpg',
+//     imageAlt: 'Front of plain black t-shirt.',
+//   }    
+//   // More hotels...
+// ]
 
 export default function HotelsList() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)

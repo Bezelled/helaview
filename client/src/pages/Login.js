@@ -52,7 +52,7 @@ export default function Login() {
           }, 5000);
           break;
 
-          case AccountType.Hotel:
+        case AccountType.Hotel:
             setTimeout( () => {
               history.push("/admin/dashboard");
             }, 5000);

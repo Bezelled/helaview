@@ -35,6 +35,7 @@ const IllustratedContainer = styled.div`
   ${props => `background-image: url("${props.imageSrc}");`}
   ${tw`max-w-screen-xl shadow-2xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 sm:rounded-lg flex justify-center flex-1 bg-center bg-cover bg-no-repeat`}
 `;
+let images;
 
 const SignUpPage =({
   headingText = "Sign Up For HelaView",
@@ -46,6 +47,9 @@ const SignUpPage =({
 }) => {
 
   const history = useHistory();
+  const fileSelectedHandler = (event) =>{
+    images = event.target.files;
+  }
 
   const handleSubmit = async(event) => {
     event.preventDefault();
@@ -63,22 +67,34 @@ const SignUpPage =({
       return toast.error('Please enter a valid password.');
   
     try{
-      const resp = await axios.post('http://127.0.0.1:7788/api/hotels/register', {
-        'email': event.target.email.value,
-        'full name': event.target['full name'].value,
-        'contact number': event.target['contact number'].value,
-        'password': event.target.password.value,
-        'password confirmation': event.target['password confirmation'].value,
-        'address': event.target.address.value,
-        'district':event.target.district.value,
-        'adult price':event.target['adult price'].value,
-        'child price':event.target['child price'].value,
-        'baby price':event.target['baby price'].value,
-        'description': event.target.description.value,
-        'room count': event.target['room count'].value,
-        'rating': event.target.rating.value,
-        'hotel type': event.target['hotel type'].value
-      });
+
+      const formData = new FormData();
+      
+      formData.append('email', event.target.email.value);
+      formData.append('full name', event.target['full name'].value);
+      formData.append('contact number', event.target['contact number'].value);
+      formData.append('password', event.target.password.value);
+      formData.append('password confirmation', event.target['password confirmation'].value);
+      formData.append('address', event.target.address.value);
+      formData.append('district',event.target.district.value);
+      formData.append('adult price',event.target['adult price'].value);
+      formData.append('child price',event.target['child price'].value);
+      formData.append('baby price',event.target['baby price'].value);
+      formData.append('description', event.target.description.value);
+      formData.append('images', images);
+      formData.append('room count', event.target['room count'].value);
+      formData.append('rating', event.target.rating.value);
+      formData.append('hotel type', event.target['hotel type'].value);
+      
+      const resp = await axios.post(
+        'http://127.0.0.1:7788/api/hotels/register',
+        formData,
+        {
+          headers: {
+              'Content-Type': 'multipart/form-data'
+          }
+        });
+
       toast.success(resp.data.message);
       setTimeout( () => {
         history.push("/login");
@@ -157,6 +173,10 @@ const SignUpPage =({
 
           <Label for="description">Description:
           <TextArea id="description" placeholder="Please write a short description about the hotel (<150 characters)." required/>
+          </Label>
+            
+          <Label for="images">Images (please upload a few images of your hotel):
+          <Input id="images" type="file" accept="image/png, image/jpeg" multiple onChange={fileSelectedHandler} required/>
           </Label>
           
           <Label for="room count">Available room count (HelaView will only allow this number of rooms to be booked at any given time):

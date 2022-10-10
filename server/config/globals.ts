@@ -3,6 +3,7 @@
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { platform } from 'os';
+import { extname } from 'path';
 import { Request } from 'express';
 import multer, { diskStorage, StorageEngine, FileFilterCallback  } from 'multer';
 import { randomUUID } from 'crypto';
@@ -29,7 +30,7 @@ export const helaPlatform: string = platform();
 export const saltRounds: number = 10;
 export const threeDays: number = 30 * 24 * 60 * 60 * 1000;
 export const userRegistrationKeys: string[] = ['first name', 'last name', 'email', 'password', 'password confirmation', 'passport number', 'gender', 'age', 'country', 'contact number'];
-export const hotelRegistrationKeys: string[] = ['email', 'full name', 'contact number', 'password', 'password confirmation', 'address', 'district', 'adult price', 'child price', 'baby price', 'description', 'room count', 'rating', 'hotel type'];
+export const hotelRegistrationKeys: string[] = ['email', 'full name', 'contact number', 'password', 'password confirmation', 'address', 'district', 'adult price', 'child price', 'baby price', 'description', 'images', 'room count', 'rating', 'hotel type'];
 export const userLoginKeys: string[] = ['email', 'password'];
 const countryCodes = Object.keys(countries.countries);
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -50,7 +51,7 @@ const fileStorage: StorageEngine = diskStorage({
         file: Express.Multer.File, 
         callback: FileNameCallback
     ): void => {
-        callback(null, `${randomUUID()}_${file.originalname}`);
+        callback(null, `${randomUUID()}_${file.originalname}${extname(file.originalname)}`);
     }
 });
 const fileFilter = (
@@ -72,7 +73,7 @@ const fileFilter = (
 const fileLimits: {
     fileSize: number;
 } = { fileSize: 1 * 1000 * 1000 };
-export const mult = multer({ storage: fileStorage, limits: fileLimits, fileFilter: fileFilter });
+export const upload = multer({ storage: fileStorage, limits: fileLimits, fileFilter: fileFilter });
 
 //Regular expressions
 

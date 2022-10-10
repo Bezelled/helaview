@@ -16,3 +16,9 @@ export const isLoggedIn = () => {
 export const isAdmin = () => {
     return (localStorage.getItem("accountType") === AccountType.Admin) ? true : false;
 }
+
+export const logOut = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("accountType");
+    delete axios.defaults.headers.common["Authorization"];
+}

@@ -4,7 +4,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 import tw from "twin.macro";
 import logo from "../../assets/img/logo.svg";
-import { isLoggedIn } from "../../utils/auth";
+import { isLoggedIn, logOut } from "../../utils/auth";
 
 export const LogoLink = tw.img`hidden lg:block h-8 w-auto my-2 mr-3 pb-1 border-b-2 border-transparent hocus:text-primary-500
   transition duration-300 w-24 fill-primary-500
@@ -133,6 +133,10 @@ export default function HeaderDark() {
                               <a
                                 href="#"
                                 className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                onClick={() => {
+                                  logOut();
+                                  window.location.reload();
+                                }}
                               >
                                 Sign out
                               </a>
