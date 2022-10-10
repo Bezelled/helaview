@@ -51,6 +51,12 @@ export default function Login() {
             history.push("/hotels/addOffers");
           }, 5000);
           break;
+
+          case AccountType.Hotel:
+            setTimeout( () => {
+              history.push("/admin/dashboard");
+            }, 5000);
+            break;
       };
 
     } catch (e){

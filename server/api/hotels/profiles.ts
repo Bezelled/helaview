@@ -22,6 +22,7 @@ export default async function addRoute(router: Router): Promise<void>{
                 email,
                 name,
                 address,
+                description,
                 contact_no,
                 hotel_type,
                 rating
@@ -37,8 +38,10 @@ export default async function addRoute(router: Router): Promise<void>{
             return res.status(400).send({error: 'No hotel profiles found.'});
 
         const hotelProfiles: {
+            id: number,
             email: string;
             name: string;
+            description: string;
             address: string;
             'contact no': number;
             'hotel type': string;
@@ -50,6 +53,7 @@ export default async function addRoute(router: Router): Promise<void>{
                 'id': Number(hotel.id),
                 'email': hotel.email,
                 'name': hotel.name,
+                'description': hotel.description,
                 'address': hotel.address,
                 'contact no': Number(hotel.contact_no),
                 'hotel type': hotel.hotel_type,

@@ -53,7 +53,7 @@ export default function App() {
         <Route path="/profile-hotel" component={HotelProfile} />
         <Route path="/booking/:id"  component={HotelBooking} />
         <Route path="/settings"  component={NewSettings} />
-        <Route path="/list"  component={HotelsList} />
+        <Route path="/hotels"  component={HotelsList} />
 
         {/* Place protected routes over this */}
         <ProtectedRoute path="/profile/me" component={HotelProfile} />

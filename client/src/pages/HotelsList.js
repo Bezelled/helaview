@@ -190,7 +190,7 @@ export default function HotelsList() {
           <div className="border-b border-gray-200 py-10">
             <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">Hotels</h1>
             <p className="mt-4 text-base text-gray-500">
-              Checkout out our hotels!
+              Check out our hotels!
             </p>
           </div>
 

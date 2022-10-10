@@ -12,6 +12,8 @@ import { HelaBooking, HelaEmail } from 'index.js';
 
 const { sign } = jwt;
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export function getAccountType(accountType: string | undefined): AccountType{
     
     switch (accountType){
