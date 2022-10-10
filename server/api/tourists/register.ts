@@ -30,7 +30,7 @@ export default async function addRoute(router: Router): Promise<void>{
             SELECT true FROM tourists WHERE email = ${email};
         `;
 
-        if (!exists.length)
+        if (exists.length)
             return res.status(400).json({ error: `An account under that e-mail address already exists.` });
     
         // Validate names

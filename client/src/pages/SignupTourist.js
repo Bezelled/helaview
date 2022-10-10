@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from 'react-router-dom';
 import { Container as ContainerBase } from "../components/misc/Layouts";
 import tw from "twin.macro";
 import styled from "styled-components";
@@ -39,42 +40,7 @@ const IllustrationImage = styled.div`
   ${tw`m-12 xl:m-16 w-full max-w-lg bg-contain bg-center bg-no-repeat`}
 `;
 
-const handleSubmit = async(event) => {
-  event.preventDefault();
-  const email = event.target.email.value;
-  const password = event.target.password.value;
-
-  if (!email)
-    return toast.error('Please enter a valid e-mail address.');
-
-  if (!password)
-    return toast.error('Please enter a valid password.');
-
-  try{
-    const resp = await axios.post('http://127.0.0.1:7788/api/tourists/register', {
-      'email': event.target.email.value,
-      'first name': event.target['first name'].value,
-      'last name': event.target['last name'].value,
-      'password': event.target.password.value,
-      'password confirmation': event.target['password confirmation'].value,
-      'age': event.target.age.value,
-      'gender': event.target.gender.value,
-      'contact number': event.target['contact number'].value,
-      'passport number': event.target['passport number'].value,
-      'country': event.target.country.value
-    });
-    toast.success(resp.data.message);
-  } catch (e){
-
-    if (e.response?.data.error)
-      return toast.error(e.response.data.error);
-    
-    toast.error('Uh oh! An error occurred.');
-  };
-
-}
-
-export default ({
+const SignUpTourist = ({
   logoLinkUrl = "/",
   illustrationImageSrc = illustration,
   headingText = "Sign Up For HelaView",
@@ -83,85 +49,129 @@ export default ({
   tosUrl = "/tos",
   privacyPolicyUrl = "/privacy-policy",
   signInUrl = "/login"
-}) => (
-  <StyledDiv className="App">
-    <Header links={[
-      <NavLinks key={1}>
-        <NavLink href="/about">About</NavLink>
-        <NavLink href="/contact-us" tw="lg:ml-12!">Contact Us</NavLink>
-        <NavLink href="/login" tw="lg:ml-12!">Login</NavLink>
-        <PrimaryLink css={false && tw`rounded-full`} href="/register">Sign Up</PrimaryLink>
-      </NavLinks>
-    ]} />
-      <Container>
-        <Content>
-          <MainContainer>
-            <MainContent>
-              <MainHeading>TOURISTS</MainHeading>
-              <Heading>{headingText}</Heading>
+}) => {
 
-              <FormContainer>
-                <Form onSubmit={handleSubmit}>
-                  
-                  <Label for="email">E-mail address:</Label>
-                  <Input id="email" type="email" placeholder="hello@helaview.lk" required/>
-                  <Label for="first name">First name:</Label>
-                  <Input id="first name" type="text" placeholder="John" required/>
-                  <Label for="last name">Last name:</Label>
-                  <Input id="last name" type="text" placeholder="Doe" />
-                  <Label for="password">Password (8-20 characters, with upper & lower case alphanumeric and special characters):</Label>
-                  <Input id="password" type="password" placeholder="**********" required/>
-                  <Label for="password confirmation">Retype password:</Label>
-                  <Input id="password confirmation" type="password" placeholder="**********" required/>
-                  <Label for="age">Age:</Label>
-                  <Input id="age" type="number" placeholder="13" min="13" max="120" required/>
-                  <Label for="gender">Gender:</Label>
-                  <Select id="gender" name="gender" placeholder="Gender" required>
-                      <Option selected value="M">Male</Option>
-                      <Option value="F">Female</Option>
-                  </Select>
-                  <Label for="contact number">Contact number:</Label>
-                  <Input id="contact number" type="tel" placeholder="+94771002030" required/>
-                  <Label for="passport number">Passport number:</Label>
-                  <Input id="passport number" type="text" placeholder="Passport number" />
+  const history = useHistory();
+  const handleSubmit = async(event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+  
+    if (!email)
+      return toast.error('Please enter a valid e-mail address.');
+  
+    if (!password)
+      return toast.error('Please enter a valid password.');
+  
+    try{
+      const resp = await axios.post('http://127.0.0.1:7788/api/tourists/register', {
+        'email': event.target.email.value,
+        'first name': event.target['first name'].value,
+        'last name': event.target['last name'].value,
+        'password': event.target.password.value,
+        'password confirmation': event.target['password confirmation'].value,
+        'age': event.target.age.value,
+        'gender': event.target.gender.value,
+        'contact number': event.target['contact number'].value,
+        'passport number': event.target['passport number'].value,
+        'country': event.target.country.value
+      });
+      toast.success(resp.data.message);
+      setTimeout( () => {
+        history.push("/login");
+      }, 5000);
+    } catch (e){
+  
+      if (e.response?.data.error)
+        return toast.error(e.response.data.error);
+      
+      toast.error('Uh oh! An error occurred.');
+    };
+  
+  }
 
-                  <Label for="country">Country:</Label>
-                  <Select id="country" name="country" placeholder="Country" required>
-                    {countryNames.map(country => (
-                      <Option value={country}>{country}</Option>
-                    ))}
-                  </Select>
+  return(
+    <StyledDiv className="App">
+      <Header links={[
+        <NavLinks key={1}>
+          <NavLink href="/about">About</NavLink>
+          <NavLink href="/contact-us" tw="lg:ml-12!">Contact Us</NavLink>
+          <NavLink href="/login" tw="lg:ml-12!">Login</NavLink>
+          <PrimaryLink css={false && tw`rounded-full`} href="/register">Sign Up</PrimaryLink>
+        </NavLinks>
+      ]} />
+        <Container>
+          <Content>
+            <MainContainer>
+              <MainContent>
+                <MainHeading>TOURISTS</MainHeading>
+                <Heading>{headingText}</Heading>
 
-                  <SubmitButton type="submit">
-                    <SubmitButtonIcon className="icon" />
-                    <span className="text">{submitButtonText}</span>
-                  </SubmitButton>
-                  <p tw="mt-6 text-xs text-gray-600 text-center">
-                    By registering, You agree to abide by HelaView&#39;s{" "}
-                    <a href={tosUrl} tw="border-b border-gray-500 border-dotted">
-                      Terms of Service
-                    </a>{" "}
-                    and its{" "}
-                    <a href={privacyPolicyUrl} tw="border-b border-gray-500 border-dotted">
-                      Privacy Policy
-                    </a>
-                    .
-                  </p>
+                <FormContainer>
+                  <Form onSubmit={handleSubmit}>
+                    
+                    <Label for="email">E-mail address:</Label>
+                    <Input id="email" type="email" placeholder="hello@helaview.lk" required/>
+                    <Label for="first name">First name:</Label>
+                    <Input id="first name" type="text" placeholder="John" required/>
+                    <Label for="last name">Last name:</Label>
+                    <Input id="last name" type="text" placeholder="Doe" />
+                    <Label for="password">Password (8-20 characters, with upper & lower case alphanumeric and special characters):</Label>
+                    <Input id="password" type="password" placeholder="**********" required/>
+                    <Label for="password confirmation">Retype password:</Label>
+                    <Input id="password confirmation" type="password" placeholder="**********" required/>
+                    <Label for="age">Age:</Label>
+                    <Input id="age" type="number" placeholder="13" min="13" max="120" required/>
+                    <Label for="gender">Gender:</Label>
+                    <Select id="gender" name="gender" placeholder="Gender" required>
+                        <Option selected value="M">Male</Option>
+                        <Option value="F">Female</Option>
+                    </Select>
+                    <Label for="contact number">Contact number:</Label>
+                    <Input id="contact number" type="tel" placeholder="+94771002030" required/>
+                    <Label for="passport number">Passport number:</Label>
+                    <Input id="passport number" type="text" placeholder="Passport number" />
 
-                  <p tw="mt-8 text-sm text-gray-600 text-center">
-                    Already have an account?{" "}
-                    <a href={signInUrl} tw="border-b border-gray-500 border-dotted">
-                      Sign In
-                    </a>
-                  </p>
-                </Form>
-              </FormContainer>
-            </MainContent>
-          </MainContainer>
-          <IllustrationContainer>
-            <IllustrationImage imageSrc={illustrationImageSrc} />
-          </IllustrationContainer>
-        </Content>
-      </Container>
-  </StyledDiv>
-);
+                    <Label for="country">Country:</Label>
+                    <Select id="country" name="country" placeholder="Country" required>
+                      {countryNames.map(country => (
+                        <Option value={country}>{country}</Option>
+                      ))}
+                    </Select>
+
+                    <SubmitButton type="submit">
+                      <SubmitButtonIcon className="icon" />
+                      <span className="text">{submitButtonText}</span>
+                    </SubmitButton>
+                    <p tw="mt-6 text-xs text-gray-600 text-center">
+                      By registering, You agree to abide by HelaView&#39;s{" "}
+                      <a href={tosUrl} tw="border-b border-gray-500 border-dotted">
+                        Terms of Service
+                      </a>{" "}
+                      and its{" "}
+                      <a href={privacyPolicyUrl} tw="border-b border-gray-500 border-dotted">
+                        Privacy Policy
+                      </a>
+                      .
+                    </p>
+
+                    <p tw="mt-8 text-sm text-gray-600 text-center">
+                      Already have an account?{" "}
+                      <a href={signInUrl} tw="border-b border-gray-500 border-dotted">
+                        Sign In
+                      </a>
+                    </p>
+                  </Form>
+                </FormContainer>
+              </MainContent>
+            </MainContainer>
+            <IllustrationContainer>
+              <IllustrationImage imageSrc={illustrationImageSrc} />
+            </IllustrationContainer>
+          </Content>
+        </Container>
+    </StyledDiv>
+  );
+};
+
+export default SignUpTourist;
