@@ -18,6 +18,7 @@ export default async function addRoute(router: Router): Promise<void>{
 
         const dbHotelProfiles: RowList<HelaDBHotels[]> = await hdb<HelaDBHotels[]>`
             SELECT
+                id,
                 email,
                 name,
                 address,
@@ -46,6 +47,7 @@ export default async function addRoute(router: Router): Promise<void>{
         
         dbHotelProfiles.forEach(hotel => {
             hotelProfiles.push({
+                'id': Number(hotel.id),
                 'email': hotel.email,
                 'name': hotel.name,
                 'address': hotel.address,

@@ -85,6 +85,13 @@ export default async function addRoute(router: Router): Promise<void>{
         if (addressExists.length)
             return res.status(400).json({ error: `A hotel under that address already exists.` });
 
+        // Validate description
+
+        const description: string = req.body.description;
+
+        if ((!description) || (description.length < 6) || (description.length > 150))
+            return res.status(400).json({ error: `Please enter a valid description between 5 - 150 characters.` });
+
         // Validate district
 
         const district: string = req.body.district;
@@ -155,11 +162,11 @@ export default async function addRoute(router: Router): Promise<void>{
                 await hdb`
                     INSERT INTO hotels
                     (
-                        email, name, hash, address, district, contact_no, hotel_type, rating, available_rooms, prices
+                        email, name, hash, address, district, contact_no, description, hotel_type, rating, available_rooms, prices
                     )
                     VALUES
                     (
-                        ${email}, ${fullName}, ${hashedPassword}, ${address}, ${district}, ${contactNo}, ${hotelType}, ${rating}, ${roomCount}, ${prices}::jsonb
+                        ${email}, ${fullName}, ${hashedPassword}, ${address}, ${district}, ${contactNo}, ${description}, ${hotelType}, ${rating}, ${roomCount}, ${prices}::jsonb
                     )
                     ON CONFLICT (email) DO NOTHING;
                 `;
@@ -167,7 +174,7 @@ export default async function addRoute(router: Router): Promise<void>{
 
             await generateVerificationCode(hdb, email, AccountType.Hotel, 'Email');
     
-            console.log(`[Hotel | Account created]: ${fullName}, ${email}, ${fullName}, ${passwordConfirmation}, ${address}, ${contactNo}, ${hotelType}, ${rating}, ${roomCount}.`);
+            console.log(`[Hotel | Account created]: ${fullName}, ${email}, ${fullName}, ${passwordConfirmation}, ${address}, ${contactNo}, ${description}, ${hotelType}, ${rating}, ${roomCount}.`);
             res.status(200).json({ message: `Your hotel account ${fullName} has been created under ${email}.`});
         } catch (err: Error | unknown){
             console.log(err);

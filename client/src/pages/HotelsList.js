@@ -15,10 +15,12 @@
   }
   ```
 */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { PlusSmIcon } from '@heroicons/react/solid'
 import Header from "../components/headers/dark.js";
 import Footer from "../components/footers/FiveColumnWithInputForm.js";
+import axios from 'axios';
+
 
 const breadcrumbs = [{ id: 1, name: 'Men', href: '#' }]
 const filters = [
@@ -65,7 +67,7 @@ const hotels = [
     href: '#',
     price: '$256',
     description: 'Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.',
-    options: '8 colors',
+    rating: '8',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg',
     imageAlt: 'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
   },
@@ -75,7 +77,7 @@ const hotels = [
     href: '#',
     price: '$32',
     description: 'Look like a visionary CEO and wear the same black t-shirt every day.',
-    options: 'Black',
+    rating: 'Black',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-02.jpg',
     imageAlt: 'Front of plain black t-shirt.',
   },
@@ -85,15 +87,99 @@ const hotels = [
     href: '#',
     price: '$32',
     description: 'Look like a visionary CEO and wear the same black t-shirt every day.',
-    options: 'Black',
+    rating: 'Black',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-02.jpg',
     imageAlt: 'Front of plain black t-shirt.',
   },
+  {
+    id: 4,
+    name: 'Basic Tee 8-Pack',
+    href: '#',
+    price: '$256',
+    description: 'Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.',
+    rating: '8',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg',
+    imageAlt: 'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
+  },
+  {
+    id: 5,
+    name: 'Basic Tee 8-Pack',
+    href: '#',
+    price: '$256',
+    description: 'Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.',
+    rating: '8',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg',
+    imageAlt: 'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
+  },
+  {
+    id: 6,
+    name: 'Basic Tee 8-Pack',
+    href: '#',
+    price: '$256',
+    description: 'Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.',
+    rating: '8',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg',
+    imageAlt: 'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
+  },
+  {
+    id: 7,
+    name: 'Basic Tee 8-Pack',
+    href: '#',
+    price: '$256',
+    description: 'Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.',
+    rating: '8',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg',
+    imageAlt: 'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
+  },
+  {
+    id: 8,
+    name: 'Basic Tee 8-Pack',
+    href: '#',
+    price: '$256',
+    description: 'Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.',
+    rating: '8',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg',
+    imageAlt: 'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
+  },
+  {
+    id: 9,
+    name: 'Basic Tee 8-Pack',
+    href: '#',
+    price: '$256',
+    description: 'Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.',
+    rating: '8',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg',
+    imageAlt: 'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
+  }
   // More hotels...
 ]
 
 export default function HotelsList() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+  const [hotelList, setHotels] = useState([]);
+
+
+  function onPageChange(p) {
+    setHotels(p)
+  }
+
+  // on page change, load new sliced data
+  // here you would make another server request for new data
+  useEffect(() => {
+      let isSubscribed = true;
+      
+      const fetchData = async () => {
+        const resp = await axios.get(`http://localhost:7788/api/hotels/profiles/1`);
+        
+        if (isSubscribed)
+          setHotels(resp.data.profiles);
+      };
+      
+      fetchData()
+        .catch(console.error);
+      
+        return () => isSubscribed = false;
+    }, []);
 
   return (
     
@@ -104,7 +190,7 @@ export default function HotelsList() {
           <div className="border-b border-gray-200 py-10">
             <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">Hotels</h1>
             <p className="mt-4 text-base text-gray-500">
-              Checkout out the latest release of Basic Tees, new and improved with four openings!
+              Checkout out our hotels!
             </p>
           </div>
 
@@ -155,8 +241,8 @@ export default function HotelsList() {
                 hotels
               </h2>
 
-              <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
-                {hotels.map((hotel) => (
+              <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-1 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-1">
+                {hotelList.map((hotel) => (
                   <div
                     key={hotel.id}
                     className="group relative bg-white border border-gray-200 rounded-lg flex flex-col overflow-hidden"
@@ -170,14 +256,14 @@ export default function HotelsList() {
                     </div>
                     <div className="flex-1 p-4 space-y-2 flex flex-col">
                       <h3 className="text-sm font-medium text-gray-900">
-                        <a href={hotel.href}>
+                        <a href={`booking/${hotel.id}`}>
                           <span aria-hidden="true" className="absolute inset-0" />
                           {hotel.name}
                         </a>
                       </h3>
                       <p className="text-sm text-gray-500">{hotel.description}</p>
                       <div className="flex-1 flex flex-col justify-end">
-                        <p className="text-sm italic text-gray-500">{hotel.options}</p>
+                        <p className="text-sm text-gray-500">{hotel.rating} &#9733; | {hotel['hotel type']}</p>
                         <p className="text-base font-medium text-gray-900">{hotel.price}</p>
                       </div>
                     </div>

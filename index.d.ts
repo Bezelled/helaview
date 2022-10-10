@@ -81,6 +81,7 @@ interface HelaDBHotels
     district: string;
     contact_no: number;
     hotel_type: string;
+    description: string;
     rating: number;
     available_rooms: number;
     prices: object;

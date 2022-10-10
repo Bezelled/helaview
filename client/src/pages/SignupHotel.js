@@ -74,6 +74,7 @@ const SignUpPage =({
         'adult price':event.target['adult price'].value,
         'child price':event.target['child price'].value,
         'baby price':event.target['baby price'].value,
+        'description': event.target.description.value,
         'room count': event.target['room count'].value,
         'rating': event.target.rating.value,
         'hotel type': event.target['hotel type'].value
@@ -153,6 +154,10 @@ const SignUpPage =({
           <Input id="baby price" type="number" placeholder="5" min="1" max="5000" required/>
           </Label>
           <SubHeading>Miscellaneous</SubHeading>
+
+          <Label for="description">Description:
+          <TextArea id="description" placeholder="Please write a short description about the hotel (<150 characters)." required/>
+          </Label>
           
           <Label for="room count">Available room count (HelaView will only allow this number of rooms to be booked at any given time):
           <Input id="room count" type="number" placeholder="5" min="1" max="5000" required/>

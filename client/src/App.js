@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AccessibleNavigationAnnouncer from './components/AccessibleNavigationAnnouncer';
 import { ProtectedRoute } from "./components/misc/ProtectedRoute"
 import { history } from './utils/browserHistory';
-import { setAuthToken } from './utils/setAuthToken';
+import { setAuthToken } from './utils/auth';
 
 // lazy() ensures code splitting - so user will not have to download a large JS file
 
@@ -26,8 +26,9 @@ const NewSettings = lazy(() => import('./pages/NewSettings'));
 const HotelsList = lazy(() => import('./pages/HotelsList'));
 const AddOffers = lazy(() => import('./pages/AddOffers'));
 
-//check jwt token
+//check JWT and account type
 const token = localStorage.getItem("token");
+
 if (token)
   setAuthToken(token);
 
@@ -50,7 +51,7 @@ export default function App() {
         <Route path="/forgot-password" component={ForgotPassword} />
         <Route path="/search" component={Search} />
         <Route path="/profile-hotel" component={HotelProfile} />
-        <Route path="/booking/hotel"  component={HotelBooking} />
+        <Route path="/booking/:id"  component={HotelBooking} />
         <Route path="/settings"  component={NewSettings} />
         <Route path="/list"  component={HotelsList} />
 

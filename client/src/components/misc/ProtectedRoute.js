@@ -1,21 +1,13 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
- 
+import { isAdmin, isLoggedIn } from '../../utils/auth';
+
+// Only allow logged-in users to access this route
 export const ProtectedRoute = ({ component: Component, ...rest }) => {
- 
-   function hasJWT() {
-       let flag = false;
- 
-       //check if user has JWT token
-       localStorage.getItem("token") ? flag=true : flag=false
-      
-       return flag
-   }
- 
    return (
        <Route {...rest}
            render={props => (
-               hasJWT() ?
+                isLoggedIn() ?
                    <Component {...props} />
                    :
                    <Redirect to={{ pathname: '/login' }} />
@@ -23,5 +15,17 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
        />
    );
 };
- 
-// export default ProtectedRoute;
+
+// Only allow admins to access this route
+export const AdminRoute = ({ component: Component, ...rest }) => {
+   return (
+       <Route {...rest}
+           render={props => (
+                isAdmin() ?
+                   <Component {...props} />
+                   :
+                   <Redirect to={{ pathname: '/' }} />
+           )}
+       />
+   );
+}

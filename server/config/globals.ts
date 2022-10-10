@@ -29,7 +29,7 @@ export const helaPlatform: string = platform();
 export const saltRounds: number = 10;
 export const threeDays: number = 30 * 24 * 60 * 60 * 1000;
 export const userRegistrationKeys: string[] = ['first name', 'last name', 'email', 'password', 'password confirmation', 'passport number', 'gender', 'age', 'country', 'contact number'];
-export const hotelRegistrationKeys: string[] = ['email', 'full name', 'contact number', 'password', 'password confirmation', 'address', 'district', 'adult price', 'child price', 'baby price', 'room count', 'rating', 'hotel type'];
+export const hotelRegistrationKeys: string[] = ['email', 'full name', 'contact number', 'password', 'password confirmation', 'address', 'district', 'adult price', 'child price', 'baby price', 'description', 'room count', 'rating', 'hotel type'];
 export const userLoginKeys: string[] = ['email', 'password'];
 const countryCodes = Object.keys(countries.countries);
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

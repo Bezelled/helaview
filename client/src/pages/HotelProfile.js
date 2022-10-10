@@ -2,7 +2,6 @@ import React from "react";
 import { districts } from "../utils/shared";
 import Header from "../components/headers/dark.js";
 
-
 /*
   This example requires Tailwind CSS v2.0+ 
   
